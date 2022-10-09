@@ -148,7 +148,6 @@ function actionAdd(subjectInfo){
     localStorage.setItem("table", JSON.stringify(table))
     return true
   } catch(err){
-    console.log(err)
     alert(err.message)
     return false
   }
