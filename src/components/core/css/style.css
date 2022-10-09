@@ -1,0 +1,133 @@
+:root {
+  --primary: #2196f3;
+  --primary_hover: #4dabf5;
+  --secondary: #ff1744;
+  --secondary_hover: #ff4569;
+}
+
+.core {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  min-width: 1300px;
+  height: 1800px;
+}
+
+.search_bar {
+  display: flex;
+  margin: 50px 0 30px;
+  background-color: #ccc;
+  border-radius: 5px;
+  padding: 20px;
+}
+
+.search_box {
+  margin-right: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.input_search {
+  padding: 10px;
+  height: 40px;
+  border-radius: 5px;
+  outline: none;
+  font-size: 18px;
+  margin-right: 20px;
+}
+
+.btn_search {
+  height: 40px;
+  /* width: 80px; */
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100px;
+  color: #fff;
+  border-radius: 5px; 
+  background-color: var(--primary);
+  border: none;
+  box-shadow: 0 0 10px 2px rgba(0,0,0,0.1);
+}
+
+.btn_search:hover {
+  background-color: var(--primary_hover)
+}
+
+.btn_search:active {
+  transform: scale(.98);
+}
+
+.search_option {
+  display: flex;
+  align-items: center;  
+}
+
+.search_option select {
+  height: 40px;
+  width: 120px;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.search_option select:first-child {
+  margin-right: 20px;
+}
+
+.table {
+  width: 1100px;
+}
+
+.subject_title {
+  background-color: #ccc;
+  width: 100%;
+  padding: 10px;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+}
+
+.subject_box {
+  height: 300px;
+  box-shadow: 0 0 10px 2px rgba(0,0,0,0.1);
+  overflow: auto;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  padding: 10px;
+}
+
+.schedule {
+  width: 1200px;
+  margin-top: 30px;
+  box-shadow: 0 0 10px 2px rgba(0,0,0,0.1);
+  border-radius: 5px;
+}
+
+.schedule table, .schedule th, .schedule td {
+  border-collapse: collapse;
+  border: 1px solid #000;
+  text-align: center;
+  color: #fff;
+  font-weight: bold;
+}
+
+.schedule th:not(:first-child), .schedule td:first-child {
+  background-color: var(--primary)
+}
+
+.schedule tr:not(:first-child) {
+  height: 32px;
+}
+
+.loader {
+  border: 4px solid #f3f3f3; /* Light grey */
+  border-top: 4px solid #cc1a3e; /* Blue */
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin .5s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
