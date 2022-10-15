@@ -9,11 +9,11 @@ function Provider({ children }) {
   }
 
   const handleResultSearch = (state, resultSearch) => {
-    console.log(state.tableValue.Schedule)
+    // console.log(state.tableValue.Schedule)
     const schedule = state.tableValue.Schedule ? [...state.tableValue.Schedule] : []
     const result =  resultSearch.map(rootItem => {
       for(let i = 0;i < schedule.length;i++){
-        if(rootItem.MaMH === schedule[i].MaMH && rootItem.NMH === schedule[i].NMH){
+        if(rootItem.MaMH === schedule[i].MaMH && rootItem.NMH === schedule[i].NMH && rootItem.TTH === schedule[i].TTH){
           schedule.splice(i, 1)
           return { ...rootItem, choice: true}
         }
@@ -26,7 +26,7 @@ function Provider({ children }) {
   const reducer = (state, action) => {
     switch (action.type) {
       case SetResultSearch:
-        console.log(state)
+        // console.log(state)
         return { ...state, resultSearch: handleResultSearch(state, action.payload)}
       case SetTableValue:
         return { ...state, tableValue: action.payload }

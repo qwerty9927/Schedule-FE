@@ -7,14 +7,34 @@ function checkArray(arr){
   return subArr
 }
 
-function indexConflict(THU, TBD, ST, Phong){
-  for(let i = 0;i < THU.length - 1;i++){
-    if(THU[i] === THU[i + 1] && TBD[i] === TBD[i + 1] && ST[i] !== ST[i + 1]){
-      return ST.indexOf(Math.min(ST[i], ST[i + 1]))
+function roomIndex(Phong){
+  if(Phong.length > 2){
+    for(let i = 0;i < Phong.length;i++){
+      if(Phong[i].includes('C.S')){
+        return i
+      }
     }
   }
+  return false
+}
 
-  return null
+function deleteIndex(THU, TBD, ST, Phong){
+  const result = roomIndex(Phong)
+  if(Number.isInteger(result)){
+    THU.splice(result, 1)
+    ST.splice(result, 1)
+    TBD.splice(result, 1)
+    Phong.splice(result, 1)
+    for(let i = 0;i < THU.length - 1;i++){
+      if(THU[i] === THU[i + 1] && ST[i] !== ST[i + 1]){
+        const index = ST.indexOf(Math.min(ST[i], ST[i + 1]))
+        THU.splice(index, 1)
+        ST.splice(index, 1)
+        TBD.splice(index, 1)
+        Phong.splice(index, 1)
+      }
+    }
+  }
 }
 
 function checkSlot(THU, TBD, ST, CS, Phong, timeArr) {
@@ -26,13 +46,7 @@ function checkSlot(THU, TBD, ST, CS, Phong, timeArr) {
   const beforeBreakTimeInTheAfternoon = 7
   const afterBreakTimeInTheAfternoon = 8
 
-  const index = indexConflict(THU, TBD, ST, Phong);
-  if(Number.isInteger(index)){
-   THU.splice(index, 1)
-   ST.splice(index, 1)
-   TBD.splice(index, 1)
-   Phong.splice(index, 1)
-  }
+  deleteIndex(THU, TBD, ST, Phong);
 
   // console.log(THU, TBD, ST)
 
@@ -103,6 +117,7 @@ function actionAdd(subjectInfo){
     MaMH,
     TenMH,
     NMH,
+    TTH,
     STC,
     Thu,
     TBD,
@@ -137,6 +152,7 @@ function actionAdd(subjectInfo){
       TenMH,
       NMH,
       STC,
+      TTH,
       Thu,
       TBD,
       Phong,
@@ -144,7 +160,7 @@ function actionAdd(subjectInfo){
       ST,
       CS,
     })
-    console.log(table)
+    // console.log(table)
     localStorage.setItem("table", JSON.stringify(table))
     return true
   } catch(err){

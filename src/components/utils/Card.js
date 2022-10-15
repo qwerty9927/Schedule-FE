@@ -22,7 +22,7 @@ function Card({cardInfo, index}){
     <td rowSpan={cardInfo.ST[index]} className="card"> 
       <div className="box">
         <div className="title_card">{cardInfo.TenMH}</div>
-        <div className="detail_card">Phòng: {cardInfo.Phong[index]}</div>
+        <div className="detail_card">Phòng: <span>{cardInfo.Phong[index]}</span></div>
       </div> 
       
       <div className="close" onClick={handleClick}>

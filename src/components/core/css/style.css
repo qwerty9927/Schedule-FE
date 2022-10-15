@@ -22,7 +22,6 @@
 }
 
 .search_box {
-  margin-right: 20px;
   display: flex;
   align-items: center;
 }
@@ -68,9 +67,6 @@
   width: 120px;
   text-align: center;
   border-radius: 5px;
-}
-
-.search_option select:first-child {
   margin-right: 20px;
 }
 
@@ -130,4 +126,8 @@
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+.secondary {
+  background-color: var(--secondary_hover)!important;
 }

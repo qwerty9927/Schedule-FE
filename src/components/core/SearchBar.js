@@ -45,7 +45,7 @@ function SearchBar() {
     setFormValue({ ...formValue, [name]: value.trim() })
   }
 
-  const handleClick = async () => {
+  const validate = () => {
     if (!formValue.searchValue) {
       alert("Cần nhập thông tin tìm kiếm")
       return false
@@ -60,15 +60,25 @@ function SearchBar() {
       alert("Chọn năm học")
       return false
     }
-    myStore.dispatch({ type: SetResultSearch, payload: (await callApiSearch()).data.result })
+    return true
+  }
+
+  const handleKeyUp = async (e) => {
+    if(e.keyCode == 13){
+      if(validate()){
+        myStore.dispatch({ type: SetResultSearch, payload: (await callApiSearch()).data.result })
+      }
+    }
+  }
+
+  const handleClick = async () => {
+    if(validate()){
+      myStore.dispatch({ type: SetResultSearch, payload: (await callApiSearch()).data.result })
+    }
   }
 
   return (
     <div className="search_bar">
-      <div className="search_box">
-        <input type="text" placeholder="VD: 802142 OR Môn A" className="input_search" onChange={(e) => { handleChange(e) }} name="searchValue" />
-        <button className="btn_search" onClick={handleClick}>Search</button>
-      </div>
       <div className="search_option">
         <select name="school" id="" onChange={(e) => { handleChange(e); loadSchoolYear(e) }} >
           <option value="">Trường</option>
@@ -87,6 +97,10 @@ function SearchBar() {
             )
           })}
         </select>
+      </div>
+      <div className="search_box">
+        <input type="text" placeholder="VD: 802142 OR Môn A" className="input_search" onChange={(e) => { handleChange(e) }} onKeyUp={(e) => handleKeyUp(e)} name="searchValue" />
+        <button className="btn_search" onClick={handleClick}>Search</button>
       </div>
     </div>
   )
