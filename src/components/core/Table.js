@@ -13,21 +13,21 @@ function Table(){
           <tbody>
             <tr>
               <th width="85px">MaMH</th>
-              <th width="200x">TenMH</th>
+              <th width="200x">Tên môn học</th>
               <th width="50px">NMH</th>
               <th width="40px">TTH</th>
               <th width="40px">STC</th>
               <th width="60px">STCHP</th>
-              <th width="80px">MaLop</th>
-              <th width="40px">SiSo</th>
-              <th width="30px">Cl</th>
+              <th width="80px">Mã lớp</th>
+              <th width="40px">Sĩ số</th>
+              <th width="30px">CL</th>
               <th width="30px">TH</th>
-              <th width="40px">Thu</th>
+              <th width="40px">Thứ</th>
               <th width="40px">TBD</th>
               <th width="40px">ST</th>
-              <th width="60px">Phong</th>
-              <th width="100px">Giang vien</th>
-              <th style={{fontSize: "12px", fontWeight: "normal"}} align="left">&nbsp;123456789012345</th>
+              <th width="60px">Phòng</th>
+              <th width="100px">Giảng viên</th>
+              <th>Tuần</th>
             </tr>
           </tbody>
         </table>

@@ -1,5 +1,5 @@
-
-function checkArray(arr){
+const numberOfSchoolWeeks = 15
+function checkArray(arr) {
   let subArr = arr
   if (!subArr.length) {
     subArr = new Array(14).fill(0)
@@ -7,37 +7,7 @@ function checkArray(arr){
   return subArr
 }
 
-function roomIndex(Phong){
-  if(Phong.length > 2){
-    for(let i = 0;i < Phong.length;i++){
-      if(Phong[i].includes('C.S')){
-        return i
-      }
-    }
-  }
-  return false
-}
-
-function deleteIndex(THU, TBD, ST, Phong){
-  const result = roomIndex(Phong)
-  if(Number.isInteger(result)){
-    THU.splice(result, 1)
-    ST.splice(result, 1)
-    TBD.splice(result, 1)
-    Phong.splice(result, 1)
-    for(let i = 0;i < THU.length - 1;i++){
-      if(THU[i] === THU[i + 1] && ST[i] !== ST[i + 1]){
-        const index = ST.indexOf(Math.min(ST[i], ST[i + 1]))
-        THU.splice(index, 1)
-        ST.splice(index, 1)
-        TBD.splice(index, 1)
-        Phong.splice(index, 1)
-      }
-    }
-  }
-}
-
-function checkSlot(THU, TBD, ST, CS, Phong, timeArr) {
+function checkSlot(THU, TBD, ST, CS, timeArr) {
   const pivot = 5 // Chia khung giờ
   const startLessonInTheMorning = 1
   const startLessonInTheAfternoon = 6
@@ -46,73 +16,66 @@ function checkSlot(THU, TBD, ST, CS, Phong, timeArr) {
   const beforeBreakTimeInTheAfternoon = 7
   const afterBreakTimeInTheAfternoon = 8
 
-  deleteIndex(THU, TBD, ST, Phong);
-
-  // console.log(THU, TBD, ST)
-
-  let countDay = 0
-  THU.forEach((item, index) => {
-    const indexForTBD = TBD[index] - 1
-    let i = indexForTBD
-    let timeInDay = checkArray(timeArr[`${item}`])
-    const TKT = TBD[index] + ST[index] - 1
-    const indexForTKT = TKT - 1
-    if (TKT <= pivot) {
-      if ((TBD[index] === startLessonInTheMorning && timeInDay[indexForTKT + 1] === CS[index]) // Là tiết đầu tiên có cùng cơ sở với tiết sau đó
-        || timeInDay[indexForTKT + 1] === 0
-        || timeInDay[indexForTBD - 1] === CS[index] // tiết trước đó có cùng cơ sở hay không
-        || timeInDay[indexForTBD - 1] === 0 // trước nó chưa có tiết nào
-        || TBD[index] === afterBreakTimeInTheMorning
-        || TKT === beforeBreakTimeInTheMorning
-      ) {
-        for (i; i < TKT; i++) {
-          if (timeInDay[i] !== 0) {
-            throw new Error("Different area or Conflict error")
-          }
+  const indexForTBD = TBD - 1
+  let i = indexForTBD
+  let timeInDay = checkArray(timeArr[`${THU}`])
+  const TKT = TBD + ST - 1
+  const indexForTKT = TKT - 1
+  if (TKT <= pivot) {
+    if ((TBD === startLessonInTheMorning && timeInDay[indexForTKT + 1] === CS) // Là tiết đầu tiên có cùng cơ sở với tiết sau đó
+      || timeInDay[indexForTKT + 1] === 0
+      || timeInDay[indexForTBD - 1] === CS // tiết trước đó có cùng cơ sở hay không
+      || timeInDay[indexForTBD - 1] === 0 // trước nó chưa có tiết nào
+      || TBD === afterBreakTimeInTheMorning
+      || TKT === beforeBreakTimeInTheMorning
+    ) {
+      for (i; i < TKT; i++) {
+        if (timeInDay[i] !== 0) {
+          throw new Error(`Different area or Conflict error`)
         }
-        countDay++
-      } else {
-        throw new Error("Different area or Conflict error")
       }
     } else {
-      if ((TBD[index] === startLessonInTheAfternoon && timeInDay[indexForTKT + 1] === CS[index])
-        || timeInDay[indexForTKT + 1] === 0
-        || timeInDay[indexForTBD - 1] === CS[index]
-        || timeInDay[indexForTBD - 1] === 0
-        || TBD[index] === afterBreakTimeInTheAfternoon
-        || TKT === beforeBreakTimeInTheAfternoon
-      ) {
-        for (i; i < TKT; i++) {
-          if (timeInDay[i] !== 0) {
-            throw new Error("Different area or Conflict error")
-          }
+      throw new Error("Different area or Conflict error")
+    }
+  } else {
+    if ((TBD === startLessonInTheAfternoon && timeInDay[indexForTKT + 1] === CS)
+      || timeInDay[indexForTKT + 1] === 0
+      || timeInDay[indexForTBD - 1] === CS
+      || timeInDay[indexForTBD - 1] === 0
+      || TBD === afterBreakTimeInTheAfternoon
+      || TKT === beforeBreakTimeInTheAfternoon
+    ) {
+      for (i; i < TKT; i++) {
+        if (timeInDay[i] !== 0) {
+          throw new Error("Different area or Conflict error")
         }
-        countDay++
-      } else {
-        throw new Error("Different area or Conflict error")
       }
+    } else {
+      throw new Error("Different area or Conflict error")
     }
-    
-    if(countDay === THU.length){
-      THU.forEach((item, index) => {
-        const indexForTBD = TBD[index] - 1
-        const TKT = TBD[index] + ST[index] - 1
-        timeArr[`${item}`] = checkArray(timeArr[`${item}`]).fill(CS[index], indexForTBD, TKT)
-      })
-    }
-  })
-  return {THU, TBD, ST, CS, Phong, timeArr }
+  }
+
+  return timeInDay.fill(CS, indexForTBD, TKT)
 }
 
-function isExistSubject(scheduleInfo, MaMH) {
-  scheduleInfo.forEach(item => {
-    if(item.MaMH === MaMH){
+function createNewArrayFromListEmptyTime(oldArr){
+  return oldArr.map(item => ({...item}))
+}
+
+function isExistSubject(ListSubjectRegistered, MaMH) {
+  ListSubjectRegistered.forEach(item => {
+    if (item === MaMH) {
       throw new Error("Subject existed")
     }
   })
 }
 
-function actionAdd(subjectInfo){
+function unConflict(arr){
+  return [...(new Set(arr))].map(item => item.replace('-',''))
+}
+
+function actionAdd(subjectInfo) {
+  const week2Digit = 10 - 1
   let {
     MaMH,
     TenMH,
@@ -124,46 +87,82 @@ function actionAdd(subjectInfo){
     Phong,
     GiangVien,
     ST,
+    Tuan,
     CS,
   } = subjectInfo
 
+  const EmptyTime = {
+    2: [],
+    3: [],
+    4: [],
+    5: [],
+    6: [],
+    7: []
+  }
+
   const baseStructure = {
-    Schedule: [],
-    EmptyTime: {
-      2: [],
-      3: [],
-      4: [],
-      5: [],
-      6: [],
-      7: []
-    }
+    ListSchedule: new Array(numberOfSchoolWeeks),
+    ListEmptyTime: new Array(numberOfSchoolWeeks).fill(EmptyTime),
+    ListSubjectRegistered: []
   }
   try {
+    let i, j, k, z
     const table = JSON.parse(localStorage.getItem("table")) || baseStructure
-    isExistSubject(table.Schedule, MaMH)
-    const result = checkSlot([...Thu], [...TBD], [...ST], [...CS], [...Phong], table.EmptyTime)
-    table.EmptyTime = result.timeArr
-    Thu = result.THU
-    TBD = result.TBD
-    Phong = result.Phong
-    ST = result.ST
-    table.Schedule.push({
-      MaMH,
-      TenMH,
-      NMH,
-      STC,
-      TTH,
-      Thu,
-      TBD,
-      Phong,
-      GiangVien,
-      ST,
-      CS,
+    isExistSubject(table.ListSubjectRegistered, MaMH)
+    const tempListEmptyTime = createNewArrayFromListEmptyTime(table.ListEmptyTime)
+    Tuan = unConflict(Tuan)
+    console.log(Tuan)
+    for(i = 0;i < Tuan.length;i++){
+      if(Tuan[i].includes("0")){
+        for(j = 0;j < Tuan[i].length;j++){
+          if(Tuan[i][j] !== '-'){
+            if(Tuan[i].indexOf(`${Tuan[i][j]}`, j) >= Tuan[i].indexOf('0')) {
+              const result = checkSlot(Thu[i], TBD[i], ST[i], CS[i], table.ListEmptyTime[parseInt(Tuan[i][j]) + week2Digit])
+              tempListEmptyTime[j][`${Thu[i]}`] = result
+            } else {
+              const result = checkSlot(Thu[i], TBD[i], ST[i], CS[i], table.ListEmptyTime[parseInt(Tuan[i][j])])
+              tempListEmptyTime[j][`${Thu[i]}`] = result
+            }
+          }
+        }
+      } else {
+        for(k = 0;k < Tuan[i].length;k++){
+          if(Tuan[i][k] !== '-'){
+            const result = checkSlot(Thu[i], TBD[i], ST[i], CS[i], table.ListEmptyTime[parseInt(Tuan[i][k])])
+            tempListEmptyTime[j][`${Thu[i]}`] = result
+          }
+        }
+      }
+    }
+    table.ListEmptyTime = tempListEmptyTime
+    table.ListSubjectRegistered.push(MaMH)
+
+    // Ghi vao store
+    Tuan.forEach((item) => {
+      for(z = 0;z < item.length;z++){
+        if(table.ListSchedule[z] === undefined){
+          table.ListSchedule[z] = new Array
+        }
+        table.ListSchedule[z].push({
+          MaMH,
+          TenMH,
+          NMH,
+          STC,
+          TTH,
+          Thu,
+          TBD,
+          Phong,
+          GiangVien,
+          ST,
+          CS,
+        })
+      }
     })
-    // console.log(table)
+    console.log(table)
     localStorage.setItem("table", JSON.stringify(table))
     return true
-  } catch(err){
+  } catch (err) {
+    console.log(err)
     alert(err.message)
     return false
   }
@@ -179,14 +178,14 @@ function changeEmptyTime(MaMH, schedule, timeArr) {
       return true
     }
   })
-  return {newSchedule, timeArr}
+  return { newSchedule, timeArr }
 }
 
 function actionDelete(subjectInfo) {
   try {
     const table = JSON.parse(localStorage.getItem("table"))
     const result = changeEmptyTime(subjectInfo.MaMH, table.Schedule, table.EmptyTime)
-    localStorage.setItem("table", JSON.stringify({Schedule: result.newSchedule, EmptyTime: result.timeArr}))
+    localStorage.setItem("table", JSON.stringify({ Schedule: result.newSchedule, EmptyTime: result.timeArr }))
   } catch (err) {
     throw err
   }

@@ -27,7 +27,9 @@ function Provider({ children }) {
     switch (action.type) {
       case SetResultSearch:
         // console.log(state)
-        return { ...state, resultSearch: handleResultSearch(state, action.payload)}
+        return { ...state, resultSearch: action.payload
+          // handleResultSearch(state, action.payload)
+        }
       case SetTableValue:
         return { ...state, tableValue: action.payload }
       default:
