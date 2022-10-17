@@ -64,14 +64,34 @@ function createNewArrayFromListEmptyTime(oldArr){
 
 function isExistSubject(ListSubjectRegistered, MaMH) {
   ListSubjectRegistered.forEach(item => {
-    if (item === MaMH) {
+    if (item.MaMH === MaMH) {
       throw new Error("Subject existed")
     }
   })
 }
 
-function unConflict(arr){
-  return [...(new Set(arr))].map(item => item.replace('-',''))
+function reMakeArrTuan(Tuan){
+  const newArr = []
+  Tuan.forEach(rootItem => {
+    const subArr = []
+    for(let i = 0;i < rootItem.length;i++){
+      if(rootItem[i] !== '-'){
+        subArr.push(i)
+      }
+    }
+    newArr.push(subArr)
+  })
+  return newArr
+}
+
+function mergeArrTuan(Tuan){
+  const newArr = []
+  Tuan.forEach(rootItem => {
+    rootItem.forEach(item => {
+      newArr.push(item)
+    })
+  })
+  return new Set(newArr)
 }
 
 function actionAdd(subjectInfo) {
@@ -101,49 +121,28 @@ function actionAdd(subjectInfo) {
   }
 
   const baseStructure = {
-    ListSchedule: new Array(numberOfSchoolWeeks),
+    ListSchedule: new Array(numberOfSchoolWeeks).fill(null),
     ListEmptyTime: new Array(numberOfSchoolWeeks).fill(EmptyTime),
     ListSubjectRegistered: []
   }
   try {
-    let i, j, k, z
     const table = JSON.parse(localStorage.getItem("table")) || baseStructure
     isExistSubject(table.ListSubjectRegistered, MaMH)
     const tempListEmptyTime = createNewArrayFromListEmptyTime(table.ListEmptyTime)
-    Tuan = unConflict(Tuan)
-    console.log(Tuan)
-    for(i = 0;i < Tuan.length;i++){
-      if(Tuan[i].includes("0")){
-        for(j = 0;j < Tuan[i].length;j++){
-          if(Tuan[i][j] !== '-'){
-            if(Tuan[i].indexOf(`${Tuan[i][j]}`, j) >= Tuan[i].indexOf('0')) {
-              const result = checkSlot(Thu[i], TBD[i], ST[i], CS[i], table.ListEmptyTime[parseInt(Tuan[i][j]) + week2Digit])
-              tempListEmptyTime[j][`${Thu[i]}`] = result
-            } else {
-              const result = checkSlot(Thu[i], TBD[i], ST[i], CS[i], table.ListEmptyTime[parseInt(Tuan[i][j])])
-              tempListEmptyTime[j][`${Thu[i]}`] = result
-            }
-          }
-        }
-      } else {
-        for(k = 0;k < Tuan[i].length;k++){
-          if(Tuan[i][k] !== '-'){
-            const result = checkSlot(Thu[i], TBD[i], ST[i], CS[i], table.ListEmptyTime[parseInt(Tuan[i][k])])
-            tempListEmptyTime[j][`${Thu[i]}`] = result
-          }
-        }
-      }
-    }
-    table.ListEmptyTime = tempListEmptyTime
-    table.ListSubjectRegistered.push(MaMH)
+    Tuan = reMakeArrTuan(Tuan)
+    Tuan.forEach((rootItem, rootIndex) => {
+      rootItem.forEach((item, index) => {
+        const result = checkSlot(Thu[rootIndex], TBD[rootIndex], ST[rootIndex], CS[rootIndex], table.ListEmptyTime[item])
+        tempListEmptyTime[item][`${Thu[rootIndex]}`] = result
+      })
+    })
 
     // Ghi vao store
-    Tuan.forEach((item) => {
-      for(z = 0;z < item.length;z++){
-        if(table.ListSchedule[z] === undefined){
-          table.ListSchedule[z] = new Array
+    mergeArrTuan(Tuan).forEach((item, index) => {
+        if(table.ListSchedule[item] === null){
+          table.ListSchedule[item] = new Array()
         }
-        table.ListSchedule[z].push({
+        table.ListSchedule[item].push({
           MaMH,
           TenMH,
           NMH,
@@ -156,8 +155,9 @@ function actionAdd(subjectInfo) {
           ST,
           CS,
         })
-      }
-    })
+      })
+    table.ListEmptyTime = tempListEmptyTime
+    table.ListSubjectRegistered.push({MaMH, NMH, TTH})
     console.log(table)
     localStorage.setItem("table", JSON.stringify(table))
     return true
