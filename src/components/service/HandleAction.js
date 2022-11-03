@@ -129,16 +129,16 @@ function actionAdd(subjectInfo) {
     const table = JSON.parse(localStorage.getItem("table")) || baseStructure
     isExistSubject(table.ListSubjectRegistered, MaMH)
     const tempListEmptyTime = createNewArrayFromListEmptyTime(table.ListEmptyTime)
-    Tuan = reMakeArrTuan(Tuan)
-    Tuan.forEach((rootItem, rootIndex) => {
+    const newTuan = reMakeArrTuan(Tuan)
+    newTuan.forEach((rootItem, rootIndex) => {
       rootItem.forEach((item, index) => {
-        const result = checkSlot(Thu[rootIndex], TBD[rootIndex], ST[rootIndex], CS[rootIndex], table.ListEmptyTime[item])
+        const result = checkSlot(Thu[rootIndex], TBD[rootIndex], ST[rootIndex], CS[rootIndex], tempListEmptyTime[item])
         tempListEmptyTime[item][`${Thu[rootIndex]}`] = result
       })
     })
 
     // Ghi vao store
-    mergeArrTuan(Tuan).forEach((item, index) => {
+    mergeArrTuan(newTuan).forEach((item, index) => {
         if(table.ListSchedule[item] === null){
           table.ListSchedule[item] = new Array()
         }
@@ -152,12 +152,13 @@ function actionAdd(subjectInfo) {
           TBD,
           Phong,
           GiangVien,
+          Tuan,
           ST,
           CS,
         })
       })
     table.ListEmptyTime = tempListEmptyTime
-    table.ListSubjectRegistered.push({MaMH, NMH, TTH})
+    table.ListSubjectRegistered.push({MaMH, TenMH, NMH, TTH})
     console.log(table)
     localStorage.setItem("table", JSON.stringify(table))
     return true
@@ -168,27 +169,57 @@ function actionAdd(subjectInfo) {
   }
 }
 
-function changeEmptyTime(MaMH, schedule, timeArr) {
-  const newSchedule = schedule.filter(rootItem => {
-    if (rootItem.MaMH === MaMH) {
-      rootItem.Thu.forEach((item, index) => {
-        timeArr[item].fill(0, rootItem.TBD[index] - 1, rootItem.TBD[index] - 1 + rootItem.ST[index])
-      })
-    } else {
+function changeEmptyTime(subjectInfo, listEmptyTime){
+  const Tuan = reMakeArrTuan(subjectInfo.Tuan)
+  Tuan.forEach((rootItem, index) => {
+    rootItem.forEach(item => {
+      const TKT = subjectInfo.TBD[index] + subjectInfo.ST[index] - 1
+      listEmptyTime[item][`${subjectInfo.Thu[index]}`].fill(0, subjectInfo.TBD[index] - 1, TKT)
+    })    
+  })
+  return listEmptyTime
+}
+
+function changeSchedule(subjectInfo, listSchedule){
+  const Tuan = mergeArrTuan(reMakeArrTuan(subjectInfo.Tuan))
+  Tuan.forEach((rootItem, rootIndex) => {
+    listSchedule[rootItem] = listSchedule[rootItem].filter((item, index) => {
+      if(item.MaMH !== subjectInfo.MaMH){
+        return true
+      }
+    })
+  })
+  return listSchedule
+}
+
+function changeSubjectRegister(subjectInfo, listSubjectRegistered){
+  listSubjectRegistered = listSubjectRegistered.filter(item => {
+    if(subjectInfo.MaMH !== item.MaMH){
       return true
     }
   })
-  return { newSchedule, timeArr }
+  return listSubjectRegistered
 }
+
+
 
 function actionDelete(subjectInfo) {
   try {
     const table = JSON.parse(localStorage.getItem("table"))
-    const result = changeEmptyTime(subjectInfo.MaMH, table.Schedule, table.EmptyTime)
-    localStorage.setItem("table", JSON.stringify({ Schedule: result.newSchedule, EmptyTime: result.timeArr }))
+    // Delete empty time
+    const emptyTime = changeEmptyTime(subjectInfo, table.ListEmptyTime)
+    // Delete schedule
+    const schedule = changeSchedule(subjectInfo, table.ListSchedule) 
+    // Delete subject
+    const subject = changeSubjectRegister(subjectInfo, table.ListSubjectRegistered)
+    localStorage.setItem("table", JSON.stringify({ 
+      ListEmptyTime: emptyTime, 
+      ListSchedule: schedule, 
+      ListSubjectRegistered: subject 
+    }))
   } catch (err) {
     throw err
   }
 }
 
-export { actionAdd, actionDelete }
+export { actionAdd, actionDelete, reMakeArrTuan, mergeArrTuan }

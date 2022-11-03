@@ -26,7 +26,6 @@ function Provider({ children }) {
   const reducer = (state, action) => {
     switch (action.type) {
       case SetResultSearch:
-        // console.log(state)
         return { ...state, resultSearch: handleResultSearch(state, action.payload)
         }
       case SetTableValue:

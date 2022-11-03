@@ -1,12 +1,17 @@
 import { Fragment, useContext, useEffect, useState } from "react"
+import { reMakeArrTuan } from "../service/HandleAction"
 import Context from "../store/Context"
 import Card from "../utils/Card"
 import './css/style.css'
 
 function Schedule() {
   const myStore = useContext(Context)
+  const [option, setOption] = useState(0)
+  const handleOption = (e) => {
+    setOption(e.target.value - 1)
+  }
 
-  const renderSchedule = () => {
+  const renderSchedule = (week) => {
     let i, j, k, z
     const row = 15
     const col = 6
@@ -17,21 +22,23 @@ function Schedule() {
         [], [], [], [],
         [], [], []
       ]
-    const schedule = myStore.state.tableValue.Schedule || []
+    const schedule = myStore.state.tableValue.ListSchedule ? myStore.state.tableValue.ListSchedule[week] || [] : []
     for (i = 0; i < row; i++) {
       for (j = 0; j < col; j++) {
         for (k = 0; k < schedule.length; k++) {
           schedule[k].Thu.forEach((item, index) => {
-            if(item === j + 2 && i <= 5 && schedule[k].TBD[index] === i + 1){
-                board[i][j] = <Card cardInfo={schedule[k]} index={index} />
-              for(z = 1;z < schedule[k].ST[index];z++){
-                board[i + z][j] = null
+            if(reMakeArrTuan(schedule[k].Tuan)[index].includes(week)){
+              if(item === j + 2 && i <= 5 && schedule[k].TBD[index] === i + 1){
+                  board[i][j] = <Card cardInfo={schedule[k]} index={index} />
+                for(z = 1;z < schedule[k].ST[index];z++){
+                  board[i + z][j] = null
+                }
               }
-            }
-            if(item === j + 2 && i > 5 && schedule[k].TBD[index] === i){
-                board[i][j] = <Card cardInfo={schedule[k]} index={index} />
-              for(z = 1;z < schedule[k].ST[index];z++){
-                board[i + z][j] = null
+              if(item === j + 2 && i > 5 && schedule[k].TBD[index] === i){
+                  board[i][j] = <Card cardInfo={schedule[k]} index={index} />
+                for(z = 1;z < schedule[k].ST[index];z++){
+                  board[i + z][j] = null
+                }
               }
             }
           })
@@ -65,21 +72,35 @@ function Schedule() {
   }
 
   return (
-    <div className="schedule">
-      <table width="100%">
-        <tbody>
-          <tr>
-            <th width=""></th>
-            <th width="15%">Thứ Hai</th>
-            <th width="15%">Thứ Ba</th>
-            <th width="15%">Thứ Tư</th>
-            <th width="15%">Thứ Năm</th>
-            <th width="15%">Thứ Sáu</th>
-            <th width="15%">Thứ Bảy</th>
-          </tr>
-          {handleRender(renderSchedule())}
-        </tbody>
-      </table>
+    <div className="schedule_optionTime">
+      <div className="option_time">
+        <label htmlFor="">Tuan:</label>
+        <select name="" id="week" onChange={(e) => handleOption(e)}>
+          {(new Array(15).fill(0)).map((item, index) => {
+            return (
+              <option value={index + 1} key={index}>
+                {index + 1}
+              </option>
+            )
+          })}
+        </select>
+      </div>
+      <div className="schedule">
+        <table width="100%">
+          <tbody>
+            <tr>
+              <th width=""></th>
+              <th width="15%">Thứ Hai</th>
+              <th width="15%">Thứ Ba</th>
+              <th width="15%">Thứ Tư</th>
+              <th width="15%">Thứ Năm</th>
+              <th width="15%">Thứ Sáu</th>
+              <th width="15%">Thứ Bảy</th>
+            </tr>
+            {handleRender(renderSchedule(option))}
+          </tbody>
+        </table>
+      </div>
     </div>
   )
 }
