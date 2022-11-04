@@ -9,43 +9,10 @@ import { actionAddWithRender, actionDeleteWithRender } from '../utils/CustomActi
 
 function Subject({ subjectInfo }) {
   const myStore = useContext(Context)
-  const messageRemove = "Remove subject success 😌"
-  const addCheck = () => {
-    // const result = myStore.state.resultSearch.map(item => {
-    //   if (item.MaMH === subjectInfo.MaMH && item.NMH === subjectInfo.NMH) {
-    //     return { ...item, choice: true }
-    //   }
-    //   return { ...item }
-    // })
-    // myStore.dispatch({ type: SetResultSearch, payload: result })
-  }
-
-  // const removeCheck = () => {
-  //   const result = myStore.state.resultSearch.map(item => {
-  //     if (item.MaMH === subjectInfo.MaMH && item.NMH === subjectInfo.NMH) {
-  //       return { ...item, choice: false }
-  //     }
-  //     return { ...item }
-  //   })
-  //   myStore.dispatch({ type: SetResultSearch, payload: result })
-  // }
-
   const handleCheckBox = (e) => {
     if (e.target.checked) {
-      // try {
-      //   actionAdd(subjectInfo)
-      //   myStore.dispatch({ type: SetTableValue, payload: JSON.parse(localStorage.getItem("table")) })
-      //   addCheck()
-      //   toast.success(messageAdd)
-      // } catch (err) {
-      //   toast.error(err)
-      // }
       actionAddWithRender(myStore, subjectInfo)
     } else {
-      // actionDelete(subjectInfo)
-      // myStore.dispatch({type: SetTableValue, payload: JSON.parse(localStorage.getItem("table"))})
-      // removeCheck()
-      // toast.success(messageRemove)
       actionDeleteWithRender(myStore, subjectInfo)
     }
   }

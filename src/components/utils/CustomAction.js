@@ -11,12 +11,13 @@ function actionDeleteWithRender(myStore, subjectInfo) {
   })
   myStore.dispatch({ type: SetTableValue, payload: JSON.parse(localStorage.getItem("table")) })
   myStore.dispatch({ type: SetResultSearch, payload: result })
-  toast.success("Remove subject success 😊")
+  toast.success("Remove subject success 😎")
 }
 
 function actionAddWithRender(myStore, subjectInfo) {
   try {
     actionAdd(subjectInfo)
+    myStore.dispatch({ type: SetTableValue, payload: JSON.parse(localStorage.getItem("table")) })
     const result = myStore.state.resultSearch.map(item => {
       if (item.MaMH === subjectInfo.MaMH && item.NMH === subjectInfo.NMH) {
         return { ...item, choice: true }
@@ -24,7 +25,6 @@ function actionAddWithRender(myStore, subjectInfo) {
       return { ...item }
     })
     myStore.dispatch({ type: SetResultSearch, payload: result })
-    myStore.dispatch({ type: SetTableValue, payload: JSON.parse(localStorage.getItem("table")) })
     toast.success("Add subject success 😊")
   } catch (err) {
     toast.error(err)
