@@ -1,25 +1,26 @@
 import { useContext } from 'react';
 import { toast } from 'react-toastify';
-import { actionDelete } from '../service/HandleAction';
-import { SetResultSearch, SetTableValue } from '../store/Constant';
 import Context from '../store/Context';
 import './css/card.css'
+import { actionDelete } from '../service/HandleAction';
+import { SetResultSearch, SetTableValue } from '../store/Constant';
+import { actionDeleteWithRender } from '../utils/CustomAction'
 
 function Card({cardInfo, index}){
   const myStore = useContext(Context)
   const messageRemove = "Remove subject success 😌"
   const handleClick = () => {
-    actionDelete(cardInfo)
-    const result = myStore.state.resultSearch.map(item => {
-      if(item.MaMH === cardInfo.MaMH && item.NMH === cardInfo.NMH){
-        return { ...item, choice: false}
-      }
-      return { ...item }
-    })
-    myStore.dispatch({type: SetTableValue, payload: JSON.parse(localStorage.getItem("table"))})
-    myStore.dispatch({type: SetResultSearch, payload: result})
-    toast.success(messageRemove, {autoClose: 1000})
-
+    // actionDelete(cardInfo)
+    // const result = myStore.state.resultSearch.map(item => {
+    //   if(item.MaMH === cardInfo.MaMH && item.NMH === cardInfo.NMH){
+    //     return { ...item, choice: false}
+    //   }
+    //   return { ...item }
+    // })
+    // myStore.dispatch({type: SetTableValue, payload: JSON.parse(localStorage.getItem("table"))})
+    // myStore.dispatch({type: SetResultSearch, payload: result})
+    // toast.success(messageRemove)
+    actionDeleteWithRender(myStore, cardInfo)
   }
 
   return (

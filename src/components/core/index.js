@@ -4,13 +4,14 @@ import './css/style.css'
 import SearchBar from "./SearchBar"
 import Table from "./Table"
 import Schedule from "./Schedule"
+import TableResult from './TableResult';
 
 function Core(){
   return (
     <>
      <ToastContainer
         position="top-right"
-        autoClose={3000}
+        autoClose={2000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
@@ -24,6 +25,7 @@ function Core(){
         <SearchBar />
         <Table />
         <Schedule />
+        <TableResult />
       </div>
     </>
   )

@@ -72,7 +72,7 @@ function SearchBar() {
           success: "Let's do it 🚀",
           error: {
             render(){
-              return <p>Sorry not found <i><b>{formValue.searchValue}</b></i> 🚫</p>
+              return <p>Sorry not found <i><b>"{formValue.searchValue}"</b></i> 🚫</p>
             }
           }
         })
@@ -88,7 +88,7 @@ function SearchBar() {
         success: "Let's do it 🚀",
         error: {
           render(){
-            return <p>Sorry not found <i><b>{formValue.searchValue}</b></i> 🚫</p>
+            return <p>Sorry not found <i><b>"{formValue.searchValue}"</b></i> 🚫</p>
           }
         }
       })

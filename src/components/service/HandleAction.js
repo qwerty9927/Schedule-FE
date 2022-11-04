@@ -154,12 +154,24 @@ function actionAdd(subjectInfo) {
           GiangVien,
           Tuan,
           ST,
-          CS,
+          CS
         })
       })
     table.ListEmptyTime = tempListEmptyTime
-    table.ListSubjectRegistered.push({MaMH, TenMH, NMH, TTH})
-    console.log(table)
+    table.ListSubjectRegistered.push({
+      MaMH,
+      TenMH,
+      NMH,
+      STC,
+      TTH,
+      Thu,
+      TBD,
+      Phong,
+      GiangVien,
+      Tuan,
+      ST,
+      CS
+    })
     localStorage.setItem("table", JSON.stringify(table))
   } catch (err) {
     throw err.message
@@ -219,4 +231,4 @@ function actionDelete(subjectInfo) {
   }
 }
 
-export { actionAdd, actionDelete, reMakeArrTuan, mergeArrTuan }
+export { actionAdd, actionDelete, reMakeArrTuan }

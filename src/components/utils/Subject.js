@@ -5,46 +5,48 @@ import ConvertToWord from '../service/ConvertToWord'
 import { actionAdd, actionDelete } from '../service/HandleAction'
 import Context from '../store/Context'
 import { SetResultSearch, SetTableValue } from '../store/Constant'
+import { actionAddWithRender, actionDeleteWithRender } from '../utils/CustomAction'
 
 function Subject({ subjectInfo }) {
   const myStore = useContext(Context)
-  const messageAdd = "Add subject success 😊"
   const messageRemove = "Remove subject success 😌"
   const addCheck = () => {
-    const result = myStore.state.resultSearch.map(item => {
-      if(item.MaMH === subjectInfo.MaMH && item.NMH === subjectInfo.NMH){
-        return { ...item, choice: true}
-      }
-      return { ...item }
-    })
-    myStore.dispatch({type: SetResultSearch, payload: result})
+    // const result = myStore.state.resultSearch.map(item => {
+    //   if (item.MaMH === subjectInfo.MaMH && item.NMH === subjectInfo.NMH) {
+    //     return { ...item, choice: true }
+    //   }
+    //   return { ...item }
+    // })
+    // myStore.dispatch({ type: SetResultSearch, payload: result })
   }
 
-  const removeCheck = () => {
-    const result = myStore.state.resultSearch.map(item => {
-      if(item.MaMH === subjectInfo.MaMH && item.NMH === subjectInfo.NMH){
-        return { ...item, choice: false}
-      }
-      return { ...item }
-    })
-    myStore.dispatch({type: SetResultSearch, payload: result})
-  }
+  // const removeCheck = () => {
+  //   const result = myStore.state.resultSearch.map(item => {
+  //     if (item.MaMH === subjectInfo.MaMH && item.NMH === subjectInfo.NMH) {
+  //       return { ...item, choice: false }
+  //     }
+  //     return { ...item }
+  //   })
+  //   myStore.dispatch({ type: SetResultSearch, payload: result })
+  // }
 
   const handleCheckBox = (e) => {
     if (e.target.checked) {
-      try{
-        actionAdd(subjectInfo)
-        myStore.dispatch({type: SetTableValue, payload: JSON.parse(localStorage.getItem("table"))})
-        addCheck()
-        toast.success(messageAdd, {autoClose: 1000})
-      } catch(err){
-        toast.error(err)
-      }
+      // try {
+      //   actionAdd(subjectInfo)
+      //   myStore.dispatch({ type: SetTableValue, payload: JSON.parse(localStorage.getItem("table")) })
+      //   addCheck()
+      //   toast.success(messageAdd)
+      // } catch (err) {
+      //   toast.error(err)
+      // }
+      actionAddWithRender(myStore, subjectInfo)
     } else {
-      actionDelete(subjectInfo)
-      myStore.dispatch({type: SetTableValue, payload: JSON.parse(localStorage.getItem("table"))})
-      removeCheck()
-      toast.success(messageRemove, {autoClose: 1000})
+      // actionDelete(subjectInfo)
+      // myStore.dispatch({type: SetTableValue, payload: JSON.parse(localStorage.getItem("table"))})
+      // removeCheck()
+      // toast.success(messageRemove)
+      actionDeleteWithRender(myStore, subjectInfo)
     }
   }
 
@@ -53,7 +55,7 @@ function Subject({ subjectInfo }) {
       <table style={{ borderCollapse: "collapse", width: "100%" }} rules="all" border="1" cellSpacing="0" cellPadding="0">
         <tbody>
           <tr style={{ backgroundColor: subjectInfo.choice ? "#eee" : "#fff", transition: ".4s" }}>
-            <td width="25px" align="center"><input type="checkbox" checked={subjectInfo.choice || false} style={{ width: 20, height: 20 }} onChange={(e) => handleCheckBox(e)}></input></td>
+            <td width="25px" align="center"><input type="checkbox" checked={subjectInfo.choice || false} style={{ width: 20, height: 20, cursor: 'pointer' }} onChange={(e) => handleCheckBox(e)}></input></td>
             <td width="60px" align="center">{subjectInfo.MaMH}</td>
             <td width="200px" align="left">&nbsp;{subjectInfo.TenMH}</td>
             <td width="50px" align="center">{subjectInfo.NMH}</td>
@@ -89,7 +91,7 @@ function Subject({ subjectInfo }) {
                 return <div key={index}>{item}</div>
               })}
             </td>
-            <td style={{ fontSize: "12px", fontFamily: "Courier"}}>
+            <td style={{ fontSize: "12px", fontFamily: "Courier" }}>
               {subjectInfo.Tuan.map((item, index) => {
                 return <div key={index}>{item}</div>
               })}
