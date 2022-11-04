@@ -31,7 +31,6 @@ function Subject({ subjectInfo }) {
             <td width="60px" align="center">{subjectInfo.STCHP}</td>
             <td width="80px" align="center">{subjectInfo.MaLop}</td>
             <td width="40px" align="center">{subjectInfo.SiSo}</td>
-            <td width="30px" align="center">{subjectInfo.CL}</td>
             <td width="30px" align="center"><div>{subjectInfo.TH}</div></td>
             <td width="40px" align="center">
               {ConvertToWord(subjectInfo.Thu).map((item, index) => {
@@ -48,12 +47,12 @@ function Subject({ subjectInfo }) {
                 return <div key={index}>{item}</div>
               })}
             </td>
-            <td width="60px" align="center">
+            <td width="80px" align="center">
               {subjectInfo.Phong.map((item, index) => {
                 return <div key={index}>{item}</div>
               })}
             </td>
-            <td width="100px" align="center">
+            <td width="110px" align="center">
               {subjectInfo.GiangVien.map((item, index) => {
                 return <div key={index}>{item}</div>
               })}
