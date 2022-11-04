@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react"
 import axiosBase from "../../api/axiosBase"
 import Context from "../store/Context"
 import { SetResultSearch } from '../store/Constant'
+import { toast } from "react-toastify"
 
 function SearchBar() {
   const [formValue, setFormValue] = useState({})
@@ -46,18 +47,18 @@ function SearchBar() {
   }
 
   const validate = () => {
-    if (!formValue.searchValue) {
-      alert("Cần nhập thông tin tìm kiếm")
-      return false
-    }
-
     if (!formValue.school) {
-      alert("Chọn trường")
+      toast.info("Need to choose a school")
       return false
     }
 
     if (!formValue.schoolYear) {
-      alert("Chọn năm học")
+      toast.info("Need to choose a school year")
+      return false
+    }
+
+    if (!formValue.searchValue) {
+      toast.info("Need to insert value search")
       return false
     }
     return true
@@ -66,14 +67,32 @@ function SearchBar() {
   const handleKeyUp = async (e) => {
     if(e.keyCode == 13){
       if(validate()){
-        myStore.dispatch({ type: SetResultSearch, payload: (await callApiSearch()).data.result })
+        const response = await toast.promise(callApiSearch, {
+          pending: "Waiting ⏳",
+          success: "Let's do it 🚀",
+          error: {
+            render(){
+              return <p>Sorry not found <i><b>{formValue.searchValue}</b></i> 🚫</p>
+            }
+          }
+        })
+        myStore.dispatch({ type: SetResultSearch, payload: response.data.result })
       }
     }
   }
 
   const handleClick = async () => {
     if(validate()){
-      myStore.dispatch({ type: SetResultSearch, payload: (await callApiSearch()).data.result })
+      const response = await toast.promise(callApiSearch, {
+        pending: "Waiting ⏳",
+        success: "Let's do it 🚀",
+        error: {
+          render(){
+            return <p>Sorry not found <i><b>{formValue.searchValue}</b></i> 🚫</p>
+          }
+        }
+      })
+      myStore.dispatch({ type: SetResultSearch, payload: response.data.result })
     }
   }
 

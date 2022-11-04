@@ -161,11 +161,8 @@ function actionAdd(subjectInfo) {
     table.ListSubjectRegistered.push({MaMH, TenMH, NMH, TTH})
     console.log(table)
     localStorage.setItem("table", JSON.stringify(table))
-    return true
   } catch (err) {
-    console.log(err)
-    alert(err.message)
-    return false
+    throw err.message
   }
 }
 

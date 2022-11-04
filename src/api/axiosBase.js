@@ -10,7 +10,6 @@ const instance = axios.create({
 instance.interceptors.response.use(function (response) {
   return response;
 }, function (error) {
-  alert(error.message)
   return Promise.reject(error);
 })
 

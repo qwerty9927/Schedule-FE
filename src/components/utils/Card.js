@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import { toast } from 'react-toastify';
 import { actionDelete } from '../service/HandleAction';
 import { SetResultSearch, SetTableValue } from '../store/Constant';
 import Context from '../store/Context';
@@ -6,6 +7,7 @@ import './css/card.css'
 
 function Card({cardInfo, index}){
   const myStore = useContext(Context)
+  const messageRemove = "Remove subject success 😌"
   const handleClick = () => {
     actionDelete(cardInfo)
     const result = myStore.state.resultSearch.map(item => {
@@ -16,6 +18,8 @@ function Card({cardInfo, index}){
     })
     myStore.dispatch({type: SetTableValue, payload: JSON.parse(localStorage.getItem("table"))})
     myStore.dispatch({type: SetResultSearch, payload: result})
+    toast.success(messageRemove, {autoClose: 1000})
+
   }
 
   return (

@@ -74,7 +74,7 @@ function Schedule() {
   return (
     <div className="schedule_optionTime">
       <div className="option_time">
-        <label htmlFor="">Tuan:</label>
+        <label htmlFor="">Tuần:</label>
         <select name="" id="week" onChange={(e) => handleOption(e)}>
           {(new Array(15).fill(0)).map((item, index) => {
             return (

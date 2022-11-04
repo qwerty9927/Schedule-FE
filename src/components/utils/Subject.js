@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react'
+import { ToastContainer, toast } from 'react-toastify'
 import './css/subject.css'
 import ConvertToWord from '../service/ConvertToWord'
 import { actionAdd, actionDelete } from '../service/HandleAction'
@@ -7,6 +8,8 @@ import { SetResultSearch, SetTableValue } from '../store/Constant'
 
 function Subject({ subjectInfo }) {
   const myStore = useContext(Context)
+  const messageAdd = "Add subject success 😊"
+  const messageRemove = "Remove subject success 😌"
   const addCheck = () => {
     const result = myStore.state.resultSearch.map(item => {
       if(item.MaMH === subjectInfo.MaMH && item.NMH === subjectInfo.NMH){
@@ -29,14 +32,19 @@ function Subject({ subjectInfo }) {
 
   const handleCheckBox = (e) => {
     if (e.target.checked) {
-      if(actionAdd(subjectInfo)){
+      try{
+        actionAdd(subjectInfo)
         myStore.dispatch({type: SetTableValue, payload: JSON.parse(localStorage.getItem("table"))})
         addCheck()
+        toast.success(messageAdd, {autoClose: 1000})
+      } catch(err){
+        toast.error(err)
       }
     } else {
       actionDelete(subjectInfo)
       myStore.dispatch({type: SetTableValue, payload: JSON.parse(localStorage.getItem("table"))})
       removeCheck()
+      toast.success(messageRemove, {autoClose: 1000})
     }
   }
 

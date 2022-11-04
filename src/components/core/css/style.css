@@ -19,6 +19,7 @@
   background-color: #ccc;
   border-radius: 5px;
   padding: 20px;
+  box-shadow: 0 0 10px 2px rgba(0,0,0,0.1);
 }
 
 .search_box {
@@ -72,6 +73,7 @@
 
 .table {
   width: 1100px;
+  box-shadow: 0 0 10px 2px rgba(0,0,0,0.1);
 }
 
 .subject_title {
@@ -84,17 +86,27 @@
 
 .subject_box {
   height: 300px;
-  box-shadow: 0 0 10px 2px rgba(0,0,0,0.1);
   overflow: auto;
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
   padding: 10px;
 }
 
+.schedule_optionTime {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .option_time {
-  margin-top: 32px;
+  padding: 20px;
+  margin: 18px 0;
   font-size: 20px;
   text-align: center;
+  box-shadow: 0 0 5px 1px rgba(0,0,0,0.1);
+  display: inline-block;
+  background-color: #fff;
+  border-radius: 5px;
 }
 
 #week {
@@ -105,8 +117,7 @@
 }
 
 .schedule {
-  width: 1200px;
-  margin-top: 30px;
+  width: 1300px;
   box-shadow: 0 0 10px 2px rgba(0,0,0,0.1);
   border-radius: 5px;
 }
@@ -119,12 +130,17 @@
   font-weight: bold;
 }
 
+.schedule td {
+  padding: 0 10px;
+}
+
 .schedule th:not(:first-child), .schedule td:first-child {
-  background-color: var(--primary)
+  background-color: var(--primary);
 }
 
 .schedule tr:not(:first-child) {
   height: 32px;
+ 
 }
 
 .loader {
