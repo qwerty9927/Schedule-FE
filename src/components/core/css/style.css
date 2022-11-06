@@ -79,7 +79,8 @@
 }
 
 .subject_title {
-  background-color: #ccc;
+  background-color: var(--primary_hover);
+  color: #fff;
   width: 100%;
   padding: 10px;
   border-top-right-radius: 5px;

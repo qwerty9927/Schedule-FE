@@ -12,7 +12,8 @@ function Table(){
         <table style={{width:"100%"}} rules="all">
           <tbody>
             <tr>
-              <th width="85px">MaMH</th>
+              <th width="25px"></th>
+              <th width="60px">MaMH</th>
               <th width="200x">Tên môn học</th>
               <th width="50px">NMH</th>
               <th width="40px">TTH</th>

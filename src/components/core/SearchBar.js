@@ -41,47 +41,25 @@ function SearchBar() {
     setSchoolYear(result)
   }
 
-  const handleChange = (e) => {
-    const { name, value } = e.target
-    setFormValue({ ...formValue, [name]: value.trim() })
-  }
-
   const validate = () => {
     if (!formValue.school) {
-      toast.info("Need to choose a school")
+      toast.warn("Need to choose a school")
       return false
     }
 
     if (!formValue.schoolYear) {
-      toast.info("Need to choose a school year")
+      toast.warn("Need to choose a school year")
       return false
     }
 
     if (!formValue.searchValue) {
-      toast.info("Need to insert value search")
+      toast.warn("Need to insert value search")
       return false
     }
     return true
   }
 
-  const handleKeyUp = async (e) => {
-    if(e.keyCode == 13){
-      if(validate()){
-        const response = await toast.promise(callApiSearch, {
-          pending: "Waiting ⏳",
-          success: "Let's do it 🚀",
-          error: {
-            render(){
-              return <p>Sorry not found <i><b>"{formValue.searchValue}"</b></i> 🚫</p>
-            }
-          }
-        })
-        myStore.dispatch({ type: SetResultSearch, payload: response.data.result })
-      }
-    }
-  }
-
-  const handleClick = async () => {
+  const actionCallApiSearch = async () => {
     if(validate()){
       const response = await toast.promise(callApiSearch, {
         pending: "Waiting ⏳",
@@ -96,6 +74,21 @@ function SearchBar() {
     }
   }
 
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setFormValue({ ...formValue, [name]: value.trim() })
+  }
+
+  const handleKeyUp = async (e) => {
+    if(e.keyCode == 13){
+      actionCallApiSearch()
+    }
+  }
+
+  const handleClick = async () => {
+    actionCallApiSearch()
+  }
+ 
   return (
     <div className="search_bar">
       <div className="search_option">
