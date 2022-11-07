@@ -36,7 +36,7 @@ function TableResult() {
         <tr>
           <td colSpan={4} style={{fontWeight: "bold"}}>Tổng số tính chỉ</td>
           <td style={{fontWeight: "bold"}}>{myStore.state.counter}</td>
-          <td className="btn_clear" onClick={() => {actionDeleteAll(myStore)}}>Clear All</td>
+          <td className="btn_clear" style={{fontWeight: "bold"}} onClick={() => {actionDeleteAll(myStore)}}>Clear All</td>
         </tr>
         </tbody>
       </table>

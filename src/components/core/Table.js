@@ -33,7 +33,7 @@ function Table(){
       </div>
       <div className="subject_box">
         {
-          myStore.state.resultSearch.map((item, index) => {
+          myStore.state.resultSearchHandled.map((item, index) => {
             return (
               <Subject key={index} subjectInfo={item} />
             )

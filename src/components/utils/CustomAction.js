@@ -1,34 +1,34 @@
-import { SetClear, SetCounter, SetResultSearch, SetSemester, SetTableValue } from '../store/Constant'
+import { SetClear, SetCounter, SetResultSearch, SetResultSearchHandled, SetSemester, SetTableValue } from '../store/Constant'
 import { actionAdd, actionDelete } from '../service/HandleAction'
 import { toast } from 'react-toastify'
 import Structure from './Structure'
 import CustomToast from './CustomToast'
 function actionDeleteWithRender(myStore, subjectInfo) {
   actionDelete(myStore, subjectInfo)
-  const result = myStore.state.resultSearch.map(item => {
+  const result = myStore.state.resultSearchHandled.map(item => {
     if (item.MaMH === subjectInfo.MaMH && item.NMH === subjectInfo.NMH) {
       return { ...item, choice: false }
     }
     return { ...item }
   })
   myStore.dispatch({ type: SetTableValue, payload: JSON.parse(localStorage.getItem(myStore.state.semester)) })
-  myStore.dispatch({ type: SetResultSearch, payload: result })
+  myStore.dispatch({ type: SetResultSearchHandled, payload: result })
   myStore.dispatch({ type: SetCounter, payload: myStore.state.counter - subjectInfo.STC })
   toast.success("Remove subject success 😎")
 }
 
 function actionAddWithRender(myStore, subjectInfo) {
   try {
-    if(myStore.state.counter <= 26){
+    if(myStore.state.counter + subjectInfo.STC <= 26){
       actionAdd(myStore, subjectInfo)
       myStore.dispatch({ type: SetTableValue, payload: JSON.parse(localStorage.getItem(myStore.state.semester)) })
-      const result = myStore.state.resultSearch.map(item => {
+      const result = myStore.state.resultSearchHandled.map(item => {
         if (item.MaMH === subjectInfo.MaMH && item.NMH === subjectInfo.NMH) {
           return { ...item, choice: true }
         }
         return { ...item }
       })
-      myStore.dispatch({ type: SetResultSearch, payload: result })
+      myStore.dispatch({ type: SetResultSearchHandled, payload: result })
       myStore.dispatch({ type: SetCounter, payload: myStore.state.counter + subjectInfo.STC })
       toast.success("Add subject success 😊")
     } else {

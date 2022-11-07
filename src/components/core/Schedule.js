@@ -1,4 +1,5 @@
-import { Fragment, useContext, useEffect, useState } from "react"
+import { Fragment, useContext, useRef, useState } from "react"
+import * as htmlToImage from "html-to-image"
 import { reMakeArrTuan } from "../service/HandleAction"
 import Context from "../store/Context"
 import Card from "../utils/Card"
@@ -6,7 +7,7 @@ import './css/style.css'
 
 function Schedule() {
   const myStore = useContext(Context)
-
+  const ref = useRef()
   const [option, setOption] = useState(0)
   const handleOption = (e) => {
     setOption(e.target.value - 1)
@@ -72,6 +73,22 @@ function Schedule() {
     return result
   }
 
+  const takeScreenShot = async (node) => {
+    const dataURL = await htmlToImage.toJpeg(node)
+    return dataURL
+  }
+
+  const download = (image, { extension = "jpg" } = {}) => {
+    const a = document.createElement("a");
+    a.href = image;
+    a.download = `${myStore.state.semester}-Tuan_${option + 1}.${extension}`
+    a.click();
+  };
+
+  const downloadScreenShot = () => {
+    takeScreenShot(ref.current).then(download)
+  }
+
   return (
     <div className="schedule_optionTime">
       <div className="option_time">
@@ -86,7 +103,10 @@ function Schedule() {
           })}
         </select>
       </div>
-      <div className="schedule">
+      <div className="screen_shot">
+        <button onClick={downloadScreenShot}><i className="fa-solid fa-camera"></i></button>
+      </div>
+      <div className="schedule" ref={ref}>
         <table width="100%">
           <tbody>
             <tr>
