@@ -101,7 +101,11 @@ function SearchBar() {
             )
           })}
         </select>
-        <select name="schoolYear" id="" onChange={(e) => { handleChange(e); myStore.dispatch({ type: SetSemester, payload: e.target.value }) }} >
+        <select name="schoolYear" id="" onChange={(e) => { handleChange(e); 
+          if(e.target.value){
+            myStore.dispatch({ type: SetSemester, payload: e.target.value }) 
+          }
+          }} >
           <option value="">Học kỳ</option>
           {schoolYear.map((item, index) => {
             return (

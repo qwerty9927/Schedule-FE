@@ -6,7 +6,6 @@ import './css/style.css'
 
 function Schedule() {
   const myStore = useContext(Context)
-  console.log(myStore.state)
 
   const [option, setOption] = useState(0)
   const handleOption = (e) => {
