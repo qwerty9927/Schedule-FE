@@ -1,4 +1,5 @@
-const numberOfSchoolWeeks = 15
+import Structure from "../utils/Structure"
+
 function checkArray(arr) {
   let subArr = arr
   if (!subArr.length) {
@@ -94,8 +95,7 @@ function mergeArrTuan(Tuan){
   return new Set(newArr)
 }
 
-function actionAdd(subjectInfo) {
-  const week2Digit = 10 - 1
+function actionAdd(myStore, subjectInfo) {
   let {
     MaMH,
     TenMH,
@@ -111,22 +111,8 @@ function actionAdd(subjectInfo) {
     CS,
   } = subjectInfo
 
-  const EmptyTime = {
-    2: [],
-    3: [],
-    4: [],
-    5: [],
-    6: [],
-    7: []
-  }
-
-  const baseStructure = {
-    ListSchedule: new Array(numberOfSchoolWeeks).fill(null),
-    ListEmptyTime: new Array(numberOfSchoolWeeks).fill(EmptyTime),
-    ListSubjectRegistered: []
-  }
   try {
-    const table = JSON.parse(localStorage.getItem("table")) || baseStructure
+    const table = JSON.parse(localStorage.getItem(myStore.state.semester)) || (new Structure()).getBaseStructure()
     isExistSubject(table.ListSubjectRegistered, MaMH)
     const tempListEmptyTime = createNewArrayFromListEmptyTime(table.ListEmptyTime)
     const newTuan = reMakeArrTuan(Tuan)
@@ -172,7 +158,7 @@ function actionAdd(subjectInfo) {
       ST,
       CS
     })
-    localStorage.setItem("table", JSON.stringify(table))
+    localStorage.setItem(myStore.state.semester, JSON.stringify(table))
   } catch (err) {
     throw err.message
   }
@@ -212,16 +198,16 @@ function changeSubjectRegister(subjectInfo, listSubjectRegistered){
 
 
 
-function actionDelete(subjectInfo) {
+function actionDelete(myStore, subjectInfo) {
   try {
-    const table = JSON.parse(localStorage.getItem("table"))
+    const table = JSON.parse(localStorage.getItem(myStore.state.semester))
     // Delete empty time
     const emptyTime = changeEmptyTime(subjectInfo, table.ListEmptyTime)
     // Delete schedule
     const schedule = changeSchedule(subjectInfo, table.ListSchedule) 
     // Delete subject
     const subject = changeSubjectRegister(subjectInfo, table.ListSubjectRegistered)
-    localStorage.setItem("table", JSON.stringify({ 
+    localStorage.setItem(myStore.state.semester, JSON.stringify({ 
       ListEmptyTime: emptyTime, 
       ListSchedule: schedule, 
       ListSubjectRegistered: subject 

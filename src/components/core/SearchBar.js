@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react"
 import axiosBase from "../../api/axiosBase"
 import Context from "../store/Context"
-import { SetResultSearch } from '../store/Constant'
+import { SetResultSearch, SetSemester } from '../store/Constant'
 import { toast } from "react-toastify"
 
 function SearchBar() {
@@ -11,8 +11,8 @@ function SearchBar() {
   const myStore = useContext(Context)
 
   const callApiSearch = async () => {
-    return await axiosBase.get("api/subject/search", {
-      params: formValue
+    return await axiosBase.post("api/subject/search", {
+      ...formValue
     })
   }
 
@@ -60,12 +60,12 @@ function SearchBar() {
   }
 
   const actionCallApiSearch = async () => {
-    if(validate()){
+    if (validate()) {
       const response = await toast.promise(callApiSearch, {
         pending: "Waiting ⏳",
         success: "Let's do it 🚀",
         error: {
-          render(){
+          render() {
             return <p>Sorry not found <i><b>"{formValue.searchValue}"</b></i> 🚫</p>
           }
         }
@@ -80,7 +80,7 @@ function SearchBar() {
   }
 
   const handleKeyUp = async (e) => {
-    if(e.keyCode == 13){
+    if (e.keyCode == 13) {
       actionCallApiSearch()
     }
   }
@@ -88,7 +88,7 @@ function SearchBar() {
   const handleClick = async () => {
     actionCallApiSearch()
   }
- 
+
   return (
     <div className="search_bar">
       <div className="search_option">
@@ -101,7 +101,7 @@ function SearchBar() {
             )
           })}
         </select>
-        <select name="schoolYear" id="" onChange={(e) => { handleChange(e) }} >
+        <select name="schoolYear" id="" onChange={(e) => { handleChange(e); myStore.dispatch({ type: SetSemester, payload: e.target.value }) }} >
           <option value="">Học kỳ</option>
           {schoolYear.map((item, index) => {
             return (

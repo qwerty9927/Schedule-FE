@@ -185,3 +185,13 @@
   color: var(--secondary_hover);
   font-size: 20px;
 }
+
+.btn_clear {
+  color: var(--secondary);
+  transition: .1s;
+}
+
+.btn_clear:hover {
+  font-size: 20px;
+  color: var(--secondary_hover)
+}

@@ -1,15 +1,31 @@
 import { useReducer } from "react"
 import Context from "./Context"
-import { SetResultSearch, SetTableValue } from './Constant'
+import { SetClear, SetCounter, SetResultSearch, SetSemester, SetTableValue } from './Constant'
+import { useState } from "react"
 
 function Provider({ children }) {
-  const initialState = {
-    resultSearch: [],
-    tableValue: JSON.parse(localStorage.getItem('table')) || {}
+
+  const initialState = () => {
+    const currentSemester = localStorage.getItem("currentSemester")
+    const table = JSON.parse(localStorage.getItem(currentSemester)) || {}
+    const counter = () => {
+      const subjectRegistered = table.ListSubjectRegistered || []
+      let count = 0
+      subjectRegistered.forEach(item => {
+        count += item.STC
+      });
+      return count
+    }
+    return {
+      resultSearch: [],
+      semester: currentSemester,
+      tableValue: table,
+      counter: counter()
+    }
   }
 
+
   const handleResultSearch = (state, resultSearch) => {
-    // console.log(state.tableValue.Schedule)
     const subjectRegistered = state.tableValue.ListSubjectRegistered ? [...state.tableValue.ListSubjectRegistered] : []
     const result =  resultSearch.map(rootItem => {
       for(let i = 0;i < subjectRegistered.length;i++){
@@ -20,22 +36,30 @@ function Provider({ children }) {
       }
       return { ... rootItem, choice: false}
     })
+    console.log(result)
     return result
   }
 
   const reducer = (state, action) => {
     switch (action.type) {
       case SetResultSearch:
-        return { ...state, resultSearch: handleResultSearch(state, action.payload)
-        }
+        return { ...state, resultSearch: handleResultSearch(state, action.payload) }
       case SetTableValue:
         return { ...state, tableValue: action.payload }
+      case SetCounter:
+        return { ...state, counter: action.payload }
+      case SetSemester:
+        localStorage.setItem("currentSemester", action.payload)
+        return initialState()
+      case SetClear: 
+        const initial = initialState()
+        return { ...initial, resultSearch: handleResultSearch(initial, state.resultSearch) }
       default:
         throw new Error();
     }
   }
 
-  const [state, dispatch] = useReducer(reducer, initialState)
+  const [state, dispatch] = useReducer(reducer, initialState())
   return (
     <Context.Provider value={{state, dispatch}}>
       {children}

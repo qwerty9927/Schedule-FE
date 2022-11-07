@@ -5,7 +5,6 @@ import { SetFlowChecked } from "../store/Constant"
 
 function Table(){
   const myStore = useContext(Context)
-
   return (
     <div className="table">
       <div className="subject_title">
