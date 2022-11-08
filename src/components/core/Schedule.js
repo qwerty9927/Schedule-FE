@@ -104,7 +104,7 @@ function Schedule() {
         </select>
       </div>
       <div className="screen_shot">
-        <button onClick={downloadScreenShot}><i className="fa-solid fa-camera"></i></button>
+        <button title="Take ScreenShot" onClick={downloadScreenShot}><i className="fa-solid fa-camera"></i></button>
       </div>
       <div className="schedule" ref={ref}>
         <table width="100%">
