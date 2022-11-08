@@ -14,7 +14,7 @@ function actionDeleteWithRender(myStore, subjectInfo) {
   myStore.dispatch({ type: SetTableValue, payload: JSON.parse(localStorage.getItem(myStore.state.semester)) })
   myStore.dispatch({ type: SetResultSearchHandled, payload: result })
   myStore.dispatch({ type: SetCounter, payload: myStore.state.counter - subjectInfo.STC })
-  toast.success("Remove subject success 😎")
+  toast.success("Xóa học phần thành công 😎")
 }
 
 function actionAddWithRender(myStore, subjectInfo) {
@@ -30,7 +30,7 @@ function actionAddWithRender(myStore, subjectInfo) {
       })
       myStore.dispatch({ type: SetResultSearchHandled, payload: result })
       myStore.dispatch({ type: SetCounter, payload: myStore.state.counter + subjectInfo.STC })
-      toast.success("Add subject success 😊")
+      toast.success("Thêm học phần thành công 😊")
     } else {
       toast.info("Số tính chỉ đạt tối đa")
     }
@@ -46,8 +46,6 @@ function actionDeleteAll(myStore) {
         localStorage.setItem(myStore.state.semester, JSON.stringify((new Structure()).getBaseStructure()))
         myStore.dispatch({ type: SetClear })
       }
-    } else {
-      toast.info("Clear het roi clear gi nua")
     }
   }
 }

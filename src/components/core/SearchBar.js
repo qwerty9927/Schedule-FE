@@ -46,17 +46,17 @@ function SearchBar() {
 
   const validate = () => {
     if (!formValue.school) {
-      toast.warn("Need to choose a school")
+      toast.warn("Cần chọn trường")
       return false
     }
 
     if (!formValue.schoolYear) {
-      toast.warn("Need to choose a school year")
+      toast.warn("Cần chọn năm học")
       return false
     }
 
     if (!formValue.searchValue) {
-      toast.warn("Need to insert value search")
+      toast.warn("Cần nhập thông tin tìm kiếm")
       return false
     }
     return true
@@ -64,12 +64,12 @@ function SearchBar() {
 
   const validateFilter = () => {
     if (!formValueFilter.day) {
-      toast.warn("Need to choose a day")
+      toast.warn("Cần nhập ngày")
       return false
     }
 
     if (!formValueFilter.startLession) {
-      toast.warn("Need to choose a lession")
+      toast.warn("Cần nhập tiết bắt đầu")
       return false
     }
 
@@ -83,7 +83,7 @@ function SearchBar() {
         success: "Let's do it 🚀",
         error: {
           render() {
-            return <p>Sorry not found <i><b>"{formValue.searchValue}"</b></i> 🚫</p>
+            return <p>Không tìm thấy <i><b>"{formValue.searchValue}"</b></i> 🚫</p>
           }
         }
       })
