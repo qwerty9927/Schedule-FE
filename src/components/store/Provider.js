@@ -37,7 +37,6 @@ function Provider({ children }) {
       }
       return { ...rootItem, choice: false }
     })
-    console.log(result)
     return result
   }
 
