@@ -5,6 +5,10 @@
   --secondary_hover: #ff4569;
 }
 
+th {
+  cursor: default;
+}
+
 .core {
   display: flex;
   align-items: center;

@@ -170,7 +170,7 @@ function SearchBar() {
           <button className="btn_search" onClick={handleClickBtnSearch}>Search</button>
         </div>
         <div className="filter_box">
-            <button onClick={(e) => handleClickShowFilter(e)}><i className="fa-solid fa-filter"></i></button>
+            <button title="Filter" onClick={(e) => handleClickShowFilter(e)}><i className="fa-solid fa-filter"></i></button>
         </div>
       </div>
       <div className={clsx("search_bar_block_bot", {"search_bar_block_bot_show": filterBtn}, {"search_bar_block_bot_hide": !filterBtn})}>
@@ -200,7 +200,7 @@ function SearchBar() {
             })}
           </select>
           <button className="btn_filter" onClick={handleClickBtnFilter}>Filter</button>
-          <button className="btn_close_filter" onClick={handleClickBtnCloseFilter}><i className="fa-solid fa-xmark"></i></button>
+          <button title="Clear option" className="btn_close_filter" onClick={handleClickBtnCloseFilter}><i className="fa-solid fa-xmark"></i></button>
         </div>
       </div>
     </div>
