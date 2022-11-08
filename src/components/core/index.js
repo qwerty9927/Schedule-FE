@@ -4,7 +4,8 @@ import './css/style.css'
 import SearchBar from "./SearchBar"
 import Table from "./Table"
 import Schedule from "./Schedule"
-import TableResult from './TableResult';
+import TableResult from './TableResult'
+import Footer from './Footer'
 
 function Core(){
   return (
@@ -27,6 +28,7 @@ function Core(){
         <TableResult />
         <Schedule />
       </div>
+      <Footer />
     </>
   )
 }

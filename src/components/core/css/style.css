@@ -10,7 +10,7 @@
   align-items: center;
   flex-direction: column;
   min-width: 1300px;
-  height: 1800px;
+  height: 1500px;
 }
 
 .search_bar {
@@ -307,4 +307,11 @@
 .btn_clear:hover {
   font-size: 20px;
   color: var(--secondary_hover)
+}
+
+.footer {
+  padding: 32px 100px;
+  background-color: #181821;
+  color: #a9b3bb;
+  text-align: center;
 }
