@@ -63,3 +63,10 @@
   display: block;
 }
 
+/* Tablet */
+@media (max-width: 1023px) and (min-width: 740px){
+  .close:hover .popover-content{
+    display: none;
+  }  
+}
+
