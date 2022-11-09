@@ -256,13 +256,16 @@ th {
   padding: 0 10px;
 }
 
+.schedule td:not(:first-child) {
+  font-size: 12px;
+}
+
 .schedule th:not(:first-child), .schedule td:first-child {
   background-color: var(--primary);
 }
 
 .schedule tr:not(:first-child) {
   height: 32px;
- 
 }
 
 .secondary {
@@ -339,7 +342,6 @@ th {
 
   .schedule {
     width: 100%;
-    font-size: 12px;
   }
 
   .table_result {
