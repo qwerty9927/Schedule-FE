@@ -64,12 +64,12 @@ function SearchBar() {
 
   const validateFilter = () => {
     if (!formValueFilter.day) {
-      toast.warn("Cần nhập ngày")
+      toast.warn("Cần chọn ngày")
       return false
     }
 
     if (!formValueFilter.startLession) {
-      toast.warn("Cần nhập tiết bắt đầu")
+      toast.warn("Cần chọn tiết bắt đầu")
       return false
     }
 
