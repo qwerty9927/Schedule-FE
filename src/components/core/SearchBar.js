@@ -124,6 +124,11 @@ function SearchBar() {
         }
       })
       myStore.dispatch({ type: SetResultSearchHandled, payload: result })
+      if(result.length){
+        toast.success("Đã tìm thấy kết quả")
+      } else {
+        toast.error("Không tìm thấy kết quả")
+      }
     }
   }
 

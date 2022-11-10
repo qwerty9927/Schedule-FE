@@ -42,7 +42,7 @@ function actionAddWithRender(myStore, subjectInfo) {
 function actionDeleteAll(myStore) {
   if(myStore.state.semester && myStore.state.tableValue.ListSubjectRegistered){
     if(myStore.state.tableValue.ListSubjectRegistered.length !== 0) {
-      if(window.confirm("Clear all ?")){
+      if(window.confirm("Bạn muốn xóa tất cả ?")){
         localStorage.setItem(myStore.state.semester, JSON.stringify((new Structure()).getBaseStructure()))
         myStore.dispatch({ type: SetClear })
       }
