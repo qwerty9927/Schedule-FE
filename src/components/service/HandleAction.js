@@ -32,11 +32,11 @@ function checkSlot(THU, TBD, ST, CS, timeArr) {
     ) {
       for (i; i < TKT; i++) {
         if (timeInDay[i] !== 0) {
-          throw new Error(`Different area or Conflict error`)
+          throw new Error("Khác cơ sở hoặc học phần bị trùng lịch")
         }
       }
     } else {
-      throw new Error("Different area or Conflict error")
+      throw new Error("Khác cơ sở hoặc học phần bị trùng lịch")
     }
   } else {
     if ((TBD === startLessonInTheAfternoon && timeInDay[indexForTKT + 1] === CS)
@@ -48,11 +48,11 @@ function checkSlot(THU, TBD, ST, CS, timeArr) {
     ) {
       for (i; i < TKT; i++) {
         if (timeInDay[i] !== 0) {
-          throw new Error("Different area or Conflict error")
+          throw new Error("Khác cơ sở hoặc học phần bị trùng lịch")
         }
       }
     } else {
-      throw new Error("Different area or Conflict error")
+      throw new Error("Khác cơ sở hoặc học phần bị trùng lịch")
     }
   }
 
@@ -66,7 +66,7 @@ function createNewArrayFromListEmptyTime(oldArr){
 function isExistSubject(ListSubjectRegistered, MaMH) {
   ListSubjectRegistered.forEach(item => {
     if (item.MaMH === MaMH) {
-      throw new Error("Subject existed")
+      throw new Error("Môn học đã tồn tại")
     }
   })
 }
