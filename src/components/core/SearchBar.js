@@ -8,7 +8,6 @@ import clsx from "clsx"
 function SearchBar() {
   const [formValue, setFormValue] = useState({})
   const [formValueFilter, setFormValueFilter] = useState({})
-  const [school, setSchool] = useState([])
   const [schoolYear, setSchoolYear] = useState([])
   const [filterBtn, setFilterBtn] = useState(false)
   const myStore = useContext(Context)
@@ -19,37 +18,19 @@ function SearchBar() {
     })
   }
 
-  const callApiSchool = async () => {
+  const callApiSchoolYear = async () => {
     return await axiosBase.get("api/subject/course")
-  }
-
-  const callApiSchoolYear = async (param) => {
-    return await axiosBase.get("api/subject/course", {
-      params: {
-        school: param
-      }
-    })
   }
 
   useEffect(() => {
     const fetchApi = async () => {
-      const result = (await callApiSchool()).data.result
-      setSchool(result)
+      const result = (await callApiSchoolYear()).data.result
+      setSchoolYear(result)
     }
     fetchApi()
   }, [])
 
-  const loadSchoolYear = async (e) => {
-    const result = (await callApiSchoolYear(e.target.value)).data.result
-    setSchoolYear(result)
-  }
-
   const validate = () => {
-    if (!formValue.school) {
-      toast.warn("Cần chọn trường")
-      return false
-    }
-
     if (!formValue.schoolYear) {
       toast.warn("Cần chọn năm học")
       return false
@@ -148,15 +129,6 @@ function SearchBar() {
     <div className="search_bar">
       <div className="search_bar_block_top">
         <div className="search_option">
-          <select name="school" id="" onChange={(e) => { handleChange(e); loadSchoolYear(e) }} >
-            <option value="">Trường</option>
-            {school.map((item, index) => {
-              item = item.toUpperCase()
-              return (
-                <option key={index} value={item}>{item}</option>
-              )
-            })}
-          </select>
           <select name="schoolYear" id="" onChange={(e) => { handleChange(e); 
             if(e.target.value){
               myStore.dispatch({ type: SetSemester, payload: e.target.value }) 
