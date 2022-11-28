@@ -108,40 +108,43 @@ function storeMajor(subjectInfo, table){
       Tuan,
       CS,
     } = subjectInfo
-  
-    const tempListEmptyTime = createNewArrayFromListEmptyTime(table.ListEmptyTime)
-    const newTuan = reMakeArrTuan(Tuan)
-    newTuan.forEach((rootItem, rootIndex) => {
-      rootItem.forEach((item, index) => {
-        const result = checkSlot(Thu[rootIndex], TBD[rootIndex], ST[rootIndex], CS[rootIndex], tempListEmptyTime[item])
-        tempListEmptyTime[item][`${Thu[rootIndex]}`] = result
+    try {
+      const tempListEmptyTime = createNewArrayFromListEmptyTime(table.ListEmptyTime)
+      const newTuan = reMakeArrTuan(Tuan)
+      newTuan.forEach((rootItem, rootIndex) => {
+        rootItem.forEach((item, index) => {
+          const result = checkSlot(Thu[rootIndex], TBD[rootIndex], ST[rootIndex], CS[rootIndex], tempListEmptyTime[item])
+          tempListEmptyTime[item][`${Thu[rootIndex]}`] = result
+        })
       })
-    })
-  
-    // Ghi vao store
-    mergeArrTuan(newTuan).forEach((item, index) => {
-      if(table.ListSchedule[item] === null){
-        table.ListSchedule[item] = new Array()
-      }
-      table.ListSchedule[item].push({
-        MaMH,
-        TenMH,
-        NMH,
-        STC,
-        TTH,
-        Thu,
-        TBD,
-        Phong,
-        GiangVien,
-        Tuan,
-        ST,
-        CS
+    
+      // Ghi vao store
+      mergeArrTuan(newTuan).forEach((item, index) => {
+        if(table.ListSchedule[item] === null){
+          table.ListSchedule[item] = new Array()
+        }
+        table.ListSchedule[item].push({
+          MaMH,
+          TenMH,
+          NMH,
+          STC,
+          TTH,
+          Thu,
+          TBD,
+          Phong,
+          GiangVien,
+          Tuan,
+          ST,
+          CS
+        })
       })
-    })
-    table.ListEmptyTime = tempListEmptyTime
-    console.log("StoreMajor: ", table)
-  // })
-  return table
+      table.ListEmptyTime = tempListEmptyTime
+      console.log("StoreMajor: ", table)
+    // })
+    return table
+  } catch (err) {
+    throw err.message
+  }
 }
 
 function actionAdd(myStore, subjectInfo) {
@@ -171,7 +174,7 @@ function actionAdd(myStore, subjectInfo) {
         tempListEmptyTime[item][`${Thu[rootIndex]}`] = result
       })
     })
-
+    console.log("connect")
     // Ghi vao store
     mergeArrTuan(newTuan).forEach((item, index) => {
         if(table.ListSchedule[item] === null){
