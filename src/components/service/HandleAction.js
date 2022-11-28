@@ -139,6 +139,8 @@ function storeMajor(subjectInfo, table){
       })
     })
     table.ListEmptyTime = tempListEmptyTime
+    console.log("StoreMajor: ", table)
+  // })
   return table
 }
 
@@ -206,6 +208,7 @@ function actionAdd(myStore, subjectInfo) {
       CS
     })
     localStorage.setItem(myStore.state.semester, JSON.stringify(table.ListSubjectRegistered))
+    console.log("HandleAction: ", myStore.state.tableValue)
   } catch (err) {
     throw err.message
   }
