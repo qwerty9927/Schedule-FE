@@ -1,5 +1,3 @@
-import Structure from "../utils/Structure"
-
 function checkArray(arr) {
   let subArr = arr
   if (!subArr.length) {
@@ -95,6 +93,55 @@ function mergeArrTuan(Tuan){
   return new Set(newArr)
 }
 
+function storeMajor(subjectInfo, table){
+    let {
+      MaMH,
+      TenMH,
+      NMH,
+      TTH,
+      STC,
+      Thu,
+      TBD,
+      Phong,
+      GiangVien,
+      ST,
+      Tuan,
+      CS,
+    } = subjectInfo
+  
+    const tempListEmptyTime = createNewArrayFromListEmptyTime(table.ListEmptyTime)
+    const newTuan = reMakeArrTuan(Tuan)
+    newTuan.forEach((rootItem, rootIndex) => {
+      rootItem.forEach((item, index) => {
+        const result = checkSlot(Thu[rootIndex], TBD[rootIndex], ST[rootIndex], CS[rootIndex], tempListEmptyTime[item])
+        tempListEmptyTime[item][`${Thu[rootIndex]}`] = result
+      })
+    })
+  
+    // Ghi vao store
+    mergeArrTuan(newTuan).forEach((item, index) => {
+      if(table.ListSchedule[item] === null){
+        table.ListSchedule[item] = new Array()
+      }
+      table.ListSchedule[item].push({
+        MaMH,
+        TenMH,
+        NMH,
+        STC,
+        TTH,
+        Thu,
+        TBD,
+        Phong,
+        GiangVien,
+        Tuan,
+        ST,
+        CS
+      })
+    })
+    table.ListEmptyTime = tempListEmptyTime
+  return table
+}
+
 function actionAdd(myStore, subjectInfo) {
   let {
     MaMH,
@@ -112,7 +159,7 @@ function actionAdd(myStore, subjectInfo) {
   } = subjectInfo
 
   try {
-    const table = JSON.parse(localStorage.getItem(myStore.state.semester)) || (new Structure()).getBaseStructure()
+    const table = myStore.state.tableValue
     isExistSubject(table.ListSubjectRegistered, MaMH)
     const tempListEmptyTime = createNewArrayFromListEmptyTime(table.ListEmptyTime)
     const newTuan = reMakeArrTuan(Tuan)
@@ -158,7 +205,7 @@ function actionAdd(myStore, subjectInfo) {
       ST,
       CS
     })
-    localStorage.setItem(myStore.state.semester, JSON.stringify(table))
+    localStorage.setItem(myStore.state.semester, JSON.stringify(table.ListSubjectRegistered))
   } catch (err) {
     throw err.message
   }
@@ -200,21 +247,20 @@ function changeSubjectRegister(subjectInfo, listSubjectRegistered){
 
 function actionDelete(myStore, subjectInfo) {
   try {
-    const table = JSON.parse(localStorage.getItem(myStore.state.semester))
+    const table = myStore.state.tableValue
     // Delete empty time
     const emptyTime = changeEmptyTime(subjectInfo, table.ListEmptyTime)
     // Delete schedule
     const schedule = changeSchedule(subjectInfo, table.ListSchedule) 
     // Delete subject
     const subject = changeSubjectRegister(subjectInfo, table.ListSubjectRegistered)
-    localStorage.setItem(myStore.state.semester, JSON.stringify({ 
-      ListEmptyTime: emptyTime, 
-      ListSchedule: schedule, 
-      ListSubjectRegistered: subject 
-    }))
+    table.ListEmptyTime = emptyTime
+    table.ListSchedule = schedule
+    table.ListSubjectRegistered = subject
+    localStorage.setItem(myStore.state.semester, JSON.stringify(subject))
   } catch (err) {
     throw err
   }
 }
 
-export { actionAdd, actionDelete, reMakeArrTuan }
+export { actionAdd, actionDelete, reMakeArrTuan, storeMajor }

@@ -9,6 +9,7 @@ class Structure {
       6: [],
       7: []
     }
+
     this.baseStructure = {
       ListSchedule: new Array(numberOfSchoolWeeks).fill(null),
       ListEmptyTime: new Array(numberOfSchoolWeeks).fill(this.EmptyTime),

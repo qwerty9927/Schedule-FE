@@ -1,13 +1,23 @@
 import { useReducer } from "react"
 import Context from "./Context"
-import { ResetResultSearchHandled, SetClear, SetCounter, SetResultSearch, SetResultSearchHandled, SetSemester, SetTableValue } from './Constant'
-import { useState } from "react"
+import { ResetResultSearchHandled, SetClear, SetCounter, SetResultSearch, SetResultSearchHandled, SetSemester } from './Constant'
+import Structure from "../utils/Structure"
+import { storeMajor } from "../service/HandleAction"
 
 function Provider({ children }) {
 
+  const handleData = (currentSemester) => {
+    const table = (new Structure()).getBaseStructure()
+    table.ListSubjectRegistered = JSON.parse(localStorage.getItem(currentSemester)) || []
+    table.ListSubjectRegistered.forEach(item => {
+      storeMajor(item, table)
+    })    
+    return table
+  }
+
   const initialState = () => {
     const currentSemester = localStorage.getItem("currentSemester")
-    const table = JSON.parse(localStorage.getItem(currentSemester)) || {}
+    const table = handleData(currentSemester)
     const counter = () => {
       const subjectRegistered = table.ListSubjectRegistered || []
       let count = 0
@@ -46,8 +56,6 @@ function Provider({ children }) {
         return { ...state, resultSearch: action.payload, resultSearchHandled: handleResultSearch(state, action.payload) }
       case SetResultSearchHandled:
         return { ...state, resultSearchHandled: handleResultSearch(state, action.payload) }
-      case SetTableValue:
-        return { ...state, tableValue: action.payload }
       case SetCounter:
         return { ...state, counter: action.payload }
       case SetSemester:
