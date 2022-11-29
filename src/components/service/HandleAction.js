@@ -95,6 +95,18 @@ function mergeArrTuan(Tuan){
   return new Set(newArr)
 }
 
+function handleSubjectInfo(subjectInfo){
+  let Thu = new Set(subjectInfo.Thu)
+  let TBD = new Set(subjectInfo.TBD)
+  let Tuan = new Set(subjectInfo.Tuan)
+  if(Thu.size === 1 && TBD.size === 1 && Tuan.size === 1){
+    subjectInfo.Thu = Array.from(Thu)
+    subjectInfo.TBD = Array.from(TBD)
+    subjectInfo.Tuan = Array.from(Tuan)
+  }
+  return subjectInfo
+}
+
 function actionAdd(myStore, subjectInfo) {
   let {
     MaMH,
@@ -109,7 +121,9 @@ function actionAdd(myStore, subjectInfo) {
     ST,
     Tuan,
     CS,
-  } = subjectInfo
+  } = handleSubjectInfo({...subjectInfo})
+
+  
 
   try {
     const table = JSON.parse(localStorage.getItem(myStore.state.semester)) || (new Structure()).getBaseStructure()

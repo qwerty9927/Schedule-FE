@@ -28,8 +28,7 @@ function Card({cardInfo, index}){
           <p><span>Tên môn học: </span>{cardInfo.TenMH}</p>
           <p><span>Mã môn học: </span>{cardInfo.MaMH}</p>
           <p><span>Nhóm môn học: </span>{cardInfo.NMH}</p>
-          <p><span>Giảng viên: </span></p>
-          <div>{new Set(cardInfo.GiangVien)}</div>
+          <p><span>Giảng viên: </span>{Array.from(new Set(cardInfo.GiangVien)).join(", ")}</p>
         </div>
       </div>
     </td>
