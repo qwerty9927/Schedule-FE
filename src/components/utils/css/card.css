@@ -18,7 +18,7 @@
 
 .close_visible {
   display:none;
-  font-size: 40px;
+  font-size: 30px;
 }
 
 .popover-content {
@@ -26,10 +26,9 @@
   position: absolute;
   left: 0;
   text-align: left;
-  transform: translateX(180px);
+  transform: translateX(165px);
   display: none;
   font-size: 14px;
-  /* background-color: rgba(230, 230, 230, 1); */
   background-color: #fff;
   padding: 10px 20px;
   border-radius: 16px;
