@@ -180,7 +180,7 @@ th {
 }
 
 .subject_box {
-  height: 300px;
+  height: 280px;
   overflow: auto;
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
@@ -269,7 +269,7 @@ th {
 }
 
 .schedule tr:not(:first-child) {
-  height: 32px;
+  height: 30px;
 }
 
 .secondary {
@@ -319,6 +319,41 @@ th {
 .btn_clear:hover {
   font-size: 16px;
   color: var(--secondary_hover)
+}
+
+.btnMaMH {
+  position: relative;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  overflow: hidden;
+  cursor: pointer;
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
+.btnMaMH:after {
+  content: "";
+  background: var(--secondary_hover);
+  display: block;
+  position: absolute;
+  padding-top: 300%;
+  padding-left: 350%;
+  margin-left: -20px!important;
+  margin-top: -120%;
+  opacity: 0;
+  transition: all 0.8s
+}
+
+.btnMaMH:active:after {
+  padding: 0;
+  margin: 0;
+  opacity: 1;
+  transition: 0s
 }
 
 .footer {

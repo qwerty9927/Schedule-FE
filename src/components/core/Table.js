@@ -15,7 +15,7 @@ function Table(){
                 <tr>
                   <th width="25px"></th>
                   <th title="Mã môn học" width="55px">MaMH</th>
-                  <th width="170px">Tên môn học</th>
+                  <th >Tên môn học</th>
                   <th title="Nhóm môn học" width="40px">NMH</th>
                   <th title="Tổ thực hành" width="40px">TTH</th>
                   <th title="Số tính chỉ" width="40px">STC</th>
@@ -26,9 +26,9 @@ function Table(){
                   <th width="40px">Thứ</th>
                   <th title="Tiết bắt đầu" width="40px">TBD</th>
                   <th title="Số tiết" width="40px">ST</th>
-                  <th width="60px">Phòng</th>
-                  <th width="90px">Giảng viên</th>
-                  <th>Tuần</th>
+                  <th width="55px">Phòng</th>
+                  <th width="75px">Giảng viên</th>
+                  <th width="130px">Tuần</th>
                 </tr>
               </tbody>
             </table>

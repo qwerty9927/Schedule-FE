@@ -1,4 +1,5 @@
 import { useContext } from "react"
+import { toast } from "react-toastify"
 import { reMakeArrTuan } from "../service/HandleAction"
 import Context from "../store/Context"
 import { actionDeleteWithRender, actionDeleteAll } from '../utils/CustomAction'
@@ -22,6 +23,11 @@ function TableResult() {
     return null
   }
 
+  const handleCopy = (e) => {
+    navigator.clipboard.writeText(e.target.innerText)
+    toast.info("Copy done!", { autoClose: 1000 })
+  }
+
   return (
     <div className="table_result">
       <div style={{textAlign: "center"}}><h2>Thời khóa biểu {myStore.state.semester}</h2></div>
@@ -42,7 +48,7 @@ function TableResult() {
           return (
             <tr key={index}>
               <td>{index + 1}</td>
-              <td style={{fontWeight: "bold"}}>{item.MaMH}</td>
+              <td className="btnMaMH" title="Click To Copy" style={{fontWeight: "bold"}} onClick={(e) => handleCopy(e)}>{item.MaMH}</td>
               <td>{item.TenMH}</td>
               <td style={{fontWeight: "bold"}}>{item.NMH}</td>
               <td>{getWeekWithOption("Min", item.Tuan)}</td>
