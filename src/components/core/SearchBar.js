@@ -32,7 +32,7 @@ function SearchBar() {
 
   const validate = () => {
     if (!formValue.schoolYear) {
-      toast.warn("Cần chọn năm học")
+      toast.warn("Cần chọn học kỳ")
       return false
     }
 
@@ -78,7 +78,7 @@ function SearchBar() {
   }
 
   const handleKeyUp = async (e) => {
-    if (e.keyCode == 13) {
+    if (e.keyCode === 13) {
       actionCallApiSearch()
     }
   }
@@ -91,7 +91,7 @@ function SearchBar() {
     if(myStore.state.resultSearch.length){
       setFilterBtn(!filterBtn)
     } else {
-      toast.info("Cần tìm kiếm thông tin trước khi lọc")
+      toast.info("Cần tìm kiếm môn học trước khi Filter")
     }
   }
 

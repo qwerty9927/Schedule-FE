@@ -1,8 +1,6 @@
 import { SetClear, SetCounter, SetResultSearch, SetResultSearchHandled, SetSemester, SetTableValue } from '../store/Constant'
 import { actionAdd, actionDelete } from '../service/HandleAction'
 import { toast } from 'react-toastify'
-import Structure from './Structure'
-import CustomToast from './CustomToast'
 function actionDeleteWithRender(myStore, subjectInfo) {
   actionDelete(myStore, subjectInfo)
   const result = myStore.state.resultSearchHandled.map(item => {

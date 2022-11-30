@@ -1,14 +1,10 @@
 import { useContext } from 'react';
-import { toast } from 'react-toastify';
 import Context from '../store/Context';
 import './css/card.css'
-import { actionDelete } from '../service/HandleAction';
-import { SetResultSearch, SetTableValue } from '../store/Constant';
 import { actionDeleteWithRender } from '../utils/CustomAction'
 
 function Card({cardInfo, index}){
   const myStore = useContext(Context)
-  const messageRemove = "Remove subject success 😌"
   const handleClick = () => {
     actionDeleteWithRender(myStore, cardInfo)
   }

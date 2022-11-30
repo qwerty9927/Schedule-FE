@@ -1,7 +1,6 @@
 import { useReducer } from "react"
 import Context from "./Context"
 import { ResetResultSearchHandled, SetClear, SetCounter, SetResultSearch, SetResultSearchHandled, SetSemester, SetTableValue } from './Constant'
-import { useState } from "react"
 import { initTable } from "../service/HandleAction"
 
 function Provider({ children }) {
