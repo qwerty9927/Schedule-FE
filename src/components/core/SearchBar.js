@@ -120,6 +120,7 @@ function SearchBar() {
 
   const handleClickBtnCloseFilter = () => {
     if(formValueFilter.day || formValueFilter.startLession){
+      toast.info("Xóa kết quả Filter")
       setFormValueFilter({day: "", startLession: ""})
       myStore.dispatch({ type: ResetResultSearchHandled})
     }

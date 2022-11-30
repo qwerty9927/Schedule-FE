@@ -4,6 +4,7 @@ import { reMakeArrTuan } from "../service/HandleAction"
 import Context from "../store/Context"
 import Card from "../utils/Card"
 import './css/style.css'
+import { toast } from "react-toastify"
 
 function Schedule() {
   const myStore = useContext(Context)
@@ -86,6 +87,7 @@ function Schedule() {
   };
 
   const downloadScreenShot = () => {
+    toast.info("Tải ảnh thời khóa biểu")
     takeScreenShot(ref.current).then(download)
   }
 

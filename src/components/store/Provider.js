@@ -2,12 +2,13 @@ import { useReducer } from "react"
 import Context from "./Context"
 import { ResetResultSearchHandled, SetClear, SetCounter, SetResultSearch, SetResultSearchHandled, SetSemester, SetTableValue } from './Constant'
 import { useState } from "react"
+import { initTable } from "../service/HandleAction"
 
 function Provider({ children }) {
 
   const initialState = () => {
     const currentSemester = localStorage.getItem("currentSemester")
-    const table = JSON.parse(localStorage.getItem(currentSemester)) || {}
+    const table = initTable(currentSemester)
     const counter = () => {
       const subjectRegistered = table.ListSubjectRegistered || []
       let count = 0

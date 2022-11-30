@@ -11,7 +11,6 @@ function actionDeleteWithRender(myStore, subjectInfo) {
     }
     return { ...item }
   })
-  myStore.dispatch({ type: SetTableValue, payload: JSON.parse(localStorage.getItem(myStore.state.semester)) })
   myStore.dispatch({ type: SetResultSearchHandled, payload: result })
   myStore.dispatch({ type: SetCounter, payload: myStore.state.counter - subjectInfo.STC })
   toast.success("Xóa học phần thành công 😎")
@@ -21,7 +20,6 @@ function actionAddWithRender(myStore, subjectInfo) {
   try {
     if(myStore.state.counter + subjectInfo.STC <= 26){
       actionAdd(myStore, subjectInfo)
-      myStore.dispatch({ type: SetTableValue, payload: JSON.parse(localStorage.getItem(myStore.state.semester)) })
       const result = myStore.state.resultSearchHandled.map(item => {
         if (item.MaMH === subjectInfo.MaMH && item.NMH === subjectInfo.NMH) {
           return { ...item, choice: true }
@@ -43,7 +41,7 @@ function actionDeleteAll(myStore) {
   if(myStore.state.semester && myStore.state.tableValue.ListSubjectRegistered){
     if(myStore.state.tableValue.ListSubjectRegistered.length !== 0) {
       if(window.confirm("Bạn muốn xóa tất cả ?")){
-        localStorage.setItem(myStore.state.semester, JSON.stringify((new Structure()).getBaseStructure()))
+        localStorage.setItem(myStore.state.semester, JSON.stringify([]))
         myStore.dispatch({ type: SetClear })
       }
     }
