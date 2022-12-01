@@ -5,6 +5,7 @@ import Context from "../store/Context"
 import Card from "../utils/Card"
 import './css/style.css'
 import { toast } from "react-toastify"
+import Structure from "../utils/Structure"
 
 function Schedule() {
   const myStore = useContext(Context)
@@ -96,7 +97,7 @@ function Schedule() {
       <div className="option_time">
         <label htmlFor="">Tuần:</label>
         <select name="" id="week" onChange={(e) => handleOption(e)}>
-          {(new Array(15).fill(0)).map((item, index) => {
+          {(new Array((new Structure).numberOfSchoolWeeks).fill(0)).map((item, index) => {
             return (
               <option value={index + 1} key={index}>
                 {index + 1}

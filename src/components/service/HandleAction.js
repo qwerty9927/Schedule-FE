@@ -82,13 +82,11 @@ function reMakeArrTuan(Tuan){
 }
 
 function mergeArrTuan(Tuan){
-  const newArr = []
-  Tuan.forEach(rootItem => {
-    rootItem.forEach(item => {
-      newArr.push(item)
-    })
+  let newArr = []
+  Tuan.forEach(item => {
+    newArr = [...newArr, ...item]
   })
-  return new Set(newArr)
+  return Array.from(new Set(newArr))
 }
 
 function handleSubjectInfo(subjectInfo){

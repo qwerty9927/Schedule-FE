@@ -1,7 +1,10 @@
-const numberOfSchoolWeeks = 15
 class Structure {
   constructor(){
-    this.EmptyTime = {
+    this.numberOfSchoolWeeks = 16
+  }
+
+  getBaseStructure(){
+    const EmptyTime = {
       2: [],
       3: [],
       4: [],
@@ -9,15 +12,12 @@ class Structure {
       6: [],
       7: []
     }
-    this.baseStructure = {
-      ListSchedule: new Array(numberOfSchoolWeeks).fill(null),
-      ListEmptyTime: new Array(numberOfSchoolWeeks).fill(this.EmptyTime),
+     const baseStructure = {
+      ListSchedule: new Array(this.numberOfSchoolWeeks).fill(null),
+      ListEmptyTime: new Array(this.numberOfSchoolWeeks).fill(EmptyTime),
       ListSubjectRegistered: []
     }
-  }
-
-  getBaseStructure(){
-    return this.baseStructure
+    return baseStructure
   }
 }
 

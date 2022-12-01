@@ -24,7 +24,7 @@ function Subject({ subjectInfo }) {
           <tr style={{ backgroundColor: subjectInfo.choice ? "#eee" : "#fff", transition: ".4s" }}>
             <td width="25px" align="center"><input type="checkbox" checked={subjectInfo.choice || false} style={{ width: 20, height: 20, cursor: 'pointer' }} onChange={(e) => handleCheckBox(e)}></input></td>
             <td width="55px" align="center">{subjectInfo.MaMH}</td>
-            <td style={{paddingLeft: "5px"}} align="left">&nbsp;{subjectInfo.TenMH}</td>
+            <td style={{padding: "0 5px"}} align="left">&nbsp;{subjectInfo.TenMH}</td>
             <td width="40px" align="center">{subjectInfo.NMH}</td>
             <td width="40px" align="center">{subjectInfo.TTH}</td>
             <td width="40px" align="center">{subjectInfo.STC}</td>
