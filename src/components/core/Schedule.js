@@ -11,6 +11,7 @@ function Schedule() {
   const myStore = useContext(Context)
   const ref = useRef()
   const [option, setOption] = useState(0)
+  const listColor = ["#E3B448", "#ffa500", " #00539CFF", "#7A2048", "#8AAAE5", "#B85042", "#317773", "#CC313D", "#3A6B35"]
   const handleOption = (e) => {
     setOption(e.target.value - 1)
   }
@@ -33,13 +34,13 @@ function Schedule() {
           schedule[k].Thu.forEach((item, index) => {
             if(reMakeArrTuan(schedule[k].Tuan)[index].includes(week)){
               if(item === j + 2 && i <= 5 && schedule[k].TBD[index] === i + 1){
-                  board[i][j] = <Card cardInfo={schedule[k]} index={index} />
+                  board[i][j] = <Card cardInfo={schedule[k]} index={index} color={listColor[k]} />
                 for(z = 1;z < schedule[k].ST[index];z++){
                   board[i + z][j] = null
                 }
               }
               if(item === j + 2 && i > 5 && schedule[k].TBD[index] === i){
-                  board[i][j] = <Card cardInfo={schedule[k]} index={index} />
+                  board[i][j] = <Card cardInfo={schedule[k]} index={index} color={listColor[k]} />
                 for(z = 1;z < schedule[k].ST[index];z++){
                   board[i + z][j] = null
                 }

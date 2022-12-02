@@ -3,6 +3,7 @@
   --primary_hover: #4dabf5;
   --secondary: #ff1744;
   --secondary_hover: #ff4569;
+  --base_color: #F6F6FF;
 }
 
 th {
@@ -318,14 +319,9 @@ th {
 
 .schedule table, .schedule th, .schedule td {
   border-collapse: collapse;
-  border: 1px solid #000;
+  border: 1px solid #ccc;
   text-align: center;
-  color: #fff;
   font-weight: bold;
-}
-
-.schedule td {
-  padding: 0 10px;
 }
 
 .schedule td:not(:first-child) {
@@ -333,12 +329,12 @@ th {
 }
 
 .schedule th:not(:first-child), .schedule td:first-child {
-  background-color: var(--primary);
-  font-size: 14px;
+  background-color: var(--base_color);
+  font-size: 12px;
 }
 
-.schedule tr:not(:first-child) {
-  height: 30px;
+.schedule tr {
+  height: 32px;
 }
 
 .secondary {
