@@ -57,7 +57,7 @@ function Subject({ subjectInfo }) {
                 return <div key={index}>{item}</div>
               })}
             </td>
-            <td width="120px" style={{ fontSize: "12px", fontFamily: "Courier", paddingLeft: "5px"}}>
+            <td width="120px" style={{ fontSize: "12px", fontFamily: "Courier"}}>
               {subjectInfo.Tuan.map((item, index) => {
                 return <div key={index}>{item}</div>
               })}
