@@ -11,7 +11,7 @@ function Schedule() {
   const myStore = useContext(Context)
   const ref = useRef()
   const [option, setOption] = useState(0)
-  const listColor = ["#E3B448", "#ffa500", " #00539CFF", "#7A2048", "#8AAAE5", "#B85042", "#317773", "#CC313D", "#3A6B35"]
+  const listColor = ["255,0,0", "255,165,0", "0,83,156", "122,32,72", "138,170,229", "184,80,66", "49,119,115", "58,107,53", "43,174,102", "224,169,109", "153,244,67"]
   const handleOption = (e) => {
     setOption(e.target.value - 1)
   }

@@ -25,7 +25,7 @@ function TableResult() {
 
   const handleCopy = (e) => {
     navigator.clipboard.writeText(e.target.innerText)
-    toast.info(`Copied to clipboard!`, { autoClose: 1000 })
+    toast.info(`Copied to clipboard!`, { autoClose: 500 })
   }
 
   return (

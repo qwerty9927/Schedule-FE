@@ -10,11 +10,11 @@ function Card({cardInfo, index, color}){
   }
 
   return (
-    <td rowSpan={cardInfo.ST[index]} className="card"> 
+    <td rowSpan={cardInfo.ST[index]} className="card" style={{backgroundColor: `rgba(${color}, 0.2)`}}> 
       <div className="card_content">
-        <div className="border" style={{backgroundColor: color}}></div>
+        <div className="border" style={{backgroundColor: `rgb(${color})`}}></div>
         <div className="box">
-          <div className="title_card" style={{color: color}}>{cardInfo.TenMH}</div>
+          <div className="title_card" style={{color: `rgb(${color})`}}>{cardInfo.TenMH}</div>
           <div className="detail_card">Phòng: <span>{cardInfo.Phong[index]}</span></div>
         </div> 
         
