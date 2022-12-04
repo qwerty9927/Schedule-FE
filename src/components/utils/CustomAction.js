@@ -1,6 +1,7 @@
 import { SetClear, SetCounter, SetResultSearch, SetResultSearchHandled, SetSemester, SetTableValue } from '../store/Constant'
 import { actionAdd, actionDelete } from '../service/HandleAction'
 import { toast } from 'react-toastify'
+import CustomToast from './CustomToast'
 function actionDeleteWithRender(myStore, subjectInfo) {
   actionDelete(myStore, subjectInfo)
   const result = myStore.state.resultSearchHandled.map(item => {
@@ -31,7 +32,7 @@ function actionAddWithRender(myStore, subjectInfo) {
       toast.info("Số tính chỉ đạt tối đa")
     }
   } catch (err) {
-    toast.error(err)
+    toast.error(<CustomToast err={err} />)
   }
 }
 

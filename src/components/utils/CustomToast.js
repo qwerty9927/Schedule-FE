@@ -1,12 +1,8 @@
 
-function CustomToast({closeToast, toastProps, meg}){
+function CustomToast({closeToast, toastProps, err}){
   return (
     <>
-      <div>{meg}</div>
-      <div>
-        <button>Ok</button>
-        <button>Cancel</button>
-      </div>
+      <div>{err.meg} <span style={{fontWeight: "bold", fontStyle: "italic"}}>{err.specialMeg}</span></div>
     </>
   )
 }

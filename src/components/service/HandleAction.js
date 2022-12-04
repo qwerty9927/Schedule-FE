@@ -11,7 +11,9 @@ function checkArray(arr) {
 function checkSlot(THU, TBD, ST, CS, timeArr) {
   const pivot = 5 // Chia khung giờ
   const startLessonInTheMorning = 1
+  const endLessonInMorning = 5
   const startLessonInTheAfternoon = 6
+  const endLessonInAfternoon =  14
   const beforeBreakTimeInTheMorning = 2
   const afterBreakTimeInTheMorning = 3
   const beforeBreakTimeInTheAfternoon = 7
@@ -23,36 +25,37 @@ function checkSlot(THU, TBD, ST, CS, timeArr) {
   const TKT = TBD + ST - 1
   const indexForTKT = TKT - 1
   if (TKT <= pivot) {
-    if ((TBD === startLessonInTheMorning && timeInDay[indexForTKT + 1] === CS) // Là tiết đầu tiên có cùng cơ sở với tiết sau đó
-      || timeInDay[indexForTKT + 1] === 0
-      || timeInDay[indexForTBD - 1] === CS // tiết trước đó có cùng cơ sở hay không
-      || timeInDay[indexForTBD - 1] === 0 // trước nó chưa có tiết nào
-      || TBD === afterBreakTimeInTheMorning
-      || TKT === beforeBreakTimeInTheMorning
-    ) {
-      for (i; i < TKT; i++) {
-        if (timeInDay[i] !== 0) {
-          throw new Error("Khác cơ sở hoặc học phần bị trùng lịch")
-        }
+    for (i; i < TKT; i++) {
+      if (timeInDay[i] !== 0) {
+        throw {meg: "Học phần trùng lịch vào", specialMeg: `"Thứ ${THU}"`}
       }
-    } else {
-      throw new Error("Khác cơ sở hoặc học phần bị trùng lịch")
     }
-  } else {
-    if ((TBD === startLessonInTheAfternoon && timeInDay[indexForTKT + 1] === CS)
-      || timeInDay[indexForTKT + 1] === 0
-      || timeInDay[indexForTBD - 1] === CS
-      || timeInDay[indexForTBD - 1] === 0
-      || TBD === afterBreakTimeInTheAfternoon
-      || TKT === beforeBreakTimeInTheAfternoon
+
+    // Nếu TBD là điểm (1 hay 3) và timeInDay là (CS hay 0) thì vượt qua "Khác cơ sở"
+    if (
+      ((TBD !== startLessonInTheMorning && TBD !== afterBreakTimeInTheMorning) 
+        && (timeInDay[indexForTBD - 1] !== CS && timeInDay[indexForTBD - 1] !== 0))
+      || ((TKT !== beforeBreakTimeInTheMorning && TKT !== endLessonInMorning) 
+        && (timeInDay[indexForTKT + 1] !== CS && timeInDay[indexForTKT + 1] !== 0))
     ) {
-      for (i; i < TKT; i++) {
-        if (timeInDay[i] !== 0) {
-          throw new Error("Khác cơ sở hoặc học phần bị trùng lịch")
-        }
+      throw {meg: "Khác cơ sở vào", specialMeg: `"Thứ ${THU}"`}
+    }
+      
+  } else {
+    for (i; i < TKT; i++) {
+      if (timeInDay[i] !== 0) {
+        throw {meg: "Học phần trùng lịch vào", specialMeg: `"Thứ ${THU}"`}
       }
-    } else {
-      throw new Error("Khác cơ sở hoặc học phần bị trùng lịch")
+    }
+
+    // Nếu TKT là điểm (1 hay 3) và timeInDay là (CS hay 0) thì vượt qua "Khác cơ sở"
+    if (
+      ((TBD !== startLessonInTheAfternoon && TBD !== afterBreakTimeInTheAfternoon) 
+        && (timeInDay[indexForTBD - 1] !== CS && timeInDay[indexForTBD - 1] !== 0))
+      || ((TKT !== beforeBreakTimeInTheAfternoon && TKT !== endLessonInAfternoon) 
+        && (timeInDay[indexForTKT + 1] !== CS && timeInDay[indexForTKT + 1] !== 0))
+    ) {
+      throw {meg: "Khác cơ sở vào", specialMeg: `"Thứ ${THU}"`}
     }
   }
 
@@ -62,7 +65,7 @@ function checkSlot(THU, TBD, ST, CS, timeArr) {
 function isExistSubject(ListSubjectRegistered, MaMH) {
   ListSubjectRegistered.forEach(item => {
     if (item.MaMH === MaMH) {
-      throw new Error("Môn học đã tồn tại")
+      throw {meg: "Môn học đã tồn tại"}
     }
   })
 }
@@ -219,7 +222,7 @@ function actionAdd(myStore, subjectInfo) {
     })
     localStorage.setItem(myStore.state.semester, JSON.stringify(table.ListSubjectRegistered))
   } catch (err) {
-    throw err.message
+    throw err
   }
 }
 
