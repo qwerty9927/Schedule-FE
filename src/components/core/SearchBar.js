@@ -7,7 +7,7 @@ import clsx from "clsx"
 
 function SearchBar() {
   const myStore = useContext(Context)
-  const [formValue, setFormValue] = useState({schoolYear: myStore.state.semester, majors: myStore.state.majors})
+  const [formValue, setFormValue] = useState({schoolYear: myStore.state.semester || "", majors: myStore.state.majors || ""})
   const [formValueFilter, setFormValueFilter] = useState({})
   const [schoolYear, setSchoolYear] = useState([])
   const [majors, setMajors] = useState([])
