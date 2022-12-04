@@ -1,16 +1,17 @@
 import { useContext, useEffect, useState } from "react"
 import axiosBase from "../../api/axiosBase"
 import Context from "../store/Context"
-import { ResetResultSearch, ResetResultSearchHandled, SetResultSearch, SetResultSearchHandled, SetSemester } from '../store/Constant'
+import { ResetResultSearch, ResetResultSearchHandled, SetMajors, SetResultSearch, SetResultSearchHandled, SetSemester } from '../store/Constant'
 import { toast } from "react-toastify"
 import clsx from "clsx"
 
 function SearchBar() {
-  const [formValue, setFormValue] = useState({})
+  const myStore = useContext(Context)
+  const [formValue, setFormValue] = useState({schoolYear: myStore.state.semester, majors: myStore.state.majors})
   const [formValueFilter, setFormValueFilter] = useState({})
   const [schoolYear, setSchoolYear] = useState([])
+  const [majors, setMajors] = useState([])
   const [filterBtn, setFilterBtn] = useState(false)
-  const myStore = useContext(Context)
 
   const callApiSearch = async () => {
     return await axiosBase.post("api/subject/search", {
@@ -22,10 +23,16 @@ function SearchBar() {
     return await axiosBase.get("api/subject/course")
   }
 
+  const callApiMajors = async () => {
+    return await axiosBase.get("api/subject/majors")
+  }
+
   useEffect(() => {
     const fetchApi = async () => {
-      const result = (await callApiSchoolYear()).data.result
-      setSchoolYear(result)
+      const resultRoot = (await callApiSchoolYear()).data.result
+      const resultMajors = (await callApiMajors()).data.result 
+      setSchoolYear(resultRoot)
+      setMajors(resultMajors)
     }
     fetchApi()
   }, [])
@@ -33,6 +40,11 @@ function SearchBar() {
   const validate = () => {
     if (!formValue.schoolYear) {
       toast.warn("Cần chọn học kỳ")
+      return false
+    }
+
+    if (!formValue.majors) {
+      toast.warn("Cần chọn khoa")
       return false
     }
 
@@ -130,7 +142,7 @@ function SearchBar() {
     <div className="search_bar">
       <div className="search_bar_block_top">
         <div className="search_option">
-          <select name="schoolYear" id="" onChange={(e) => { handleChange(e); 
+          <select name="schoolYear" value={formValue.schoolYear} onChange={(e) => { handleChange(e); 
             if(e.target.value){
               myStore.dispatch({ type: SetSemester, payload: e.target.value }) 
             }
@@ -139,6 +151,18 @@ function SearchBar() {
             {schoolYear.map((item, index) => {
               return (
                 <option key={index} value={item}>{item}</option>
+              )
+            })}
+          </select>
+          <select name="majors" id="" value={formValue.majors} onChange={(e) => { handleChange(e); 
+            if(e.target.value){
+              myStore.dispatch({ type: SetMajors, payload: e.target.value }) 
+            }
+            }} >
+            <option value="">Khoa</option>
+            {majors.map((item, index) => {
+              return (
+                <option key={index} value={item}>{item.toUpperCase()}</option>
               )
             })}
           </select>

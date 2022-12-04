@@ -1,12 +1,13 @@
 import { useReducer } from "react"
 import Context from "./Context"
-import { ResetResultSearchHandled, SetClear, SetCounter, SetResultSearch, SetResultSearchHandled, SetSemester, SetTableValue } from './Constant'
+import { ResetResultSearchHandled, SetClear, SetCounter, SetMajors, SetResultSearch, SetResultSearchHandled, SetSemester, SetTableValue } from './Constant'
 import { initTable } from "../service/HandleAction"
 
 function Provider({ children }) {
 
   const initialState = () => {
     const currentSemester = localStorage.getItem("currentSemester")
+    const majors = localStorage.getItem("currentMajors")
     const table = initTable(currentSemester)
     const counter = () => {
       const subjectRegistered = table.ListSubjectRegistered || []
@@ -20,6 +21,7 @@ function Provider({ children }) {
       resultSearch: [],
       resultSearchHandled: [],
       semester: currentSemester,
+      majors: majors,
       tableValue: table,
       counter: counter()
     }
@@ -52,6 +54,9 @@ function Provider({ children }) {
         return { ...state, counter: action.payload }
       case SetSemester:
         localStorage.setItem("currentSemester", action.payload)
+        return initialState()
+      case SetMajors:
+        localStorage.setItem("currentMajors", action.payload)
         return initialState()
       case SetClear:
         const initial = initialState()
