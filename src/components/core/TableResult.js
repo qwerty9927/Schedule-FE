@@ -30,7 +30,7 @@ function TableResult() {
 
   return (
     <div className="table_result">
-      <div style={{textAlign: "center"}}><h2>Thời khóa biểu {myStore.state.semester} - <span style={{color: "var(--secondary)", fontWeight: "bold"}}>{myStore.state.majors}</span></h2></div>
+      <div style={{textAlign: "center"}}><h2>Thời khóa biểu {myStore.state.semester} - <span style={{color: "var(--secondary)", textTransform: "uppercase"}}>{myStore.state.majors}</span></h2></div>
       <h3>Học phần đã chọn</h3>
       <table width="100%">
         <tbody>
