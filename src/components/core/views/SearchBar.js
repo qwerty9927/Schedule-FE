@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react"
-import axiosBase from "../../api/axiosBase"
-import Context from "../store/Context"
-import { ResetResultSearch, ResetResultSearchHandled, SetMajors, SetResultSearch, SetResultSearchHandled, SetSemester } from '../store/Constant'
+import axiosBase from "../../../api/axiosBase"
+import Context from "../../store/Context"
+import { ResetResultSearch, ResetResultSearchHandled, SetMajors, SetResultSearch, SetResultSearchHandled, SetSemester } from '../../store/Constant'
 import { toast } from "react-toastify"
 import clsx from "clsx"
 

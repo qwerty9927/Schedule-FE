@@ -1,11 +1,11 @@
 import { ToastContainer } from 'react-toastify'
 import "react-toastify/dist/ReactToastify.css";
-import './css/style.css'
-import SearchBar from "./SearchBar"
-import Table from "./Table"
-import Schedule from "./Schedule"
-import TableResult from './TableResult'
-import Footer from './Footer'
+import './assets/css/style.css'
+import SearchBar from "./views/SearchBar"
+import Table from "./views/Table"
+import Schedule from "./views/Schedule"
+import TableResult from './views/TableResult'
+import Footer from './views/Footer'
 
 function Core(){
   return (

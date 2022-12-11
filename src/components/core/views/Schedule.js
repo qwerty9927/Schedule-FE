@@ -1,11 +1,10 @@
 import { Fragment, useContext, useRef, useState } from "react"
 import * as htmlToImage from "html-to-image"
-import { reMakeArrTuan } from "../service/HandleAction"
-import Context from "../store/Context"
-import Card from "../utils/Card"
-import './css/style.css'
+import { reMakeArrTuan } from "../../service/HandleAction"
+import Context from "../../store/Context"
+import Card from "../../utils/Card"
 import { toast } from "react-toastify"
-import Structure from "../utils/Structure"
+import Structure from "../../utils/Structure"
 
 function Schedule() {
   const myStore = useContext(Context)

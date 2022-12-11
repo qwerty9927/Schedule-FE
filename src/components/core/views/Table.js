@@ -1,7 +1,7 @@
-import Subject from "../utils/Subject"
-import Context from "../store/Context"
+import Subject from "../../utils/Subject"
+import Context from "../../store/Context"
 import { useContext, useEffect, useState } from "react"
-import { SetFlowChecked } from "../store/Constant"
+import { SetFlowChecked } from "../../store/Constant"
 
 function Table(){
   const myStore = useContext(Context)
