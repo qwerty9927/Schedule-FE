@@ -1,0 +1,154 @@
+.search_bar {
+  margin: 30px 0 20px;
+  /* width: 650px; */
+  box-shadow: 0 0 10px 2px rgba(0,0,0,0.1);
+  background-color: #ccc;
+  border-radius: 5px;
+}
+
+.input_search:focus, select:focus {
+  box-shadow: 0 0 10px 2px rgba(0,0,0,0.2);
+}
+
+.search_bar_block_top {
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.search_box {
+  display: flex;
+  align-items: center;
+}
+
+.input_search {
+  padding: 10px;
+  height: 30px;
+  border-radius: 5px;
+  outline: none;
+  border: 0;
+  margin-right: 20px;
+  transition: .4s;
+}
+
+.btn_search, .btn_filter {
+  height: 30px;
+  width: 100px;
+  color: #fff;
+  background-color: var(--primary);
+  border-radius: 5px; 
+  border: none;
+  box-shadow: 0 0 10px 2px rgba(0,0,0,0.1);
+}
+
+.btn_search:hover, .btn_filter:hover {
+  background-color: var(--primary_hover)
+}
+
+.btn_search:active, .btn_filter:active {
+  transform: scale(.98);
+}
+
+.search_option {
+  display: flex;
+  align-items: center;  
+}
+
+.search_option select {
+  height: 30px;
+  width: 120px;
+  text-align: center;
+  border-radius: 5px;
+  margin-right: 20px;
+  outline: none;
+  border: none;
+  transition: .4s;
+}
+
+.search_bar_block_bot {
+  padding: 20px;
+  background-color: #ddd;
+  border-radius: 0 0 5px 5px;
+}
+
+.search_bar_block_bot_show {
+  display: block;
+  animation: showFilter .1s ease-out forwards;
+}
+
+.search_bar_block_bot_hide {
+  display: none;
+}
+
+@keyframes showFilter {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0%);
+    opacity: 100%;
+  }
+}
+
+.filter_box button {
+  width: 30px;
+  height: 30px;
+  background-color: #fff;
+  border: none;
+  margin-left: 10px;
+  border-radius: 50%;
+  color: var(--primary);
+  box-shadow: 0 0 10px 2px rgba(0,0,0,0.1);
+}
+
+.filter_box button:hover {
+  background-color: #f1f1f1;
+}
+
+.filter_box button:active {
+  transform: scale(.98);
+}
+
+.filter_option {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.filter_option select {
+  height: 30px;
+  width: 120px;
+  text-align: center;
+  border-radius: 5px;
+  margin-right: 20px;
+  margin-left: 10px;
+  outline: none;
+  border: none;
+  transition: .4s;
+}
+
+.filter_option label {
+  font-size: 16px;
+}
+
+.btn_close_filter {
+  width: 30px;
+  height: 30px;
+  color: #fff;
+  background-color: var(--secondary);
+  box-shadow: 0 0 10px 2px rgba(0,0,0,0.1);
+  border: none;
+  border-radius: 5px;
+  margin-left: 10px;
+  font-size: 16px;
+}
+
+.btn_close_filter:hover {
+  background-color: var(--secondary_hover)
+}
+
+.btn_close_filter:active {
+  transform: scale(.98);
+}
+

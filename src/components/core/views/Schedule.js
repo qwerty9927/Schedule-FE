@@ -1,19 +1,21 @@
 import { Fragment, useContext, useRef, useState } from "react"
-import * as htmlToImage from "html-to-image"
+import style from "../assets/css/schedule.module.css"
 import { reMakeArrTuan } from "../../service/HandleAction"
 import Context from "../../store/Context"
 import Card from "../../utils/Card"
-import { toast } from "react-toastify"
-import Structure from "../../utils/Structure"
+import Import from "../../utils/Import"
+import Export from "../../utils/Export"
+import Edit from "../../utils/Edit"
+import ScreenShot from "../../utils/ScreenShot"
+import Tabs from "../../utils/Tabs"
+import OptionTime from "../../utils/OptionTime"
 
 function Schedule() {
   const myStore = useContext(Context)
   const ref = useRef()
   const [option, setOption] = useState(0)
   const listColor = ["255,0,0", "255,165,0", "0,83,156", "122,32,72", "138,170,229", "184,80,66", "49,119,115", "255,20,164", "43,174,102", "224,169,109", "153,244,67"]
-  const handleOption = (e) => {
-    setOption(e.target.value - 1)
-  }
+  
 
   const renderSchedule = (week) => {
     let i, j, k, z
@@ -67,7 +69,7 @@ function Schedule() {
     for(let i = 0;i < data.length;i++){
       result.push(
         <tr key={i}>
-          <td className={i + 1 === 6 ? "secondary" : null}>{ i + 1 === 6 ? "Trưa" : `Tiết ${i + 1 > 6 ? i : i + 1}` }</td>
+          <td className={i + 1 === 6 ? [style.secondary] : null}>{ i + 1 === 6 ? "Trưa" : `Tiết ${i + 1 > 6 ? i : i + 1}` }</td>
           {data[i].map((item, index) => <Fragment key={index}>{item}</Fragment>)}
         </tr>
       )
@@ -75,55 +77,32 @@ function Schedule() {
     return result
   }
 
-  const takeScreenShot = async (node) => {
-    const dataURL = await htmlToImage.toJpeg(node)
-    return dataURL
-  }
-
-  const download = (image, { extension = "jpg" } = {}) => {
-    const a = document.createElement("a");
-    a.href = image;
-    a.download = `${myStore.state.semester}-Tuan_${option + 1}.${extension}`
-    a.click();
-  };
-
-  const downloadScreenShot = () => {
-    toast.info("Tải ảnh thời khóa biểu")
-    takeScreenShot(ref.current).then(download)
-  }
 
   return (
-    <div className="schedule_optionTime">
-      <div className="option_time">
-        <label htmlFor="">Tuần:</label>
-        <select name="" id="week" onChange={(e) => handleOption(e)}>
-          {(new Array((new Structure).numberOfSchoolWeeks).fill(0)).map((item, index) => {
-            return (
-              <option value={index + 1} key={index}>
-                {index + 1}
-              </option>
-            )
-          })}
-        </select>
-      </div>
-      <div className="screen_shot">
-        <button title="Take ScreenShot" onClick={downloadScreenShot}><i className="fa-solid fa-camera"></i></button>
-      </div>
-      <div className="schedule" ref={ref}>
-        <table width="100%">
-          <tbody>
-            <tr>
-              <th width=""></th>
-              <th width="15%">Thứ Hai</th>
-              <th width="15%">Thứ Ba</th>
-              <th width="15%">Thứ Tư</th>
-              <th width="15%">Thứ Năm</th>
-              <th width="15%">Thứ Sáu</th>
-              <th width="15%">Thứ Bảy</th>
-            </tr>
-            {handleRender(renderSchedule(option))}
-          </tbody>
-        </table>
+    <div className={style.schedule_optionTime}>
+      <OptionTime style={style} setOption={setOption} />
+      <ScreenShot style={style} refer={ref} myStore={myStore} option={option} />
+      <Import style={style} />
+      <Export style={style} />
+      <Edit style={style} />
+      <div className={style.schedule} >
+        <Tabs style={style} />
+        <div className={style.table_schedule_core} ref={ref}>
+          <table width="100%">
+            <tbody>
+              <tr>
+                <th width=""></th>
+                <th width="15%">Thứ Hai</th>
+                <th width="15%">Thứ Ba</th>
+                <th width="15%">Thứ Tư</th>
+                <th width="15%">Thứ Năm</th>
+                <th width="15%">Thứ Sáu</th>
+                <th width="15%">Thứ Bảy</th>
+              </tr>
+              {handleRender(renderSchedule(option))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   )

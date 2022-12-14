@@ -62,10 +62,10 @@ function checkSlot(THU, TBD, ST, CS, timeArr) {
   return timeInDay.fill(CS, indexForTBD, TKT)
 }
 
-function isExistSubject(ListSubjectRegistered, MaMH) {
-  ListSubjectRegistered.forEach(item => {
-    if (item.MaMH === MaMH) {
-      throw {meg: "Môn học đã tồn tại"}
+function clearEmptyTimeTemp(table, subjectInfo) {
+  table.ListSubjectRegistered.forEach(item => {
+    if (item.MaMH === subjectInfo.MaMH) {
+      actionDeleteTemp(table, item)
     }
   })
 }
@@ -104,9 +104,9 @@ function handleSubjectInfo(subjectInfo){
   return subjectInfo
 }
 
-function initTable(currentSemester){
+function initTable(currentTabs){
   const table = (new Structure).getBaseStructure()
-  table.ListSubjectRegistered = JSON.parse(localStorage.getItem(currentSemester)) || []
+  table.ListSubjectRegistered = JSON.parse(localStorage.getItem(currentTabs)) || []
   table.ListSubjectRegistered.forEach(item => {
     let {
       MaMH,
@@ -174,14 +174,14 @@ function actionAdd(myStore, subjectInfo) {
   } = handleSubjectInfo({...subjectInfo})
 
   try {
-    const table = myStore.state.tableValue
-    isExistSubject(table.ListSubjectRegistered, MaMH)
-    const tempListEmptyTime = JSON.parse(JSON.stringify(table.ListEmptyTime))
+    const table = JSON.parse(JSON.stringify(myStore.state.tableValue))
+    clearEmptyTimeTemp(table, subjectInfo)
+
     const newTuan = reMakeArrTuan(Tuan)
     newTuan.forEach((rootItem, rootIndex) => {
       rootItem.forEach((item, index) => {
-        const result = checkSlot(Thu[rootIndex], TBD[rootIndex], ST[rootIndex], CS[rootIndex], tempListEmptyTime[item])
-        tempListEmptyTime[item][`${Thu[rootIndex]}`] = result
+        const result = checkSlot(Thu[rootIndex], TBD[rootIndex], ST[rootIndex], CS[rootIndex], table.ListEmptyTime[item])
+        table.ListEmptyTime[item][`${Thu[rootIndex]}`] = result
       })
     })
 
@@ -205,7 +205,7 @@ function actionAdd(myStore, subjectInfo) {
         CS
       })
     })
-    table.ListEmptyTime = tempListEmptyTime
+    // table.ListEmptyTime = table.ListEmptyTime
     table.ListSubjectRegistered.push({
       MaMH,
       TenMH,
@@ -220,7 +220,12 @@ function actionAdd(myStore, subjectInfo) {
       ST,
       CS
     })
-    localStorage.setItem(myStore.state.semester, JSON.stringify(table.ListSubjectRegistered))
+
+    // Set lại table mới cho tableValue
+    myStore.state.tableValue = table
+
+    //Thay đổi list subject registered trong localStorage
+    localStorage.setItem(myStore.state.tabs, JSON.stringify(table.ListSubjectRegistered))
   } catch (err) {
     throw err
   }
@@ -270,7 +275,24 @@ function actionDelete(myStore, subjectInfo) {
     table.ListEmptyTime = emptyTime
     table.ListSchedule = schedule
     table.ListSubjectRegistered = subject
-    localStorage.setItem(myStore.state.semester, JSON.stringify(subject))
+    localStorage.setItem(myStore.state.tabs, JSON.stringify(subject))
+  } catch (err) {
+    throw err
+  }
+}
+
+function actionDeleteTemp(table, subjectInfo) {
+  try {
+    // Delete empty time
+    const emptyTime = changeEmptyTime(subjectInfo, table.ListEmptyTime)
+    // Delete schedule
+    const schedule = changeSchedule(subjectInfo, table.ListSchedule) 
+    // Delete subject
+    const subject = changeSubjectRegister(subjectInfo, table.ListSubjectRegistered)
+    table.ListEmptyTime = emptyTime
+    table.ListSchedule = schedule
+    table.ListSubjectRegistered = subject
+
   } catch (err) {
     throw err
   }

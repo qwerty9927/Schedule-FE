@@ -1,15 +1,15 @@
+import { useContext } from "react"
+import style from "../assets/css/table.module.css"
 import Subject from "../../utils/Subject"
 import Context from "../../store/Context"
-import { useContext, useEffect, useState } from "react"
-import { SetFlowChecked } from "../../store/Constant"
 
 function Table(){
   const myStore = useContext(Context)
   return (
     <>
       <div style={{ margin: "0 32px"}}>
-        <div className="table">
-          <div className="subject_title">
+        <div className={style.table}>
+          <div className={style.subject_title}>
             <table style={{width:"100%"}} rules="all">
               <tbody>
                 <tr>
@@ -33,7 +33,7 @@ function Table(){
               </tbody>
             </table>
           </div>
-          <div className="subject_box">
+          <div className={style.subject_box}>
             {
               myStore.state.resultSearchHandled.map((item, index) => {
                 return (

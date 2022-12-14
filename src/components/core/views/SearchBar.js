@@ -1,9 +1,10 @@
 import { useContext, useEffect, useState } from "react"
+import clsx from "clsx"
+import { toast } from "react-toastify"
+import style from "../assets/css/searchBar.module.css"
 import axiosBase from "../../../api/axiosBase"
 import Context from "../../store/Context"
 import { ResetResultSearch, ResetResultSearchHandled, SetMajors, SetResultSearch, SetResultSearchHandled, SetSemester } from '../../store/Constant'
-import { toast } from "react-toastify"
-import clsx from "clsx"
 
 function SearchBar() {
   const myStore = useContext(Context)
@@ -139,9 +140,9 @@ function SearchBar() {
   }
 
   return (
-    <div className="search_bar">
-      <div className="search_bar_block_top">
-        <div className="search_option">
+    <div className={style.search_bar}>
+      <div className={style.search_bar_block_top}>
+        <div className={style.search_option}>
           <select name="schoolYear" value={formValue.schoolYear} onChange={(e) => { handleChange(e); 
             if(e.target.value){
               myStore.dispatch({ type: SetSemester, payload: e.target.value }) 
@@ -167,16 +168,16 @@ function SearchBar() {
             })}
           </select>
         </div>
-        <div className="search_box">
-          <input type="text" placeholder="VD: 802142 OR Môn A" className="input_search" onChange={(e) => { handleChange(e) }} onKeyUp={(e) => handleKeyUp(e)} name="searchValue" />
-          <button className="btn_search" onClick={handleClickBtnSearch}>Search</button>
+        <div className={style.search_box}>
+          <input type="text" placeholder="VD: 802142 OR Môn A" className={style.input_search} onChange={(e) => { handleChange(e) }} onKeyUp={(e) => handleKeyUp(e)} name="searchValue" />
+          <button className={style.btn_search} onClick={handleClickBtnSearch}>Search</button>
         </div>
-        <div className="filter_box">
+        <div className={style.filter_box}>
             <button title="Filter" onClick={(e) => handleClickShowFilter(e)}><i className="fa-solid fa-filter"></i></button>
         </div>
       </div>
-      <div className={clsx("search_bar_block_bot", {"search_bar_block_bot_show": filterBtn}, {"search_bar_block_bot_hide": !filterBtn})}>
-        <div className="filter_option">
+      <div className={clsx(style.search_bar_block_bot, {[style.search_bar_block_bot_show]: filterBtn}, {[style.search_bar_block_bot_hide]: !filterBtn})}>
+        <div className={style.filter_option}>
           <label htmlFor="">Thứ: </label>
           <select name="day" id="" value={formValueFilter.day} onChange={(e) => {handleChangeOfFilter(e)}}>
             <option value="">--Option--</option>
@@ -201,8 +202,8 @@ function SearchBar() {
               )
             })}
           </select>
-          <button className="btn_filter" onClick={handleClickBtnFilter}>Filter</button>
-          <button title="Clear option" className="btn_close_filter" onClick={handleClickBtnCloseFilter}><i className="fa-solid fa-xmark"></i></button>
+          <button className={style.btn_filter} onClick={handleClickBtnFilter}>Filter</button>
+          <button title="Clear option" className={style.btn_close_filter} onClick={handleClickBtnCloseFilter}><i className="fa-solid fa-xmark"></i></button>
         </div>
       </div>
     </div>

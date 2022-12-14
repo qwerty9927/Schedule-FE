@@ -1,5 +1,6 @@
 import { useContext } from "react"
 import { toast } from "react-toastify"
+import style from "../assets/css/tableResult.module.css"
 import { reMakeArrTuan } from "../../service/HandleAction"
 import Context from "../../store/Context"
 import { actionDeleteWithRender, actionDeleteAll } from '../../utils/CustomAction'
@@ -29,7 +30,7 @@ function TableResult() {
   }
 
   return (
-    <div className="table_result">
+    <div className={style.table_result}>
       <div style={{textAlign: "center"}}><h2>Thời khóa biểu {myStore.state.semester} - <span style={{color: "var(--secondary)", textTransform: "uppercase"}}>{myStore.state.majors}</span></h2></div>
       <h3>Học phần đã chọn</h3>
       <table width="100%">
@@ -48,7 +49,7 @@ function TableResult() {
           return (
             <tr key={index}>
               <td>{index + 1}</td>
-              <td className="btnMaMH" title="Click To Copy" style={{fontWeight: "bold"}} onClick={(e) => handleCopy(e)}>{item.MaMH}</td>
+              <td className={style.btnMaMH} title="Click To Copy" style={{fontWeight: "bold"}} onClick={(e) => handleCopy(e)}>{item.MaMH}</td>
               <td>{item.TenMH}</td>
               <td style={{fontWeight: "bold"}}>{item.NMH}</td>
               <td>{getWeekWithOption("Min", item.Tuan)}</td>
@@ -61,7 +62,7 @@ function TableResult() {
         <tr>
           <td colSpan={6} style={{fontWeight: "bold"}}>Tổng số tính chỉ</td>
           <td style={{fontWeight: "bold"}}>{myStore.state.counter}</td>
-          <td className="btn_clear" style={{fontWeight: "bold"}} onClick={() => {actionDeleteAll(myStore)}}>Clear All</td>
+          <td className={style.btn_clear} style={{fontWeight: "bold"}} onClick={() => {actionDeleteAll(myStore)}}>Clear All</td>
         </tr>
         </tbody>
       </table>

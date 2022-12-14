@@ -1,14 +1,18 @@
 import { useReducer } from "react"
+import { v4 } from "uuid"
 import Context from "./Context"
-import { ResetResultSearchHandled, SetClear, SetCounter, SetMajors, SetResultSearch, SetResultSearchHandled, SetSemester, SetTableValue } from './Constant'
+import { CloseTabs, ResetResultSearchHandled, SelectTabs, SetClear, SetCounter, SetMajors, SetNewTabs, SetResultSearch, SetResultSearchHandled, SetSemester } from './Constant'
 import { initTable } from "../service/HandleAction"
+import { toast } from "react-toastify"
 
 function Provider({ children }) {
 
   const initialState = () => {
     const currentSemester = localStorage.getItem("currentSemester")
+    const listTabs = JSON.parse(localStorage.getItem(currentSemester)) || []
+    const currentTabs = localStorage.getItem("currentTabs")
     const majors = localStorage.getItem("currentMajors")
-    const table = initTable(currentSemester)
+    const table = initTable(currentTabs)
     const counter = () => {
       const subjectRegistered = table.ListSubjectRegistered || []
       let count = 0
@@ -23,6 +27,8 @@ function Provider({ children }) {
       semester: currentSemester,
       majors: majors,
       tableValue: table,
+      listTabs: listTabs,
+      tabs: currentTabs,
       counter: counter()
     }
   }
@@ -42,25 +48,66 @@ function Provider({ children }) {
     return result
   }
 
+  const setSemester = (action) => {
+    localStorage.setItem("currentSemester", action.payload)
+    if(!localStorage.getItem("currentTabs") || !localStorage.getItem(action.payload)){
+      const string = v4()
+      localStorage.setItem("currentTabs", string)
+      localStorage.setItem(action.payload, JSON.stringify([{name:  action.payload, id: string}]))
+    }
+  }
+
+  const closeTabs = (state, action) => {
+    if(state.listTabs.length > 1){
+      if(state.tabs === action.payload){
+        const index = state.listTabs.findIndex(item => {
+          return item.id === action.payload
+        })
+        if(index === state.listTabs.length - 1) {
+          localStorage.setItem("currentTabs", state.listTabs[index - 1].id)
+        } else if(index >= 0){
+          localStorage.setItem("currentTabs", state.listTabs[index + 1].id)
+        } 
+      }
+      const newListTabs = state.listTabs.filter(item => {
+        return item.id !== action.payload
+      })
+      localStorage.removeItem(action.payload)
+      localStorage.setItem(state.semester, JSON.stringify(newListTabs))
+      toast.success("Xoa tab thanh cong")
+    } else {
+      toast.info("Tab nay khong xoa duoc")
+    }
+  }
+
   const reducer = (state, action) => {
     switch (action.type) {
       case SetResultSearch:
         return { ...state, resultSearch: action.payload, resultSearchHandled: handleResultSearch(state, action.payload) }
       case SetResultSearchHandled:
         return { ...state, resultSearchHandled: handleResultSearch(state, action.payload) }
-      case SetTableValue:
-        return { ...state, tableValue: action.payload }
-      case SetCounter:
-        return { ...state, counter: action.payload }
       case SetSemester:
-        localStorage.setItem("currentSemester", action.payload)
+        setSemester(action)
         return initialState()
       case SetMajors:
         localStorage.setItem("currentMajors", action.payload)
         return initialState()
+      case SetNewTabs:
+        const initial_2 = initialState()
+        return { ...initial_2, resultSearch: state.resultSearch, resultSearchHandled: handleResultSearch(initial_2, state.resultSearchHandled) }
+      case SelectTabs:
+        localStorage.setItem("currentTabs", action.payload)
+        const initial_3 = initialState()
+        return { ...initial_3, resultSearch: state.resultSearch, resultSearchHandled: handleResultSearch(initial_3, state.resultSearchHandled) }
+      case CloseTabs:
+        closeTabs(state, action)
+        const initial_4 = initialState()
+        return { ...initial_4, resultSearch: state.resultSearch, resultSearchHandled: handleResultSearch(initial_4, state.resultSearchHandled) }
+      case SetCounter:
+        return { ...state, counter: action.payload }
       case SetClear:
-        const initial = initialState()
-        return { ...initial, resultSearch: state.resultSearch, resultSearchHandled: handleResultSearch(initial, state.resultSearchHandled) }
+        const initial_1 = initialState()
+        return { ...initial_1, resultSearch: state.resultSearch, resultSearchHandled: handleResultSearch(initial_1, state.resultSearchHandled) }
       case ResetResultSearchHandled:
         return { ...state, resultSearchHandled: handleResultSearch(state, state.resultSearch) }
       default:
