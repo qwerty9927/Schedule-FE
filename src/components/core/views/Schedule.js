@@ -82,9 +82,9 @@ function Schedule() {
     <div className={style.schedule_optionTime}>
       <OptionTime style={style} setOption={setOption} />
       <ScreenShot style={style} refer={ref} myStore={myStore} option={option} />
-      <Import style={style} />
-      <Export style={style} />
-      <Edit style={style} />
+      <Import />
+      <Export />
+      {/* <Edit style={style} /> */}
       <div className={style.schedule} >
         <Tabs style={style} />
         <div className={style.table_schedule_core} ref={ref}>

@@ -5,6 +5,7 @@ import style from "../assets/css/searchBar.module.css"
 import axiosBase from "../../../api/axiosBase"
 import Context from "../../store/Context"
 import { ResetResultSearch, ResetResultSearchHandled, SetMajors, SetResultSearch, SetResultSearchHandled, SetSemester } from '../../store/Constant'
+import message from "../../utils/toastMessage"
 
 function SearchBar() {
   const myStore = useContext(Context)
@@ -40,17 +41,17 @@ function SearchBar() {
 
   const validate = () => {
     if (!formValue.schoolYear) {
-      toast.warn("Cần chọn học kỳ")
+      toast.warn(message.searchSchoolYearWarn)
       return false
     }
 
     if (!formValue.majors) {
-      toast.warn("Cần chọn khoa")
+      toast.warn(message.searchMajorsWarn)
       return false
     }
 
     if (!formValue.searchValue) {
-      toast.warn("Cần nhập thông tin tìm kiếm")
+      toast.warn(message.searchSearchValueWarn)
       return false
     }
     return true
@@ -58,12 +59,12 @@ function SearchBar() {
 
   const validateFilter = () => {
     if (!formValueFilter.day) {
-      toast.warn("Cần chọn ngày")
+      toast.warn(message.filterDayWarn)
       return false
     }
 
     if (!formValueFilter.startLession) {
-      toast.warn("Cần chọn tiết bắt đầu")
+      toast.warn(message.filterStartLessionWarn)
       return false
     }
 
@@ -104,7 +105,7 @@ function SearchBar() {
     if(myStore.state.resultSearch.length){
       setFilterBtn(!filterBtn)
     } else {
-      toast.info("Cần tìm kiếm môn học trước khi Filter")
+      toast.info(message.filterFeatureInfo)
     }
   }
 
@@ -119,9 +120,9 @@ function SearchBar() {
       })
       myStore.dispatch({ type: SetResultSearchHandled, payload: result })
       if(result.length){
-        toast.success("Đã tìm thấy kết quả")
+        toast.success(message.resultFilterSuccess)
       } else {
-        toast.error("Không tìm thấy kết quả")
+        toast.error(message.resultFilterError)
       }
     }
   }

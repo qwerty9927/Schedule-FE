@@ -4,6 +4,7 @@ import Context from "./Context"
 import { CloseTabs, ResetResultSearchHandled, SelectTabs, SetClear, SetCounter, SetMajors, SetNewTabs, SetResultSearch, SetResultSearchHandled, SetSemester } from './Constant'
 import { initTable } from "../service/HandleAction"
 import { toast } from "react-toastify"
+import message from "../utils/toastMessage"
 
 function Provider({ children }) {
 
@@ -50,33 +51,33 @@ function Provider({ children }) {
 
   const setSemester = (action) => {
     localStorage.setItem("currentSemester", action.payload)
-    if(!localStorage.getItem("currentTabs") || !localStorage.getItem(action.payload)){
+    if (!localStorage.getItem("currentTabs") || !localStorage.getItem(action.payload)) {
       const string = v4()
       localStorage.setItem("currentTabs", string)
-      localStorage.setItem(action.payload, JSON.stringify([{name:  action.payload, id: string}]))
+      localStorage.setItem(action.payload, JSON.stringify([{ name: action.payload, id: string }]))
     }
   }
 
   const closeTabs = (state, action) => {
-    if(state.listTabs.length > 1){
-      if(state.tabs === action.payload){
+    if (state.listTabs.length > 1) {
+      if (state.tabs === action.payload) {
         const index = state.listTabs.findIndex(item => {
           return item.id === action.payload
         })
-        if(index === state.listTabs.length - 1) {
+        if (index === state.listTabs.length - 1) {
           localStorage.setItem("currentTabs", state.listTabs[index - 1].id)
-        } else if(index >= 0){
+        } else if (index >= 0) {
           localStorage.setItem("currentTabs", state.listTabs[index + 1].id)
-        } 
+        }
       }
       const newListTabs = state.listTabs.filter(item => {
         return item.id !== action.payload
       })
       localStorage.removeItem(action.payload)
       localStorage.setItem(state.semester, JSON.stringify(newListTabs))
-      toast.success("Xoa tab thanh cong")
+      toast.success(message.closeTabsSuccess)
     } else {
-      toast.info("Tab nay khong xoa duoc")
+      toast.info(message.closeTabsInfo)
     }
   }
 

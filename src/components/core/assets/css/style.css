@@ -10,6 +10,10 @@ th {
   cursor: default;
 }
 
+button {
+  font-family: monospace;
+}
+
 .core {
   display: flex;
   align-items: center;
