@@ -81,3 +81,11 @@
 .btnMaMH:hover {
   background-color: #f1f1f1;
 }
+
+
+@media (max-width: 1023px) and (min-width: 740px){
+  .table_result {
+    width: 100%;
+    padding: 0 32px;
+  }
+}

@@ -2,7 +2,7 @@
 .import {
   position: absolute;
   top: 41px;
-  right: 205px;
+  right: 220px;
   font-family: monospace; 
 }
 
@@ -91,4 +91,10 @@
 
 .modal_footer .btnClear:hover {
   background-color: var(--secondary_hover);
+}
+
+@media (max-width: 1023px) and (min-width: 740px){
+  .import {
+    right: 250px;   
+  }
 }

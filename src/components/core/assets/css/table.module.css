@@ -27,3 +27,11 @@
   padding: 10px;
 }
   
+
+@media (max-width: 1023px) and (min-width: 740px){
+  
+  .table {
+    width: 100%;
+  }
+
+}

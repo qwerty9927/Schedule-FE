@@ -120,3 +120,11 @@
 .codeExport:hover {
   background-color: #f1f1f1;
 }
+
+@media (max-width: 1023px) and (min-width: 740px){
+  
+  .export {
+    right: 120px;   
+  }
+
+}

@@ -1,6 +1,6 @@
 import { ToastContainer } from 'react-toastify'
-import "react-toastify/dist/ReactToastify.css";
 import './assets/css/style.css'
+import 'react-toastify/dist/ReactToastify.css'
 import SearchBar from "./views/SearchBar"
 import Table from "./views/Table"
 import Schedule from "./views/Schedule"
