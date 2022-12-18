@@ -27,7 +27,8 @@ function Export(){
 
   const handleOpen = () => {
     if(myStore.state.semester){
-      const name = myStore.state.listTabs.find(item => myStore.state.tabs === item.id).name
+      const tabs = myStore.state.listTabs.find(item => myStore.state.tabs === item.id)
+      const name = tabs ? tabs.name : "New tab"
       const key = process.env.REACT_APP_SECRET_KEY
       const object = {
         semester: myStore.state.semester,
