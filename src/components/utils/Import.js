@@ -48,6 +48,7 @@ function Import() {
       const originalObject = JSON.parse(CryptoJS.AES.decrypt(code, key).toString(CryptoJS.enc.Utf8))
       console.log(originalObject)
       actionImportNewTab(myStore, originalObject)
+      setOpened(false)
     }
   }
 
