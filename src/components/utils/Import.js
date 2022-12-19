@@ -46,7 +46,6 @@ function Import() {
     if(code){
       const key = process.env.REACT_APP_SECRET_KEY
       const originalObject = JSON.parse(CryptoJS.AES.decrypt(code, key).toString(CryptoJS.enc.Utf8))
-      console.log(originalObject)
       actionImportNewTab(myStore, originalObject)
       setOpened(false)
     }
