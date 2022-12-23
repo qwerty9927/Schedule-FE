@@ -1,4 +1,5 @@
 import { toast } from 'react-toastify'
+import CryptoJS from 'crypto-js'
 import { v4 } from "uuid"
 import { SetNewTabs, SetClear, SetCounter, SetResultSearchHandled } from '../store/Constant'
 import { actionAdd, actionDelete } from '../service/HandleAction'
@@ -52,7 +53,7 @@ function actionDeleteAll(myStore) {
   if (myStore.state.semester && myStore.state.tableValue.ListSubjectRegistered) {
     if (myStore.state.tableValue.ListSubjectRegistered.length !== 0) {
       if (window.confirm("Bạn muốn xóa tất cả ?")) {
-        localStorage.setItem(myStore.state.tabs, JSON.stringify([]))
+        localStorage.setItem(myStore.state.tabs, CryptoJS.AES.encrypt(JSON.stringify([]), process.env.REACT_APP_SECRET_KEY))
         myStore.dispatch({ type: SetClear })
       }
     }
@@ -80,7 +81,7 @@ function actionImportNewTab(myStore, data) {
       const string = v4()
       localStorage.setItem("currentTabs", string)
       localStorage.setItem(data.semester, JSON.stringify([...myStore.state.listTabs, {name: data.name, id: string}]))
-      localStorage.setItem(string, JSON.stringify(data.ListSubjectRegistered))
+      localStorage.setItem(string, CryptoJS.AES.encrypt(JSON.stringify(data.ListSubjectRegistered), process.env.REACT_APP_SECRET_KEY))
       myStore.dispatch({ type: SetNewTabs })
     } else {
       toast.info(message.importInfo)

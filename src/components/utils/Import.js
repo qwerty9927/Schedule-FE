@@ -44,10 +44,15 @@ function Import() {
 
   const handleImport = () => {
     if(code){
-      const key = process.env.REACT_APP_SECRET_KEY
-      const originalObject = JSON.parse(CryptoJS.AES.decrypt(code, key).toString(CryptoJS.enc.Utf8))
-      actionImportNewTab(myStore, originalObject)
-      setOpened(false)
+      try {
+        const key = process.env.REACT_APP_SECRET_KEY
+        const originalObject = JSON.parse(CryptoJS.AES.decrypt(code, key).toString(CryptoJS.enc.Utf8))
+        actionImportNewTab(myStore, originalObject)
+        setOpened(false)
+        toast.success(message.importSuccess)
+      } catch(err){
+        toast.error(message.importError)
+      }
     }
   }
 

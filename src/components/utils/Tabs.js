@@ -18,17 +18,17 @@ function Tabs({ style }) {
     localStorage.setItem(myStore.state.semester, JSON.stringify(myStore.state.listTabs))
   }
 
-  useEffect(() => {
-    const func = (e) => {
-      if ((e.target !== ref.current.element && ref.current.element) && ref.current.element.getAttribute("contenteditable") === "true") {
-        handleEventAndDataTabs()
-      }
-    }
-    window.addEventListener("click", func)
-    return () => {
-      return window.removeEventListener("click", func)
-    }
-  }, [])
+  // useEffect(() => {
+  //   const func = (e) => {
+  //     if ((e.target !== ref.current.element && ref.current.element) && ref.current.element.getAttribute("contenteditable") === "true") {
+  //       handleEventAndDataTabs()
+  //     }
+  //   }
+  //   window.addEventListener("click", func)
+  //   return () => {
+  //     return window.removeEventListener("click", func)
+  //   }
+  // }, [])
 
   const handleClick = (e, id) => {
     if (myStore.state.tabs !== id) {
@@ -64,11 +64,12 @@ function Tabs({ style }) {
       <div className={style.tabs_box}>
         {myStore.state.listTabs.map((item, index) => {
           return (
-            <div className={clsx(style.tabItem, { [style.active]: item.id === myStore.state.tabs })} key={index}>
+            <div className={clsx(style.tabItem, { [style.active]: item.id === myStore.state.tabs })} key={index} title="Nhấn 2 lần để đổi tên">
               <span className={style.tab_primary} 
                 onClick={(e) => handleClick(e, item.id)} 
                 onDoubleClick={(e) => handleDoubleClick(e, item.id)}
                 onKeyPress={(e) => handleKeyPress(e)}
+                onBlur={handleEventAndDataTabs}
               >{item.name}</span>
               <div className={style.tab_secondary}><i className="fa-solid fa-xmark" onClick={() => handleClose(item.id)}></i></div>
             </div>

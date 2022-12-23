@@ -13,8 +13,13 @@ function Provider({ children }) {
     const listTabs = JSON.parse(localStorage.getItem(currentSemester)) || []
     const currentTabs = localStorage.getItem("currentTabs")
     const majors = localStorage.getItem("currentMajors")
-    const table = initTable(currentTabs)
-    const counter = () => {
+    let table = {}
+    try {
+      table = initTable(currentTabs)
+    } catch(err){
+      toast.warn(err.meg)
+    }
+    const counter = () => { 
       const subjectRegistered = table.ListSubjectRegistered || []
       let count = 0
       subjectRegistered.forEach(item => {

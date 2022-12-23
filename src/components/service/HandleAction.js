@@ -1,3 +1,4 @@
+import CryptoJS from "crypto-js"
 import Structure from "../utils/Structure"
 
 function checkArray(arr) {
@@ -105,56 +106,62 @@ function handleSubjectInfo(subjectInfo){
 }
 
 function initTable(currentTabs){
-  const table = (new Structure).getBaseStructure()
-  table.ListSubjectRegistered = JSON.parse(localStorage.getItem(currentTabs)) || []
-  table.ListSubjectRegistered.forEach(item => {
-    let {
-      MaMH,
-      TenMH,
-      NMH,
-      TTH,
-      STC,
-      Thu,
-      TBD,
-      Phong,
-      GiangVien,
-      ST,
-      Tuan,
-      CS,
-    } = handleSubjectInfo({...item})
-
-    const tempListEmptyTime = JSON.parse(JSON.stringify(table.ListEmptyTime))
-    const newTuan = reMakeArrTuan(Tuan)
-    newTuan.forEach((rootItem, rootIndex) => {
-      rootItem.forEach((item, index) => {
-        const result = checkSlot(Thu[rootIndex], TBD[rootIndex], ST[rootIndex], CS[rootIndex], tempListEmptyTime[item])
-        tempListEmptyTime[item][`${Thu[rootIndex]}`] = result
-      })
-    })
-
-    // Ghi vao store
-    mergeArrTuan(newTuan).forEach((item, index) => {
-      if(table.ListSchedule[item] === null){
-        table.ListSchedule[item] = new Array()
-      }
-      table.ListSchedule[item].push({
+  try {
+    const table = (new Structure).getBaseStructure()
+    const cipher = localStorage.getItem(currentTabs)
+    table.ListSubjectRegistered = cipher ? JSON.parse(CryptoJS.AES.decrypt(cipher, process.env.REACT_APP_SECRET_KEY).toString(CryptoJS.enc.Utf8)) : []
+    table.ListSubjectRegistered.forEach(item => {
+      let {
         MaMH,
         TenMH,
         NMH,
-        STC,
         TTH,
+        STC,
         Thu,
         TBD,
         Phong,
         GiangVien,
-        Tuan,
         ST,
-        CS
+        Tuan,
+        CS,
+      } = handleSubjectInfo({...item})
+  
+      const tempListEmptyTime = JSON.parse(JSON.stringify(table.ListEmptyTime))
+      const newTuan = reMakeArrTuan(Tuan)
+      newTuan.forEach((rootItem, rootIndex) => {
+        rootItem.forEach((item, index) => {
+          const result = checkSlot(Thu[rootIndex], TBD[rootIndex], ST[rootIndex], CS[rootIndex], tempListEmptyTime[item])
+          tempListEmptyTime[item][`${Thu[rootIndex]}`] = result
+        })
       })
+  
+      // Ghi vao store
+      mergeArrTuan(newTuan).forEach((item, index) => {
+        if(table.ListSchedule[item] === null){
+          table.ListSchedule[item] = new Array()
+        }
+        table.ListSchedule[item].push({
+          MaMH,
+          TenMH,
+          NMH,
+          STC,
+          TTH,
+          Thu,
+          TBD,
+          Phong,
+          GiangVien,
+          Tuan,
+          ST,
+          CS
+        })
+      })
+      table.ListEmptyTime = tempListEmptyTime
     })
-    table.ListEmptyTime = tempListEmptyTime
-  })
-  return table
+    return table
+  } catch(err) {
+    localStorage.removeItem(currentTabs)
+    throw {meg: "Dữ liệu tab này đã bị xóa"}
+  }
 }
 
 function actionAdd(myStore, subjectInfo) {
@@ -225,7 +232,7 @@ function actionAdd(myStore, subjectInfo) {
     myStore.state.tableValue = table
 
     //Thay đổi list subject registered trong localStorage
-    localStorage.setItem(myStore.state.tabs, JSON.stringify(table.ListSubjectRegistered))
+    localStorage.setItem(myStore.state.tabs, CryptoJS.AES.encrypt(JSON.stringify(table.ListSubjectRegistered), process.env.REACT_APP_SECRET_KEY))
   } catch (err) {
     throw err
   }
@@ -275,7 +282,7 @@ function actionDelete(myStore, subjectInfo) {
     table.ListEmptyTime = emptyTime
     table.ListSchedule = schedule
     table.ListSubjectRegistered = subject
-    localStorage.setItem(myStore.state.tabs, JSON.stringify(subject))
+    localStorage.setItem(myStore.state.tabs, CryptoJS.AES.encrypt(JSON.stringify(subject), process.env.REACT_APP_SECRET_KEY))
   } catch (err) {
     throw err
   }

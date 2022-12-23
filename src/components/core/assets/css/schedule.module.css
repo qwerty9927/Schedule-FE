@@ -15,10 +15,9 @@
 }
 
 .option_time {
-  padding: 20px;
+  padding: 16px;
   margin: 18px 0;
   font-size: 16px;
-  text-align: center;
   box-shadow: 0 0 5px 1px rgba(0,0,0,0.1);
   display: inline-block;
   background-color: #fff;
@@ -30,98 +29,14 @@
   height: 30px;
   margin-left: 20px;
   text-align: center;
-}
-
-.import {
-  position: absolute;
-  top: 41px;
-  right: 205px;
-  /* transform: translateY(-50%); */
-}
-
-.import button {
-  padding: 5px 10px;
-  color: #fff;
-  border-radius: 5px; 
-  background-color: var(--primary);
-  border: none;
-  box-shadow: 0 0 10px 2px rgba(0,0,0,0.2);
-  font-size: 16px;
-}
-
-.import button span {
-  margin-left: 10px;
-}
-
-.import button:hover {
-  background-color: var(--primary_hover);
-}
-
-.import button:active {
-  transform: scale(.98);
-}
-
-.export {
-  position: absolute;
-  top: 41px;
-  right: 90px;
-  /* transform: translateY(-50%); */
-}
-
-.export button {
-  padding: 5px 10px;
-  color: #fff;
-  background-color: var(--secondary);
-  border-radius: 5px; 
-  border: none;
-  box-shadow: 0 0 10px 2px rgba(0,0,0,0.2);
-  font-size: 16px;
-}
-
-.export button span {
-  margin-left: 10px;
-}
-
-.export button:hover {
-  background-color: var(--secondary_hover);
-}
-
-.export button:active {
-  transform: scale(.98);
-}
-
-.edit {
-  position: absolute;
-  top: 41px;
-  right: 318px;
-  /* transform: translateY(-50%); */
-}
-
-.edit button {
-  padding: 5px 10px;
-  color: #fff;
-  border-radius: 5px; 
-  background-color: #FFA500;
-  border: none;
-  box-shadow: 0 0 10px 2px rgba(0,0,0,0.2);
-  font-size: 16px;
-}
-
-.edit button span {
-  margin-left: 10px;
-}
-
-.edit button:hover {
-  background-color: rgba(255, 165, 0, 0.8);
-}
-
-.edit button:active {
-  transform: scale(.98);
+  outline: none;
+  transition: .4s;
+  border-radius: 5px;
 }
 
 .screen_shot {
   position: absolute;
-  top: 30px;
+  top: 24px;
   right: 20px;
   /* transform: translateY(-50%); */
 }
