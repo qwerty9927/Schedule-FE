@@ -64,7 +64,8 @@ function actionAddNewTab(myStore, name = "New tab") {
   if (myStore.state.semester) {
     if(myStore.state.listTabs.length < 5){
       const string = v4()
-      localStorage.setItem("currentTabs", string)
+      const tabsKey = "currentTabs" + "_" + myStore.state.semester 
+      localStorage.setItem(tabsKey, string)
       localStorage.setItem(myStore.state.semester, JSON.stringify([...myStore.state.listTabs, {name, id: string}]))
       myStore.dispatch({ type: SetNewTabs })
     } else {
@@ -79,7 +80,8 @@ function actionImportNewTab(myStore, data) {
   if (data.semester === myStore.state.semester) {
     if(myStore.state.listTabs.length < 5){
       const string = v4()
-      localStorage.setItem("currentTabs", string)
+      const tabsKey = "currentTabs" + "_" + myStore.state.semester 
+      localStorage.setItem(tabsKey, string)
       localStorage.setItem(data.semester, JSON.stringify([...myStore.state.listTabs, {name: data.name, id: string}]))
       localStorage.setItem(string, CryptoJS.AES.encrypt(JSON.stringify(data.ListSubjectRegistered), process.env.REACT_APP_SECRET_KEY))
       myStore.dispatch({ type: SetNewTabs })

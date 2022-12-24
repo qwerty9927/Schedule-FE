@@ -159,8 +159,8 @@ function initTable(currentTabs){
     })
     return table
   } catch(err) {
-    localStorage.removeItem(currentTabs)
-    throw {meg: "Dữ liệu tab này đã bị xóa"}
+    localStorage.setItem(currentTabs, CryptoJS.AES.encrypt(JSON.stringify([]), process.env.REACT_APP_SECRET_KEY))
+    throw new Error()
   }
 }
 

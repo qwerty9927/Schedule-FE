@@ -25,19 +25,28 @@ function SearchBar() {
     return await axiosBase.get("api/subject/course")
   }
 
-  const callApiMajors = async () => {
-    return await axiosBase.get("api/subject/majors")
+  const callApiMajors = async (value) => {
+    return await axiosBase.get(`api/subject/majors?schoolYear=${value}`)
   }
 
   useEffect(() => {
     const fetchApi = async () => {
       const resultRoot = (await callApiSchoolYear()).data.result
-      const resultMajors = (await callApiMajors()).data.result 
       setSchoolYear(resultRoot)
-      setMajors(resultMajors)
     }
     fetchApi()
   }, [])
+
+  useEffect(() => {
+    const fetchApi = async () => {
+      if(formValue.schoolYear){
+        const resultMajors = (await callApiMajors(formValue.schoolYear)).data.result
+        setMajors(resultMajors)
+        setFormValue({... formValue, majors: myStore.state.majors || ""})
+      }
+    }
+    fetchApi()
+  }, [formValue.schoolYear])
 
   const validate = () => {
     if (!formValue.schoolYear) {

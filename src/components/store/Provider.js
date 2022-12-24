@@ -9,15 +9,21 @@ import message from "../utils/toastMessage"
 function Provider({ children }) {
 
   const initialState = () => {
+    if(!localStorage.getItem("vs")){
+      localStorage.clear()
+      localStorage.setItem("vs", "2.0")
+    }
     const currentSemester = localStorage.getItem("currentSemester")
     const listTabs = JSON.parse(localStorage.getItem(currentSemester)) || []
-    const currentTabs = localStorage.getItem("currentTabs")
-    const majors = localStorage.getItem("currentMajors")
+    const tabsKey = "currentTabs" + "_" + currentSemester 
+    const currentTabs = localStorage.getItem(tabsKey)
+    const majorsKey = "currentMajors" + "_" + currentSemester 
+    const majors = localStorage.getItem(majorsKey)
     let table = {}
     try {
       table = initTable(currentTabs)
     } catch(err){
-      toast.warn(err.meg)
+     
     }
     const counter = () => { 
       const subjectRegistered = table.ListSubjectRegistered || []
@@ -56,9 +62,10 @@ function Provider({ children }) {
 
   const setSemester = (action) => {
     localStorage.setItem("currentSemester", action.payload)
-    if (!localStorage.getItem("currentTabs") || !localStorage.getItem(action.payload)) {
+    const tabsKey = "currentTabs" + "_" + action.payload
+    if (!localStorage.getItem(tabsKey) || !localStorage.getItem(action.payload)) {
       const string = v4()
-      localStorage.setItem("currentTabs", string)
+      localStorage.setItem(tabsKey, string)
       localStorage.setItem(action.payload, JSON.stringify([{ name: action.payload, id: string }]))
     }
   }
@@ -96,13 +103,15 @@ function Provider({ children }) {
         setSemester(action)
         return initialState()
       case SetMajors:
-        localStorage.setItem("currentMajors", action.payload)
+        const majorsKey = "currentMajors" + "_" + state.semester 
+        localStorage.setItem(majorsKey, action.payload)
         return initialState()
       case SetNewTabs:
         const initial_2 = initialState()
         return { ...initial_2, resultSearch: state.resultSearch, resultSearchHandled: handleResultSearch(initial_2, state.resultSearchHandled) }
       case SelectTabs:
-        localStorage.setItem("currentTabs", action.payload)
+        const tabsKey = "currentTabs" + "_" + state.semester 
+        localStorage.setItem(tabsKey, action.payload)
         const initial_3 = initialState()
         return { ...initial_3, resultSearch: state.resultSearch, resultSearchHandled: handleResultSearch(initial_3, state.resultSearchHandled) }
       case CloseTabs:
