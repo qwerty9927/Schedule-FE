@@ -19,6 +19,10 @@ class Structure {
     }
     return baseStructure
   }
+
+  getNumberOfSchoolWeeks(){
+    return this.numberOfSchoolWeeks
+  }
 }
 
 export default Structure

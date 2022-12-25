@@ -73,13 +73,14 @@ function Provider({ children }) {
   const closeTabs = (state, action) => {
     if (state.listTabs.length > 1) {
       if (state.tabs === action.payload) {
+        const tabsKey = "currentTabs" + "_" + state.semester
         const index = state.listTabs.findIndex(item => {
           return item.id === action.payload
         })
         if (index === state.listTabs.length - 1) {
-          localStorage.setItem("currentTabs", state.listTabs[index - 1].id)
+          localStorage.setItem(tabsKey, state.listTabs[index - 1].id)
         } else if (index >= 0) {
-          localStorage.setItem("currentTabs", state.listTabs[index + 1].id)
+          localStorage.setItem(tabsKey, state.listTabs[index + 1].id)
         }
       }
       const newListTabs = state.listTabs.filter(item => {

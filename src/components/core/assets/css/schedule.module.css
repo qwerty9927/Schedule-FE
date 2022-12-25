@@ -230,6 +230,7 @@
 
 .secondary {
   background-color: var(--secondary_hover)!important;
+  color: #fff;
 }
 
 

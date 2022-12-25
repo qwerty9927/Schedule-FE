@@ -4,12 +4,12 @@ import { toast } from "react-toastify"
 import style from "../assets/css/searchBar.module.css"
 import axiosBase from "../../../api/axiosBase"
 import Context from "../../store/Context"
-import { ResetResultSearch, ResetResultSearchHandled, SetMajors, SetResultSearch, SetResultSearchHandled, SetSemester } from '../../store/Constant'
+import { ResetResultSearchHandled, SetMajors, SetResultSearch, SetResultSearchHandled, SetSemester } from '../../store/Constant'
 import message from "../../utils/toastMessage"
 
 function SearchBar() {
   const myStore = useContext(Context)
-  const [formValue, setFormValue] = useState({schoolYear: myStore.state.semester || "", majors: myStore.state.majors || ""})
+  const [formValue, setFormValue] = useState({ schoolYear: myStore.state.semester || "", majors: myStore.state.majors || "" })
   const [formValueFilter, setFormValueFilter] = useState({})
   const [schoolYear, setSchoolYear] = useState([])
   const [majors, setMajors] = useState([])
@@ -39,10 +39,10 @@ function SearchBar() {
 
   useEffect(() => {
     const fetchApi = async () => {
-      if(formValue.schoolYear){
+      if (formValue.schoolYear) {
         const resultMajors = (await callApiMajors(formValue.schoolYear)).data.result
         setMajors(resultMajors)
-        setFormValue({... formValue, majors: myStore.state.majors || ""})
+        setFormValue({ ...formValue, majors: myStore.state.majors || "" })
       }
     }
     fetchApi()
@@ -111,7 +111,7 @@ function SearchBar() {
   }
 
   const handleClickShowFilter = () => {
-    if(myStore.state.resultSearch.length){
+    if (myStore.state.resultSearch.length) {
       setFilterBtn(!filterBtn)
     } else {
       toast.info(message.filterFeatureInfo)
@@ -119,16 +119,16 @@ function SearchBar() {
   }
 
   const handleClickBtnFilter = () => {
-    if(validateFilter()){
+    if (validateFilter()) {
       const result = myStore.state.resultSearch.filter((item, index) => {
-        for(let i = 0; i < item.Thu.length; i++){
-          if(item.Thu[i] == formValueFilter.day && item.TBD[i] == formValueFilter.startLession){
+        for (let i = 0; i < item.Thu.length; i++) {
+          if (item.Thu[i] == formValueFilter.day && item.TBD[i] == formValueFilter.startLession) {
             return true
           }
         }
       })
       myStore.dispatch({ type: SetResultSearchHandled, payload: result })
-      if(result.length){
+      if (result.length) {
         toast.success(message.resultFilterSuccess)
       } else {
         toast.error(message.resultFilterError)
@@ -142,10 +142,10 @@ function SearchBar() {
   }
 
   const handleClickBtnCloseFilter = () => {
-    if(formValueFilter.day || formValueFilter.startLession){
+    if (formValueFilter.day || formValueFilter.startLession) {
       toast.info("Xóa kết quả Filter")
-      setFormValueFilter({day: "", startLession: ""})
-      myStore.dispatch({ type: ResetResultSearchHandled})
+      setFormValueFilter({ day: "", startLession: "" })
+      myStore.dispatch({ type: ResetResultSearchHandled })
     }
   }
 
@@ -153,11 +153,12 @@ function SearchBar() {
     <div className={style.search_bar}>
       <div className={style.search_bar_block_top}>
         <div className={style.search_option}>
-          <select name="schoolYear" value={formValue.schoolYear} onChange={(e) => { handleChange(e); 
-            if(e.target.value){
-              myStore.dispatch({ type: SetSemester, payload: e.target.value }) 
+          <select name="schoolYear" value={formValue.schoolYear} onChange={(e) => {
+            handleChange(e);
+            if (e.target.value) {
+              myStore.dispatch({ type: SetSemester, payload: e.target.value })
             }
-            }} >
+          }} >
             <option value="">Học kỳ</option>
             {schoolYear.map((item, index) => {
               return (
@@ -165,11 +166,12 @@ function SearchBar() {
               )
             })}
           </select>
-          <select name="majors" id="" value={formValue.majors} onChange={(e) => { handleChange(e); 
-            if(e.target.value){
-              myStore.dispatch({ type: SetMajors, payload: e.target.value }) 
+          <select name="majors" id="" value={formValue.majors} onChange={(e) => {
+            handleChange(e);
+            if (e.target.value) {
+              myStore.dispatch({ type: SetMajors, payload: e.target.value })
             }
-            }} >
+          }} >
             <option value="">Khoa</option>
             {majors.map((item, index) => {
               return (
@@ -183,16 +185,16 @@ function SearchBar() {
           <button className={style.btn_search} onClick={handleClickBtnSearch}>Search</button>
         </div>
         <div className={style.filter_box}>
-            <button title="Filter" onClick={(e) => handleClickShowFilter(e)}><i className="fa-solid fa-filter"></i></button>
+          <button title="Filter" onClick={(e) => handleClickShowFilter(e)}><i className="fa-solid fa-filter"></i></button>
         </div>
       </div>
-      <div className={clsx(style.search_bar_block_bot, {[style.search_bar_block_bot_show]: filterBtn}, {[style.search_bar_block_bot_hide]: !filterBtn})}>
+      <div className={clsx(style.search_bar_block_bot, { [style.search_bar_block_bot_show]: filterBtn }, { [style.search_bar_block_bot_hide]: !filterBtn })}>
         <div className={style.filter_option}>
           <label htmlFor="">Thứ: </label>
-          <select name="day" id="" value={formValueFilter.day} onChange={(e) => {handleChangeOfFilter(e)}}>
+          <select name="day" id="" value={formValueFilter.day} onChange={(e) => { handleChangeOfFilter(e) }}>
             <option value="">--Option--</option>
             {(new Array(7).fill(0)).map((item, index) => {
-              if(index > 0){
+              if (index > 0) {
                 return (
                   <option value={index + 1} key={index}>
                     {index + 1}
@@ -202,7 +204,7 @@ function SearchBar() {
             })}
           </select>
           <label htmlFor="">Tiết bắt đầu: </label>
-          <select name="startLession" id="" value={formValueFilter.startLession} onChange={(e) => {handleChangeOfFilter(e)}}>
+          <select name="startLession" id="" value={formValueFilter.startLession} onChange={(e) => { handleChangeOfFilter(e) }}>
             <option value="">--Option--</option>
             {(new Array(10).fill(0)).map((item, index) => {
               return (

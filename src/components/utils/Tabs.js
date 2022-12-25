@@ -18,18 +18,6 @@ function Tabs({ style }) {
     localStorage.setItem(myStore.state.semester, JSON.stringify(myStore.state.listTabs))
   }
 
-  // useEffect(() => {
-  //   const func = (e) => {
-  //     if ((e.target !== ref.current.element && ref.current.element) && ref.current.element.getAttribute("contenteditable") === "true") {
-  //       handleEventAndDataTabs()
-  //     }
-  //   }
-  //   window.addEventListener("click", func)
-  //   return () => {
-  //     return window.removeEventListener("click", func)
-  //   }
-  // }, [])
-
   const handleClick = (e, id) => {
     if (myStore.state.tabs !== id) {
       myStore.dispatch({ type: SelectTabs, payload: id })
