@@ -218,6 +218,7 @@ function SearchBar() {
           <button title="Clear option" className={style.btn_close_filter} onClick={handleClickBtnCloseFilter}><i className="fa-solid fa-xmark"></i></button>
         </div>
       </div>
+      <a href="./Schedule-client/guide.pdf" target="_blank"><div className={style.info} title="Hướng dẫn sử dụng"><i className="fa-solid fa-circle-question"></i></div></a>
     </div>
   )
 }

@@ -52,8 +52,8 @@ function Tabs({ style }) {
       <div className={style.tabs_box}>
         {myStore.state.listTabs.map((item, index) => {
           return (
-            <div className={clsx(style.tabItem, { [style.active]: item.id === myStore.state.tabs })} key={index} title="Nhấn 2 lần để đổi tên">
-              <span className={style.tab_primary} 
+            <div className={clsx(style.tabItem, { [style.active]: item.id === myStore.state.tabs })} key={index}>
+              <span title="Nhấn 2 lần để đổi tên" className={style.tab_primary} 
                 onClick={(e) => handleClick(e, item.id)} 
                 onDoubleClick={(e) => handleDoubleClick(e, item.id)}
                 onKeyPress={(e) => handleKeyPress(e)}

@@ -4,6 +4,7 @@
   box-shadow: 0 0 10px 2px rgba(0,0,0,0.1);
   background-color: #ccc;
   border-radius: 5px;
+  position: relative;
 }
 
 .input_search:focus, select:focus {
@@ -150,5 +151,32 @@
 
 .btn_close_filter:active {
   transform: scale(.98);
+}
+
+.info {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: -60px;
+  color: var(--primary);
+  font-size: 24px;
+  animation: blinker 2s linear infinite;
+  cursor: pointer;
+}
+
+.info i {
+  border-radius: 50%;
+  box-shadow: 0 0 10px 2px rgba(0,0,0,0.1);
+}
+
+.info:active i {
+  transform: scale(.9);
+}
+
+@keyframes blinker {
+
+  50% {
+    opacity: .2;
+  }
 }
 
