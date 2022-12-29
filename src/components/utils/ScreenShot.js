@@ -12,7 +12,7 @@ function ScreenShot({ style, refer, myStore, option }){
   const download = (image, { extension = "jpg" } = {}) => {
     const a = document.createElement("a");
     a.href = image;
-    a.download = `${myStore.state.semester}-Tuan_${option + 1}.${extension}`
+    a.download = `${myStore.state.semester || "image"}-Tuan_${option + 1}.${extension}`
     a.click();
   };
 
