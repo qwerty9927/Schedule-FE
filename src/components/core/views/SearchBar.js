@@ -8,12 +8,17 @@ import { ResetResultSearchHandled, SetMajors, SetResultSearch, SetResultSearchHa
 import message from "../../utils/toastMessage"
 
 function SearchBar() {
+  const stringWaiting = "Waiting..."
+  const stringSemester = "Học kỳ"
+  const stringMajors = "Khoa"
   const myStore = useContext(Context)
   const [formValue, setFormValue] = useState({ schoolYear: myStore.state.semester || "", majors: myStore.state.majors || "" })
   const [formValueFilter, setFormValueFilter] = useState({})
   const [schoolYear, setSchoolYear] = useState([])
   const [majors, setMajors] = useState([])
   const [filterBtn, setFilterBtn] = useState(false)
+  const [loadingSemester, setLoadingSemester] = useState(myStore.state.semester ? stringWaiting : stringSemester)
+  const [loadingMajors, setLoadingMajors] = useState(myStore.state.majors ? stringWaiting : stringMajors)
 
   const callApiSearch = async () => {
     return await axiosBase.post("api/subject/search", {
@@ -32,6 +37,7 @@ function SearchBar() {
   useEffect(() => {
     const fetchApi = async () => {
       const resultRoot = (await callApiSchoolYear()).data.result
+      setLoadingSemester(stringSemester)
       setSchoolYear(resultRoot)
     }
     fetchApi()
@@ -41,6 +47,7 @@ function SearchBar() {
     const fetchApi = async () => {
       if (formValue.schoolYear) {
         const resultMajors = (await callApiMajors(formValue.schoolYear)).data.result
+        setLoadingMajors(stringMajors)
         setMajors(resultMajors)
         setFormValue({ ...formValue, majors: myStore.state.majors || "" })
       }
@@ -159,7 +166,7 @@ function SearchBar() {
               myStore.dispatch({ type: SetSemester, payload: e.target.value })
             }
           }} >
-            <option value="">Học kỳ</option>
+            <option value="">{loadingSemester}</option>
             {schoolYear.map((item, index) => {
               return (
                 <option key={index} value={item}>{item}</option>
@@ -172,7 +179,7 @@ function SearchBar() {
               myStore.dispatch({ type: SetMajors, payload: e.target.value })
             }
           }} >
-            <option value="">Khoa</option>
+            <option value="">{loadingMajors}</option>
             {majors.map((item, index) => {
               return (
                 <option key={index} value={item}>{item.toUpperCase()}</option>
@@ -181,7 +188,7 @@ function SearchBar() {
           </select>
         </div>
         <div className={style.search_box}>
-          <input type="text" placeholder="VD: 802142 OR Môn A" className={style.input_search} onChange={(e) => { handleChange(e) }} onKeyUp={(e) => handleKeyUp(e)} name="searchValue" />
+          <input type="text" placeholder="VD: 802142 or Môn A" className={style.input_search} onChange={(e) => { handleChange(e) }} onKeyUp={(e) => handleKeyUp(e)} name="searchValue" />
           <button className={style.btn_search} onClick={handleClickBtnSearch}>Search</button>
         </div>
         <div className={style.filter_box}>
@@ -218,7 +225,7 @@ function SearchBar() {
           <button title="Clear option" className={style.btn_close_filter} onClick={handleClickBtnCloseFilter}><i className="fa-solid fa-xmark"></i></button>
         </div>
       </div>
-      <a href="./guide.pdf" target="_blank"><div className={style.info} title="Hướng dẫn sử dụng"><i className="fa-solid fa-circle-question"></i></div></a>
+      <a href="./guide.pdf" target="_blank"><div className={style.info} title="Hướng dẫn sử dụng"><i className="fa-solid fa-circle-question"></i><span> HD</span></div></a>
     </div>
   )
 }

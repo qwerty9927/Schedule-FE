@@ -157,7 +157,7 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  right: -60px;
+  right: -100px;
   color: var(--primary);
   font-size: 24px;
   animation: blinker 2s linear infinite;
@@ -180,3 +180,4 @@
   }
 }
 
+/*utils*/
