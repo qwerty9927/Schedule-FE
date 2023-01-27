@@ -97,7 +97,7 @@ function SearchBar() {
             return <div>
                 <p>Không tìm thấy <i><b>"{formValue.searchValue}"</b></i> 🚫</p>
                 <div className={style.alertMessageNotFound}>
-                  <p>Dữ liệu có thể chưa cập nhật.</p>
+                  <p>Kết quả này có thể chưa được cập nhật.</p>
                   <p><b>Vui lòng quay lại sau!</b></p>
                 </div>
               </div>
