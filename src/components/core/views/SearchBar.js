@@ -94,7 +94,13 @@ function SearchBar() {
         success: "Let's do it 🚀",
         error: {
           render() {
-            return <p>Không tìm thấy <i><b>"{formValue.searchValue}"</b></i> 🚫</p>
+            return <div>
+                <p>Không tìm thấy <i><b>"{formValue.searchValue}"</b></i> 🚫</p>
+                <div className={style.alertMessageNotFound}>
+                  <p>Dữ liệu có thể chưa cập nhật.</p>
+                  <p><b>Vui lòng quay lại sau!</b></p>
+                </div>
+              </div>
           }
         }
       })

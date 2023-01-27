@@ -14,7 +14,7 @@ function checkSlot(THU, TBD, ST, CS, timeArr) {
   const startLessonInTheMorning = 1
   const endLessonInMorning = 5
   const startLessonInTheAfternoon = 6
-  const endLessonInAfternoon =  14
+  const endLessonInAfternoon = 14
   const beforeBreakTimeInTheMorning = 2
   const afterBreakTimeInTheMorning = 3
   const beforeBreakTimeInTheAfternoon = 7
@@ -28,35 +28,35 @@ function checkSlot(THU, TBD, ST, CS, timeArr) {
   if (TKT <= pivot) {
     for (i; i < TKT; i++) {
       if (timeInDay[i] !== 0) {
-        throw {meg: "Học phần trùng lịch vào", specialMeg: `"Thứ ${THU}"`}
+        throw { meg: "Học phần trùng lịch vào", specialMeg: `"Thứ ${THU}"` }
       }
     }
 
     // Nếu TBD là điểm (1 hay 3) và timeInDay là (CS hay 0) thì vượt qua "Khác cơ sở"
     if (
-      ((TBD !== startLessonInTheMorning && TBD !== afterBreakTimeInTheMorning) 
+      ((TBD !== startLessonInTheMorning && TBD !== afterBreakTimeInTheMorning)
         && (timeInDay[indexForTBD - 1] !== CS && timeInDay[indexForTBD - 1] !== 0))
-      || ((TKT !== beforeBreakTimeInTheMorning && TKT !== endLessonInMorning) 
+      || ((TKT !== beforeBreakTimeInTheMorning && TKT !== endLessonInMorning)
         && (timeInDay[indexForTKT + 1] !== CS && timeInDay[indexForTKT + 1] !== 0))
     ) {
-      throw {meg: "Khác cơ sở vào", specialMeg: `"Thứ ${THU}"`}
+      throw { meg: "Khác cơ sở vào", specialMeg: `"Thứ ${THU}"` }
     }
-      
+
   } else {
     for (i; i < TKT; i++) {
       if (timeInDay[i] !== 0) {
-        throw {meg: "Học phần trùng lịch vào", specialMeg: `"Thứ ${THU}"`}
+        throw { meg: "Học phần trùng lịch vào", specialMeg: `"Thứ ${THU}"` }
       }
     }
 
     // Nếu TKT là điểm (1 hay 3) và timeInDay là (CS hay 0) thì vượt qua "Khác cơ sở"
     if (
-      ((TBD !== startLessonInTheAfternoon && TBD !== afterBreakTimeInTheAfternoon) 
+      ((TBD !== startLessonInTheAfternoon && TBD !== afterBreakTimeInTheAfternoon)
         && (timeInDay[indexForTBD - 1] !== CS && timeInDay[indexForTBD - 1] !== 0))
-      || ((TKT !== beforeBreakTimeInTheAfternoon && TKT !== endLessonInAfternoon) 
+      || ((TKT !== beforeBreakTimeInTheAfternoon && TKT !== endLessonInAfternoon)
         && (timeInDay[indexForTKT + 1] !== CS && timeInDay[indexForTKT + 1] !== 0))
     ) {
-      throw {meg: "Khác cơ sở vào", specialMeg: `"Thứ ${THU}"`}
+      throw { meg: "Khác cơ sở vào", specialMeg: `"Thứ ${THU}"` }
     }
   }
 
@@ -71,12 +71,12 @@ function clearEmptyTimeTemp(table, subjectInfo) {
   })
 }
 
-function reMakeArrTuan(Tuan){
+function reMakeArrTuan(Tuan) {
   const newArr = []
   Tuan.forEach(rootItem => {
     const subArr = []
-    for(let i = 0;i < rootItem.length;i++){
-      if(rootItem[i] !== '-'){
+    for (let i = 0; i < rootItem.length; i++) {
+      if (rootItem[i] !== '-') {
         subArr.push(i)
       }
     }
@@ -85,7 +85,7 @@ function reMakeArrTuan(Tuan){
   return newArr
 }
 
-function mergeArrTuan(Tuan){
+function mergeArrTuan(Tuan) {
   let newArr = []
   Tuan.forEach(item => {
     newArr = [...newArr, ...item]
@@ -93,19 +93,42 @@ function mergeArrTuan(Tuan){
   return Array.from(new Set(newArr))
 }
 
-function handleSubjectInfo(subjectInfo){
-  let Thu = new Set(subjectInfo.Thu)
-  let TBD = new Set(subjectInfo.TBD)
-  let Tuan = new Set(subjectInfo.Tuan)
-  if(Thu.size === 1 && TBD.size === 1 && Tuan.size === 1){
-    subjectInfo.Thu = Array.from(Thu)
-    subjectInfo.TBD = Array.from(TBD)
-    subjectInfo.Tuan = Array.from(Tuan)
+function confilctTimeTeachWithManyInstructors(subjectInfo) {
+  // let Thu = new Set(subjectInfo.Thu)
+  // let TBD = new Set(subjectInfo.TBD)
+  // let Tuan = new Set(subjectInfo.Tuan)
+  // console.log("Thu: ", Thu)
+  // console.log("TBD: ", TBD)
+  // console.log("Tuan: ", Tuan)
+  // if(Thu.size == TBD.size == Tuan.size){
+  //   subjectInfo.Thu = Array.from(Thu)
+  //   subjectInfo.TBD = Array.from(TBD)
+  //   subjectInfo.Tuan = Array.from(Tuan)
+  // }
+  // return subjectInfo
+  
+  let masterArr = []
+  let Thu = []
+  let TBD = []
+  let Tuan = []
+  for(let i = 0;i < subjectInfo.Thu.length;i++){
+    masterArr = subjectInfo.Thu.map((item, index) => {
+      return `${item}; ${subjectInfo.TBD[index]}; ${subjectInfo.Tuan[index]}`
+    })
   }
+  (new Set(masterArr)).forEach(item => {
+    const elementArr = item.split("; ")
+    Thu.push(parseInt(elementArr[0]))
+    TBD.push(parseInt(elementArr[1]))
+    Tuan.push(elementArr[2])
+  })
+  subjectInfo.Thu = Thu
+  subjectInfo.TBD = TBD
+  subjectInfo.Tuan = Tuan
   return subjectInfo
 }
 
-function initTable(currentTabs){
+function initTable(currentTabs) {
   try {
     const table = (new Structure).getBaseStructure()
     const cipher = localStorage.getItem(currentTabs)
@@ -124,8 +147,8 @@ function initTable(currentTabs){
         ST,
         Tuan,
         CS,
-      } = handleSubjectInfo({...item})
-  
+      } = confilctTimeTeachWithManyInstructors({ ...item })
+
       const tempListEmptyTime = JSON.parse(JSON.stringify(table.ListEmptyTime))
       const newTuan = reMakeArrTuan(Tuan)
       newTuan.forEach((rootItem, rootIndex) => {
@@ -134,10 +157,10 @@ function initTable(currentTabs){
           tempListEmptyTime[item][`${Thu[rootIndex]}`] = result
         })
       })
-  
+
       // Ghi vao store
       mergeArrTuan(newTuan).forEach((item, index) => {
-        if(table.ListSchedule[item] === null){
+        if (table.ListSchedule[item] === null) {
           table.ListSchedule[item] = new Array()
         }
         table.ListSchedule[item].push({
@@ -158,7 +181,7 @@ function initTable(currentTabs){
       table.ListEmptyTime = tempListEmptyTime
     })
     return table
-  } catch(err) {
+  } catch (err) {
     localStorage.setItem(currentTabs, CryptoJS.AES.encrypt(JSON.stringify([]), process.env.REACT_APP_SECRET_KEY))
     throw new Error()
   }
@@ -178,7 +201,7 @@ function actionAdd(myStore, subjectInfo) {
     ST,
     Tuan,
     CS,
-  } = handleSubjectInfo({...subjectInfo})
+  } = confilctTimeTeachWithManyInstructors({ ...subjectInfo })
 
   try {
     const table = JSON.parse(JSON.stringify(myStore.state.tableValue))
@@ -194,7 +217,7 @@ function actionAdd(myStore, subjectInfo) {
 
     // Ghi vao store
     mergeArrTuan(newTuan).forEach((item, index) => {
-      if(table.ListSchedule[item] === null){
+      if (table.ListSchedule[item] === null) {
         table.ListSchedule[item] = new Array()
       }
       table.ListSchedule[item].push({
@@ -238,22 +261,22 @@ function actionAdd(myStore, subjectInfo) {
   }
 }
 
-function changeEmptyTime(subjectInfo, listEmptyTime){
+function changeEmptyTime(subjectInfo, listEmptyTime) {
   const Tuan = reMakeArrTuan(subjectInfo.Tuan)
   Tuan.forEach((rootItem, index) => {
     rootItem.forEach(item => {
       const TKT = subjectInfo.TBD[index] + subjectInfo.ST[index] - 1
       listEmptyTime[item][`${subjectInfo.Thu[index]}`].fill(0, subjectInfo.TBD[index] - 1, TKT)
-    })    
+    })
   })
   return listEmptyTime
 }
 
-function changeSchedule(subjectInfo, listSchedule){
+function changeSchedule(subjectInfo, listSchedule) {
   const Tuan = mergeArrTuan(reMakeArrTuan(subjectInfo.Tuan))
   Tuan.forEach((rootItem, rootIndex) => {
     listSchedule[rootItem] = listSchedule[rootItem].filter((item, index) => {
-      if(item.MaMH !== subjectInfo.MaMH){
+      if (item.MaMH !== subjectInfo.MaMH) {
         return true
       }
     })
@@ -261,9 +284,9 @@ function changeSchedule(subjectInfo, listSchedule){
   return listSchedule
 }
 
-function changeSubjectRegister(subjectInfo, listSubjectRegistered){
+function changeSubjectRegister(subjectInfo, listSubjectRegistered) {
   listSubjectRegistered = listSubjectRegistered.filter(item => {
-    if(subjectInfo.MaMH !== item.MaMH){
+    if (subjectInfo.MaMH !== item.MaMH) {
       return true
     }
   })
@@ -276,7 +299,7 @@ function actionDelete(myStore, subjectInfo) {
     // Delete empty time
     const emptyTime = changeEmptyTime(subjectInfo, table.ListEmptyTime)
     // Delete schedule
-    const schedule = changeSchedule(subjectInfo, table.ListSchedule) 
+    const schedule = changeSchedule(subjectInfo, table.ListSchedule)
     // Delete subject
     const subject = changeSubjectRegister(subjectInfo, table.ListSubjectRegistered)
     table.ListEmptyTime = emptyTime
@@ -293,7 +316,7 @@ function actionDeleteTemp(table, subjectInfo) {
     // Delete empty time
     const emptyTime = changeEmptyTime(subjectInfo, table.ListEmptyTime)
     // Delete schedule
-    const schedule = changeSchedule(subjectInfo, table.ListSchedule) 
+    const schedule = changeSchedule(subjectInfo, table.ListSchedule)
     // Delete subject
     const subject = changeSubjectRegister(subjectInfo, table.ListSubjectRegistered)
     table.ListEmptyTime = emptyTime
