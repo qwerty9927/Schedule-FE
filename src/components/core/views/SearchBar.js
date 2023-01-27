@@ -87,6 +87,10 @@ function SearchBar() {
     return true
   }
 
+  const guessMasv = (string) => {
+    return /^31[0-9]{8}$/.test(string)
+  }
+
   const actionCallApiSearch = async () => {
     if (validate()) {
       const response = await toast.promise(callApiSearch, {
@@ -94,13 +98,29 @@ function SearchBar() {
         success: "Let's do it 🚀",
         error: {
           render() {
-            return <div>
-                <p>Không tìm thấy <i><b>"{formValue.searchValue}"</b></i> 🚫</p>
-                <div className={style.alertMessageNotFound}>
-                  <p>Kết quả này có thể chưa được cập nhật.</p>
-                  <p><b>Vui lòng quay lại sau!</b></p>
+            return (
+              <div>
+                
+                <div>
+                  <p>Không tìm thấy <i><b>"{formValue.searchValue}"</b></i> 🚫</p>
+                  {!guessMasv(formValue.searchValue) ? 
+                    (
+                      <div className={clsx(style.alertMessageNotFound, style.textShape)}>
+                        <p>Kết quả này có thể chưa cập nhật.</p>
+                        <p><b>Vui lòng quay lại sau!</b></p>
+                      </div>
+                    ) 
+                      : 
+                    (
+                      <div className={clsx(style.alertMessageAttention, style.textShape)}>
+                        <p>Lưu ý <b>mã sinh viên</b> không là từ khóa tìm kiếm</p>
+                      </div>
+                    )
+                  }
+                  
                 </div>
               </div>
+            )
           }
         }
       })
