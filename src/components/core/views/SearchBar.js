@@ -114,6 +114,7 @@ function SearchBar() {
                     (
                       <div className={clsx(style.alertMessageAttention, style.textShape)}>
                         <p>Lưu ý <b>mã sinh viên</b> không là từ khóa tìm kiếm</p>
+                        <p>Cần nhập <b>mã</b> hoặc <b>tên môn học</b></p>
                       </div>
                     )
                   }
@@ -251,7 +252,7 @@ function SearchBar() {
           <button title="Clear option" className={style.btn_close_filter} onClick={handleClickBtnCloseFilter}><i className="fa-solid fa-xmark"></i></button>
         </div>
       </div>
-      <a href="./guide.pdf" target="_blank"><div className={style.info} title="Hướng dẫn sử dụng"><i className="fa-solid fa-circle-question"></i><span> HD</span></div></a>
+      <a href="./guide.pdf" target="_blank"><div className={style.info} title="Hướng dẫn sử dụng"><i className="fa-solid fa-circle-question"></i><span> Hướng dẫn</span></div></a>
     </div>
   )
 }
