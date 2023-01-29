@@ -106,7 +106,7 @@ function SearchBar() {
                   {!guessMasv(formValue.searchValue) ? 
                     (
                       <div className={clsx(style.alertMessageNotFound, style.textShape)}>
-                        <p>Kết quả này có thể chưa cập nhật.</p>
+                        <p>Kết quả này có thể chưa cập nhật hoặc có thể đã chọn sai <b>khoa</b>.</p>
                         <p><b>Vui lòng quay lại sau!</b></p>
                       </div>
                     ) 
