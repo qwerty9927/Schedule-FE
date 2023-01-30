@@ -207,7 +207,7 @@ function SearchBar() {
             }
           }} >
             <option value="">{loadingMajors}</option>
-            {majors.map((item, index) => {
+            {majors.sort().map((item, index) => {
               return (
                 <option key={index} value={item}>{item.toUpperCase()}</option>
               )
