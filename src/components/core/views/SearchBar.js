@@ -10,7 +10,7 @@ import message from "../../utils/toastMessage"
 function SearchBar() {
   const stringWaiting = "Waiting..."
   const stringSemester = "Học kỳ"
-  const stringMajors = "Khoa"
+  const stringMajors = "Ngành"
   const myStore = useContext(Context)
   const [formValue, setFormValue] = useState({ schoolYear: myStore.state.semester || "", majors: myStore.state.majors || "" })
   const [formValueFilter, setFormValueFilter] = useState({})
@@ -106,7 +106,7 @@ function SearchBar() {
                   {!guessMasv(formValue.searchValue) ? 
                     (
                       <div className={clsx(style.alertMessageNotFound, style.textShape)}>
-                        <p>Kết quả này có thể chưa cập nhật hoặc có thể đã chọn sai <b>khoa</b>.</p>
+                        <p>Kết quả này có thể chưa cập nhật hoặc có thể đã chọn sai <b>ngành học</b>.</p>
                         <p><b>Vui lòng quay lại sau!</b></p>
                       </div>
                     ) 
