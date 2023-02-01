@@ -107,7 +107,7 @@ function SearchBar() {
                     (
                       <div className={clsx(style.alertMessageNotFound, style.textShape)}>
                         <p>Kết quả này có thể chưa cập nhật hoặc có thể đã chọn sai <b>mã ngành</b>.</p>
-                        <p><b>Vui lòng quay lại sau!</b></p>
+                        <p><b>Vui lòng quay lại vào ngày hôm sau!</b></p>
                       </div>
                     ) 
                       : 
