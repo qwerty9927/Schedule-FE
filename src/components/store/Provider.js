@@ -15,7 +15,7 @@ function Provider({ children }) {
     } else if(localStorage.getItem("vs") === "2.0") {
       localStorage.clear()
       localStorage.setItem("vs", "2.1")
-      alert("Vì lý do các học phần có chút thay đổi về phòng học. Dẫn đến thời khóa biểu hiện tại đã sai. Hãy chọn lại các học phần đó một nữa. \nXin lỗi vì sự bất tiện này!")
+      alert("Vì lý do các học phần có chút thay đổi về phòng học. Dẫn đến thời khóa biểu hiện tại của bạn đã sai. Hãy chọn lại các học phần đó một nữa. \nXin lỗi vì sự bất tiện này!")
     }
     const currentSemester = localStorage.getItem("currentSemester")
     const listTabs = JSON.parse(localStorage.getItem(currentSemester)) || []
