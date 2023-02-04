@@ -7,7 +7,8 @@ function NotFound(){
       <div className={style.number}>404</div>
       <div className={style.text}>
         <span>Ooops...</span>
-        <p>page not found</p>
+        <p>Hiện tại phòng học đã bị thay đổi không còn chính xác.</p>
+        <p>Xin quay lại sau khi thông báo này mất!</p>
       </div>
     </>
   )
