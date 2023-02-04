@@ -4,8 +4,8 @@ import NotFound from './components/core/views/NotFound'
 
 function App() {
   return (
-    // <Core />
-    <NotFound />
+    <Core />
+    // <NotFound />
   );
 }
 
