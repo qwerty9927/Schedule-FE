@@ -11,10 +11,10 @@ function Provider({ children }) {
   const initialState = () => {
     if(!localStorage.getItem("vs")){
       localStorage.clear()
-      localStorage.setItem("vs", "3.0")
+      localStorage.setItem("vs", "2.1")
     } else if(localStorage.getItem("vs") === "2.0") {
       localStorage.clear()
-      localStorage.setItem("vs", "3.0")
+      localStorage.setItem("vs", "2.1")
       alert("Vì lý do các học phần có chút thay đổi về phòng học. Dẫn đến thời khóa biểu hiện tại đã sai. Hãy chọn lại các học phần đó một nữa. \nXin lỗi vì sự bất tiện này!")
     }
     const currentSemester = localStorage.getItem("currentSemester")
