@@ -1,9 +1,11 @@
 import './App.css';
 import Core from './components/core/index'
+import NotFound from './components/core/views/NotFound'
 
 function App() {
   return (
-    <Core />
+    // <Core />
+    <NotFound />
   );
 }
 
