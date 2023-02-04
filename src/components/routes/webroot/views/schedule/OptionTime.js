@@ -1,4 +1,4 @@
-import Structure from "./Structure"
+import Structure from "#utils/Structure"
 
 function OptionTime({style, setOption}) {
   const handleOption = (e) => {

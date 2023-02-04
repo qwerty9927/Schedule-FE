@@ -1,11 +1,8 @@
 import { useContext, useState } from 'react'
-import { ToastContainer, toast } from 'react-toastify'
-import './css/subject.css'
-import ConvertToWord from '../service/ConvertToWord'
-import { actionAdd, actionDelete } from '../service/HandleAction'
-import Context from '../store/Context'
-import { SetResultSearch, SetTableValue } from '../store/Constant'
-import { actionAddWithRender, actionDeleteWithRender } from '../utils/CustomAction'
+import '../../assets/css/table/subject.css'
+import ConvertToWord from '../../../../utils/ConvertToWord'
+import Context from '../../../../store/Context'
+import { actionAddWithRender, actionDeleteWithRender } from '../../../../utils/CustomAction'
 
 function Subject({ subjectInfo }) {
   const myStore = useContext(Context)

@@ -1,12 +1,12 @@
 
-.import {
+.import1 {
   position: absolute;
   top: 35px;
   right: 220px;
   font-family: monospace; 
 }
 
-.import button {
+.import1 button {
   padding: 5px 10px;
   color: #fff;
   border-radius: 5px; 
@@ -16,15 +16,15 @@
   font-size: 16px;
 }
 
-.import button span {
+.import1 button span {
   margin-left: 10px;
 }
 
-.import button:hover {
+.import1 button:hover {
   background-color: var(--primary_hover);
 }
 
-.import button:active {
+.import1 button:active {
   transform: scale(.98);
 }
 
@@ -94,7 +94,7 @@
 }
 
 @media (max-width: 1023px) and (min-width: 740px){
-  .import {
+  .import1 {
     right: 250px;   
   }
 }

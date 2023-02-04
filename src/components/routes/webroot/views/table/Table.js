@@ -1,7 +1,7 @@
 import { useContext } from "react"
-import style from "../assets/css/table.module.css"
-import Subject from "../../utils/Subject"
-import Context from "../../store/Context"
+import style from "../../assets/css/table/table.module.css"
+import Subject from "./Subject"
+import Context from "../../../../store/Context"
 
 function Table(){
   const myStore = useContext(Context)

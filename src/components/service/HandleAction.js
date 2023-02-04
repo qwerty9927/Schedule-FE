@@ -1,5 +1,5 @@
 import CryptoJS from "crypto-js"
-import Structure from "../utils/Structure"
+import Structure from "#utils/Structure"
 
 function checkArray(arr) {
   let subArr = arr
@@ -22,7 +22,7 @@ function checkSlot(THU, TBD, ST, CS, timeArr) {
 
   const indexForTBD = TBD - 1
   let i = indexForTBD
-  let timeInDay = checkArray(timeArr[`${THU}`])
+  let timeInDay = checkArray(timeArr[`${THU}`]) // Mảng thời gian còn trống trong một ngày
   const TKT = TBD + ST - 1
   const indexForTKT = TKT - 1
   if (TKT <= pivot) {
@@ -94,19 +94,6 @@ function mergeArrTuan(Tuan) {
 }
 
 function confilctTimeTeachWithManyInstructors(subjectInfo) {
-  // let Thu = new Set(subjectInfo.Thu)
-  // let TBD = new Set(subjectInfo.TBD)
-  // let Tuan = new Set(subjectInfo.Tuan)
-  // console.log("Thu: ", Thu)
-  // console.log("TBD: ", TBD)
-  // console.log("Tuan: ", Tuan)
-  // if(Thu.size == TBD.size == Tuan.size){
-  //   subjectInfo.Thu = Array.from(Thu)
-  //   subjectInfo.TBD = Array.from(TBD)
-  //   subjectInfo.Tuan = Array.from(Tuan)
-  // }
-  // return subjectInfo
-  
   let masterArr = []
   let Thu = []
   let TBD = []
@@ -276,9 +263,7 @@ function changeSchedule(subjectInfo, listSchedule) {
   const Tuan = mergeArrTuan(reMakeArrTuan(subjectInfo.Tuan))
   Tuan.forEach((rootItem, rootIndex) => {
     listSchedule[rootItem] = listSchedule[rootItem].filter((item, index) => {
-      if (item.MaMH !== subjectInfo.MaMH) {
-        return true
-      }
+      return item.MaMH !== subjectInfo.MaMH
     })
   })
   return listSchedule
@@ -286,9 +271,7 @@ function changeSchedule(subjectInfo, listSchedule) {
 
 function changeSubjectRegister(subjectInfo, listSubjectRegistered) {
   listSubjectRegistered = listSubjectRegistered.filter(item => {
-    if (subjectInfo.MaMH !== item.MaMH) {
-      return true
-    }
+    return subjectInfo.MaMH !== item.MaMH
   })
   return listSubjectRegistered
 }

@@ -1,8 +1,8 @@
 import clsx from "clsx"
 import { useContext, useRef, useEffect } from "react"
-import { CloseTabs, SelectTabs } from "../store/Constant"
-import Context from "../store/Context"
-import { actionAddNewTab } from "./CustomAction"
+import { CloseTabs, SelectTabs } from "#store/Constant"
+import Context from "#store/Context"
+import { actionAddNewTab } from "#utils/CustomAction"
 
 function Tabs({ style }) {
   const myStore = useContext(Context)

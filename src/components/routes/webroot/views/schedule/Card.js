@@ -1,7 +1,7 @@
 import { useContext } from 'react';
-import Context from '../store/Context';
-import './css/card.css'
-import { actionDeleteWithRender } from '../utils/CustomAction'
+import Context from '#store/Context';
+import '../../assets/css/schedule/card.css'
+import { actionDeleteWithRender } from '#utils/CustomAction'
 
 function Card({cardInfo, index, color}){
   const myStore = useContext(Context)

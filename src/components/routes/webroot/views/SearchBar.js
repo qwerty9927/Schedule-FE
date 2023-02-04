@@ -2,10 +2,10 @@ import { useContext, useEffect, useState } from "react"
 import clsx from "clsx"
 import { toast } from "react-toastify"
 import style from "../assets/css/searchBar.module.css"
-import axiosBase from "../../../api/axiosBase"
-import Context from "../../store/Context"
-import { ResetResultSearchHandled, SetMajors, SetResultSearch, SetResultSearchHandled, SetSemester } from '../../store/Constant'
-import message from "../../utils/toastMessage"
+import axiosBase from "#api/axiosBase"
+import Context from "#store/Context"
+import { ResetResultSearchHandled, SetMajors, SetResultSearch, SetResultSearchHandled, SetSemester } from '#store/Constant'
+import message from "#utils/ToastMessage"
 
 function SearchBar() {
   const stringWaiting = "Waiting..."

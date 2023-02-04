@@ -1,14 +1,13 @@
 import { Fragment, useContext, useRef, useState } from "react"
-import style from "../assets/css/schedule.module.css"
-import { reMakeArrTuan } from "../../service/HandleAction"
-import Context from "../../store/Context"
-import Card from "../../utils/Card"
-import Import from "../../utils/Import"
-import Export from "../../utils/Export"
-import Edit from "../../utils/Edit"
-import ScreenShot from "../../utils/ScreenShot"
-import Tabs from "../../utils/Tabs"
-import OptionTime from "../../utils/OptionTime"
+import style from "../../assets/css/schedule/schedule.module.css"
+import { reMakeArrTuan } from "#service/HandleAction"
+import Context from "#store/Context"
+import Card from "./Card"
+import Import from "./Import"
+import Export from "./Export"
+import ScreenShot from "./ScreenShot"
+import Tabs from "./Tabs"
+import OptionTime from "./OptionTime"
 
 function Schedule() {
   const myStore = useContext(Context)

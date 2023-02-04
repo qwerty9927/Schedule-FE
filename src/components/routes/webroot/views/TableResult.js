@@ -1,9 +1,9 @@
 import { useContext } from "react"
 import { toast } from "react-toastify"
 import style from "../assets/css/tableResult.module.css"
-import { reMakeArrTuan } from "../../service/HandleAction"
-import Context from "../../store/Context"
-import { actionDeleteWithRender, actionDeleteAll } from '../../utils/CustomAction'
+import { reMakeArrTuan } from "#service/HandleAction"
+import Context from "#store/Context"
+import { actionDeleteWithRender, actionDeleteAll } from '#utils/CustomAction'
 
 function TableResult() {
   const myStore = useContext(Context)

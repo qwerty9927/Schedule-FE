@@ -1,10 +1,10 @@
 import { toast } from 'react-toastify'
 import CryptoJS from 'crypto-js'
 import { v4 } from "uuid"
-import { SetNewTabs, SetClear, SetCounter, SetResultSearchHandled } from '../store/Constant'
-import { actionAdd, actionDelete } from '../service/HandleAction'
+import { SetNewTabs, SetClear, SetCounter, SetResultSearchHandled } from '#store/Constant'
+import { actionAdd, actionDelete } from '#service/HandleAction'
 import CustomToast from './CustomToast'
-import message from "./toastMessage"
+import message from "./ToastMessage"
 
 function reCount(ListSubjectRegistered) {
   const subjectRegistered = ListSubjectRegistered || []

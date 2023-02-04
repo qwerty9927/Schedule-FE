@@ -1,12 +1,11 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
 import CryptoJS from "crypto-js"
 import clsx from "clsx"
-import style from "./css/import.module.css"
-import { useContext } from "react"
-import Context from "../store/Context"
-import { actionImportNewTab } from "./CustomAction"
 import { toast } from "react-toastify"
-import message from "./toastMessage"
+import style from "../../assets/css/schedule/import.module.css"
+import Context from "#store/Context"
+import { actionImportNewTab } from "#utils/CustomAction"
+import message from "#utils/ToastMessage"
 
 function Import() {
   const [opened, setOpened] = useState(false)
@@ -15,7 +14,7 @@ function Import() {
 
   useEffect(() => {
     const func = (e) => {
-      if(!e.target.closest(`.${style.import}`) && opened){
+      if(!e.target.closest(`.${style.import1}`) && opened){
         setOpened(false)
       }
     }
@@ -61,7 +60,7 @@ function Import() {
   }
 
   return (
-    <div className={style.import}>
+    <div className={style.import1}>
       <button onClick={handleOpen}><i className="fa-solid fa-file-import"></i><span>Import</span></button>
       <div id="myModal" className={clsx(style.modal, {[style.active]: opened})}>
         <div className={style.modal_content}>
