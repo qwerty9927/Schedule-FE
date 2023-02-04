@@ -8,7 +8,6 @@ import TableResult from './views/TableResult'
 import Footer from './views/Footer'
 
 function Core(){
-  alert("Hiện tại phòng học đã bị thay đổi không còn chính xác. \nXin quay lại sau khi thông báo này mất!")
   return (
     <>
      <ToastContainer
