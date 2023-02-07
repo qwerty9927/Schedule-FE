@@ -7,7 +7,7 @@ import Schedule from "./views/schedule/Schedule"
 import TableResult from './views/TableResult'
 import Footer from './views/Footer'
 
-function Core(){
+function RootPage(){
   return (
     <>
      <ToastContainer
@@ -33,4 +33,4 @@ function Core(){
   )
 }
 
-export default Core
+export default RootPage

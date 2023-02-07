@@ -7,7 +7,8 @@ const instance = axios.create({
   // baseURL: "http://192.168.0.107:5000/",
   headers: {
     "Content-Type": "application/json"
-  }
+  },
+  withCredentials: true
 })
 
 instance.interceptors.response.use(function (response) {
