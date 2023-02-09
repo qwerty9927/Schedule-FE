@@ -1,9 +1,11 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { ToastContainer } from "react-toastify"
 import './App.css';
 import RootPage from './components/routes/webroot/index'
-import AdminPage from './components/routes/admin/index'
+import Dashboard from './components/routes/dashboard/index'
 import NotFound from './components/routes/error/NotFound';
 import Login from './components/routes/auth/Login';
+import RequireAuth from './components/utils/RequireAuth';
 
 function App() {
   const router = createBrowserRouter([
@@ -13,16 +15,33 @@ function App() {
       errorElement: <NotFound />
     },
     {
-      path: "/admin",
-      element: <AdminPage />
+      path: "/dashboard",
+      element: 
+        <RequireAuth>
+          <Dashboard />
+        </RequireAuth>
     },
     {
-      path: "/admin/login",
+      path: "/dashboard/login",
       element: <Login />
     }
   ])
   return (
-    <RouterProvider router={router} />
+    <>
+      <ToastContainer
+            position="top-right"
+            autoClose={2500}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss={false}
+            draggable
+            pauseOnHover
+            theme="dark"
+          />
+      <RouterProvider router={router} />
+    </>
   );
 }
 

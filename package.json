@@ -51,6 +51,7 @@
     "#utils/*": "./src/components/utils/*",
     "#store/*": "./src/components/store/*",
     "#service/*": "./src/components/service/*",
+    "#hooks/*": "./src/components/hooks/*",
     "#api/*": "./src/api/*"
   }
 }

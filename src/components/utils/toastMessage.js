@@ -26,6 +26,12 @@ const importWarn = (term) => `Hãy chọn học kỳ ${term} để import`
 const importError = "Mã thời khóa biểu không tồn tại"
 const importSuccess = "Mã hợp lệ"
 
+// Login
+const loginError = "Đăng nhập thất bại"
+const loginWarn = "Tài khoản hoặc mật khẩu không đúng"
+const loginPending = "Wait a minute"
+const loginSuccess = "Đăng nhập thành công"
+
 
 const message = {
   addSuccess,
@@ -47,6 +53,10 @@ const message = {
   closeTabsSuccess,
   closeTabsInfo, 
   importError,
-  importSuccess
+  importSuccess,
+  loginSuccess,
+  loginError,
+  loginPending,
+  loginWarn
 }
 export default message

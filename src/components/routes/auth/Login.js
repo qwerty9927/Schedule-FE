@@ -1,18 +1,24 @@
 import { Form, Input, Checkbox, Button } from "antd"
+import { useLocation, useNavigate } from "react-router-dom"
 import { UserOutlined, LockOutlined } from "@ant-design/icons"
+import { toast } from "react-toastify"
 import style from "./assets/css/login.module.css"
-import axiosBase from "#api/axiosBase"
+import message from "#utils/ToastMessage"
+import useAuth from "#hooks/useAuth"
 
 function Login(){
-  const callApiLogin = async (data) => {
-    return await axiosBase.post("api/auth/login", {
-      ...data
-    })
-  }
+  const navigate = useNavigate()
+  const { login } = useAuth()
+  const location = useLocation()
 
   const submitData = async (data) => {
-    const result = (await callApiLogin(data)).data
-    console.log(result)
+    await toast.promise(login(data), {
+      success: message.loginSuccess,
+      pending: message.loginPending,
+      error: message.loginError
+    }).then(res => {
+      navigate(location.state || "/dashboard")
+    })
   }
   return (
     <div className={style.backgroundTemp}>
