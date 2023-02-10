@@ -7,7 +7,10 @@ import {
   UploadOutlined,
   UserOutlined,
   VideoCameraOutlined,
+  MenuUnfoldOutlined,
+  MenuFoldOutlined
 } from '@ant-design/icons';
+import { useState } from "react"
 import { Layout, Menu, theme } from 'antd';
 import React from 'react';
 const { Header, Content, Footer, Sider } = Layout;
@@ -25,13 +28,18 @@ const items = [
   icon: React.createElement(icon),
   label: `nav ${index + 1}`,
 }));
+
 function Dashboard() {
+  const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer },
   } = theme.useToken();
+  
   return (
     <Layout hasSider>
       <Sider
+        width={250}
+        trigger={null} collapsible collapsed={collapsed}
         style={{
           overflow: 'auto',
           height: '100vh',
@@ -53,7 +61,8 @@ function Dashboard() {
       <Layout
         className="site-layout"
         style={{
-          marginLeft: 200,
+          marginLeft: collapsed ? 80 : 250,
+          transition: ".3s"
         }}
       >
         <Header
@@ -61,7 +70,12 @@ function Dashboard() {
             padding: 0,
             background: colorBgContainer,
           }}
-        />
+        >
+          {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
+            className: 'trigger',
+            onClick: () => setCollapsed(!collapsed),
+          })}
+        </Header>
         <Content
           style={{
             margin: '24px 16px 0',
