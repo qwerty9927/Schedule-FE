@@ -49,9 +49,9 @@ function TableResult() {
           return (
             <tr key={index}>
               <td>{index + 1}</td>
-              <td className={style.btnMaMH} title="Click To Copy" style={{fontWeight: "bold"}} onClick={(e) => handleCopy(e)}>{item.MaMH}</td>
+              <td className={style.btnMaMH} title="Click To Copy" style={{fontWeight: "500"}} onClick={(e) => handleCopy(e)}>{item.MaMH}</td>
               <td>{item.TenMH}</td>
-              <td style={{fontWeight: "bold"}}>{item.NMH}</td>
+              <td style={{fontWeight: "500"}}>{item.NMH}</td>
               <td>{getWeekWithOption("Min", item.Tuan)}</td>
               <td>{getWeekWithOption("Max", item.Tuan)}</td>
               <td>{item.STC}</td>
@@ -60,9 +60,9 @@ function TableResult() {
           )
         })}
         <tr>
-          <td colSpan={6} style={{fontWeight: "bold"}}>Tổng số tính chỉ</td>
-          <td style={{fontWeight: "bold"}}>{myStore.state.counter}</td>
-          <td className={style.btn_clear} style={{fontWeight: "bold"}} onClick={() => {actionDeleteAll(myStore)}}>Clear All</td>
+          <td colSpan={6} style={{fontWeight: "500"}}>Tổng số tính chỉ</td>
+          <td style={{fontWeight: "500"}}>{myStore.state.counter}</td>
+          <td className={style.btn_clear} style={{fontWeight: "500"}} onClick={() => {actionDeleteAll(myStore)}}>Clear All</td>
         </tr>
         </tbody>
       </table>

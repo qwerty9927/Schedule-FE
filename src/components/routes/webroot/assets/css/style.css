@@ -8,6 +8,7 @@
 
 th {
   cursor: default;
+  font-weight: 500;
 }
 
 button {
@@ -21,7 +22,6 @@ button {
   /* min-width: 1300px; */
   min-height: 100vh;
   font-size: 12px;
-
 }
 
 

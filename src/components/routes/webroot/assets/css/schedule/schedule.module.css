@@ -213,7 +213,7 @@
   border-collapse: collapse;
   border: 1px solid #ccc;
   text-align: center;
-  font-weight: bold;
+  font-weight: 500;
 }
 
 .schedule td:not(:first-child) {

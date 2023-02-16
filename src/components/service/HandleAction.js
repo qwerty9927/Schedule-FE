@@ -1,5 +1,6 @@
-import CryptoJS from "crypto-js"
+// import CryptoJS from "crypto-js"
 import Structure from "#utils/Structure"
+import * as cryptoJS from "../utils/crypto"
 
 function checkArray(arr) {
   let subArr = arr
@@ -119,7 +120,8 @@ function initTable(currentTabs) {
   try {
     const table = (new Structure).getBaseStructure()
     const cipher = localStorage.getItem(currentTabs)
-    table.ListSubjectRegistered = cipher ? JSON.parse(CryptoJS.AES.decrypt(cipher, process.env.REACT_APP_SECRET_KEY).toString(CryptoJS.enc.Utf8)) : []
+    // table.ListSubjectRegistered = cipher ? JSON.parse(CryptoJS.AES.decrypt(cipher, process.env.REACT_APP_SECRET_KEY).toString(CryptoJS.enc.Utf8)) : []
+    table.ListSubjectRegistered = cipher ? JSON.parse(cryptoJS.decrypt(cipher)) : []
     table.ListSubjectRegistered.forEach(item => {
       let {
         MaMH,
@@ -169,7 +171,8 @@ function initTable(currentTabs) {
     })
     return table
   } catch (err) {
-    localStorage.setItem(currentTabs, CryptoJS.AES.encrypt(JSON.stringify([]), process.env.REACT_APP_SECRET_KEY))
+    // localStorage.setItem(currentTabs, CryptoJS.AES.encrypt(JSON.stringify([]), process.env.REACT_APP_SECRET_KEY))
+    localStorage.setItem(currentTabs, cryptoJS.encrypt(JSON.stringify([])))
     throw new Error()
   }
 }
@@ -242,7 +245,8 @@ function actionAdd(myStore, subjectInfo) {
     myStore.state.tableValue = table
 
     //Thay đổi list subject registered trong localStorage
-    localStorage.setItem(myStore.state.tabs, CryptoJS.AES.encrypt(JSON.stringify(table.ListSubjectRegistered), process.env.REACT_APP_SECRET_KEY))
+    // localStorage.setItem(myStore.state.tabs, CryptoJS.AES.encrypt(JSON.stringify(table.ListSubjectRegistered), process.env.REACT_APP_SECRET_KEY))
+    localStorage.setItem(myStore.state.tabs, cryptoJS.encrypt(JSON.stringify(table.ListSubjectRegistered)))
   } catch (err) {
     throw err
   }
@@ -288,7 +292,8 @@ function actionDelete(myStore, subjectInfo) {
     table.ListEmptyTime = emptyTime
     table.ListSchedule = schedule
     table.ListSubjectRegistered = subject
-    localStorage.setItem(myStore.state.tabs, CryptoJS.AES.encrypt(JSON.stringify(subject), process.env.REACT_APP_SECRET_KEY))
+    // localStorage.setItem(myStore.state.tabs, CryptoJS.AES.encrypt(JSON.stringify(subject), process.env.REACT_APP_SECRET_KEY))
+    localStorage.setItem(myStore.state.tabs, cryptoJS.encrypt(JSON.stringify(subject)))
   } catch (err) {
     throw err
   }

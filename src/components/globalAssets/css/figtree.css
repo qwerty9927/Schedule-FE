@@ -1,0 +1,18 @@
+@font-face {
+  font-family: "Figtree";
+  src: url("../fonts/Figtree/static/Figtree-Light.ttf");
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "Figtree";
+  src: url("../fonts/Figtree/static/Figtree-Regular.ttf");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Figtree";
+  src: url("../fonts/Figtree/static/Figtree-Bold.ttf");
+  font-weight: 500;
+}
+

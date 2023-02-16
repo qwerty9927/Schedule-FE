@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { ToastContainer } from "react-toastify"
 import './App.css';
 import RootPage from './components/routes/webroot/index'
-import Dashboard from './components/routes/dashboard/index'
+import Dashboard from './components/routes/admin/Dashboard'
 import NotFound from './components/routes/error/NotFound';
 import Login from './components/routes/auth/Login';
 import RequireAuth from './components/utils/RequireAuth';
