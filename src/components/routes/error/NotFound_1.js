@@ -1,7 +1,7 @@
 import { useRouteError } from "react-router"
 import style from "./assets/css/notFound.module.css"
 
-function NotFound(){
+function NotFound_1(){
   const error = useRouteError()
 
   return (
@@ -17,4 +17,4 @@ function NotFound(){
   )
 }
 
-export default NotFound
+export default NotFound_1

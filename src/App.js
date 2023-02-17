@@ -3,16 +3,28 @@ import { ToastContainer } from "react-toastify"
 import './App.css';
 import RootPage from './components/routes/webroot/index'
 import Dashboard from './components/routes/admin/Dashboard'
-import NotFound from './components/routes/error/NotFound';
-import Login from './components/routes/auth/Login';
-import RequireAuth from './components/utils/RequireAuth';
+import NotFound_2 from './components/routes/error/NotFound_2'
+import Login from './components/routes/auth/Login'
+import RequireAuth from './components/utils/RequireAuth'
+import SubjectRegister from "./components/routes/webroot/views/SubjectRegister"
+import Home from "./components/routes/webroot/views/home/Home"
 
 function App() {
   const router = createBrowserRouter([
     {
       path: "/",
       element: <RootPage />,
-      errorElement: <NotFound />
+      children: [
+        {
+          path: "/",
+          element: <Home />
+        },
+        {
+          path: "/SubjectRegister",
+          element: <SubjectRegister />
+        }
+      ],
+      errorElement: <NotFound_2 />
     },
     {
       path: "/dashboard",

@@ -1,20 +1,14 @@
 import './assets/css/style.css'
 import 'react-toastify/dist/ReactToastify.css'
-import SearchBar from "./views/SearchBar"
-import Table from "./views/table/Table"
-import Schedule from "./views/schedule/Schedule"
-import TableResult from './views/TableResult'
+import { Outlet } from 'react-router-dom'
 import Footer from './views/Footer'
+import Menu from './views/Menu'
 
 function RootPage(){
   return (
     <>
-      <div className="core">
-        <SearchBar />
-        <Table />
-        <TableResult />
-        <Schedule />
-      </div>
+      <Menu />
+      <Outlet />
       <Footer />
     </>
   )
