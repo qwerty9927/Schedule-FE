@@ -2,12 +2,12 @@ import './assets/css/style.css'
 import 'react-toastify/dist/ReactToastify.css'
 import { Outlet } from 'react-router-dom'
 import Footer from './views/Footer'
-import Menu from './views/Menu'
+import Navigate from './views/Navigate'
 
 function RootPage(){
   return (
     <>
-      <Menu />
+      <Navigate />
       <Outlet />
       <Footer />
     </>

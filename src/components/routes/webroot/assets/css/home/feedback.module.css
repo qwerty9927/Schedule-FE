@@ -1,0 +1,20 @@
+.feedback {
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 500;
+  text-align: center;
+  padding: 10px 0;
+  width: 100%;
+}
+
+.boxFeed {
+  margin-bottom: 20px;
+  text-align: right;
+}
+
+.boxFeed button {
+  margin: 10px;
+  margin-right: 0;
+}
