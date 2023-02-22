@@ -1,73 +1,113 @@
+/* SFCompact-Text */
+
 @font-face {
   font-family: "SFCompact-Text";
-  src: url("../fonts/SFCompact/SFCompactText-Light.otf");
+  src: url("../fonts/SFCompact/SFCompactText-Ultralight.otf"), local("SF Pro");
+  font-weight: 100;
+}
+
+@font-face {
+  font-family: "SFCompact-Text";
+  src: url("../fonts/SFCompact/SFCompactText-Thin.otf"), local("SF Pro");
+  font-weight: 200;
+}
+
+@font-face {
+  font-family: "SFCompact-Text";
+  src: url("../fonts/SFCompact/SFCompactText-Light.otf"), local("SF Pro");
   font-weight: 300;
 }
 
 @font-face {
   font-family: "SFCompact-Text";
-  src: url("../fonts/SFCompact/SFCompactText-Regular.otf");
+  src: url("../fonts/SFCompact/SFCompactText-Regular.otf"), local("SF Pro");
   font-weight: 400;
 }
 
 @font-face {
   font-family: "SFCompact-Text";
-  src: url("../fonts/SFCompact/SFCompactText-Medium.otf");
+  src: url("../fonts/SFCompact/SFCompactText-Medium.otf"), local("SF Pro");
   font-weight: 500;
 }
 
 @font-face {
   font-family: "SFCompact-Text";
-  src: url("../fonts/SFCompact/SFCompactText-Bold.otf");
+  src: url("../fonts/SFCompact/SFCompactText-Bold.otf"), local("SF Pro");
   font-weight: 700;
 }
 
+/* SFCompact-Display */
 
 @font-face {
   font-family: "SFCompact-Display";
-  src: url("../fonts/SFCompact/SFCompactDisplay-Light.otf");
+  src: url("../fonts/SFCompact/SFCompactDisplay-Ultralight.otf"), local("SF Pro");
+  font-weight: 100;
+}
+
+@font-face {
+  font-family: "SFCompact-Display";
+  src: url("../fonts/SFCompact/SFCompactDisplay-Thin.otf"), local("SF Pro");
+  font-weight: 200;
+}
+
+@font-face {
+  font-family: "SFCompact-Display";
+  src: url("../fonts/SFCompact/SFCompactDisplay-Light.otf"), local("SF Pro");
   font-weight: 300;
 }
 
 @font-face {
   font-family: "SFCompact-Display";
-  src: url("../fonts/SFCompact/SFCompactDisplay-Regular.otf");
+  src: url("../fonts/SFCompact/SFCompactDisplay-Regular.otf"), local("SF Pro");
   font-weight: 400;
 }
 
 @font-face {
   font-family: "SFCompact-Display";
-  src: url("../fonts/SFCompact/SFCompactDisplay-Medium.otf");
+  src: url("../fonts/SFCompact/SFCompactDisplay-Medium.otf"), local("SF Pro");
   font-weight: 500;
 }
 
 @font-face {
   font-family: "SFCompact-Display";
-  src: url("../fonts/SFCompact/SFCompactDisplay-Bold.otf");
+  src: url("../fonts/SFCompact/SFCompactDisplay-Bold.otf"), local("SF Pro");
   font-weight: 700;
 }
 
+/* SFCompact-Display */
 
 @font-face {
   font-family: "SFCompact-Rounded";
-  src: url("../fonts/SFCompact/SFCompactRounded-Light.otf");
+  src: url("../fonts/SFCompact/SFCompactRounded-Ultralight.otf"), local("SF Pro");
+  font-weight: 100;
+}
+
+@font-face {
+  font-family: "SFCompact-Rounded";
+  src: url("../fonts/SFCompact/SFCompactRounded-Thin.otf"), local("SF Pro");
+  font-weight: 200;
+}
+
+@font-face {
+  font-family: "SFCompact-Rounded";
+  src: url("../fonts/SFCompact/SFCompactRounded-Light.otf"), local("SF Pro");
   font-weight: 300;
 }
 
 @font-face {
   font-family: "SFCompact-Rounded";
-  src: url("../fonts/SFCompact/SFCompactRounded-Regular.otf");
+  src: url("../fonts/SFCompact/SFCompactRounded-Regular.otf"), local("SF Pro");
   font-weight: 400;
 }
 
 @font-face {
   font-family: "SFCompact-Rounded";
-  src: url("../fonts/SFCompact/SFCompactRounded-Medium.otf");
+  src: url("../fonts/SFCompact/SFCompactRounded-Medium.otf"), local("SF Pro");
   font-weight: 500;
 }
 
 @font-face {
   font-family: "SFCompact-Rounded";
-  src: url("../fonts/SFCompact/SFCompactRounded-Bold.otf");
+  src: url("../fonts/SFCompact/SFCompactRounded-Bold.otf"), local("SF Pro");
   font-weight: 700;
 }
