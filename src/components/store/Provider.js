@@ -4,7 +4,7 @@ import Context from "./Context"
 import { CloseTabs, ResetResultSearchHandled, SelectTabs, SetClear, SetCounter, SetMajors, SetNewTabs, SetResultSearch, SetResultSearchHandled, SetSemester } from './Constant'
 import { initTable } from "#service/HandleAction"
 import { toast } from "react-toastify"
-import message from "#utils/ToastMessage"
+import message from "#utils/toastMessage"
 
 function Provider({ children }) {
 

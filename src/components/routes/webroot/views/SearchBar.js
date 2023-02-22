@@ -5,7 +5,7 @@ import style from "../assets/css/searchBar.module.css"
 import axiosBase from "#api/axiosBase"
 import Context from "#store/Context"
 import { ResetResultSearchHandled, SetMajors, SetResultSearch, SetResultSearchHandled, SetSemester } from '#store/Constant'
-import message from "#utils/ToastMessage"
+import message from "#utils/toastMessage"
 
 function SearchBar() {
   const stringWaiting = "Waiting..."

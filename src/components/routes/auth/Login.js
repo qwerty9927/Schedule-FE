@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom"
 import { UserOutlined, LockOutlined } from "@ant-design/icons"
 import { toast } from "react-toastify"
 import style from "./assets/css/login.module.css"
-import message from "#utils/ToastMessage"
+import message from "#utils/toastMessage"
 import useAuth from "#hooks/useAuth"
 
 function Login(){

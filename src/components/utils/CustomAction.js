@@ -4,7 +4,7 @@ import { v4 } from "uuid"
 import { SetNewTabs, SetClear, SetCounter, SetResultSearchHandled } from '#store/Constant'
 import { actionAdd, actionDelete } from '#service/HandleAction'
 import CustomToast from './CustomToast'
-import message from "./ToastMessage"
+import message from "./toastMessage"
 
 function reCount(ListSubjectRegistered) {
   const subjectRegistered = ListSubjectRegistered || []

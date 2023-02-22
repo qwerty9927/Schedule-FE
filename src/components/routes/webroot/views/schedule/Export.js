@@ -4,7 +4,7 @@ import CryptoJS from "crypto-js"
 import { toast } from "react-toastify"
 import Context from "#store/Context"
 import style from "../../assets/css/schedule/export.module.css"
-import message from "#utils/ToastMessage"
+import message from "#utils/toastMessage"
 
 function Export(){
   const [opened, setOpened] = useState(false)

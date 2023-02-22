@@ -5,7 +5,7 @@ import { toast } from "react-toastify"
 import style from "../../assets/css/schedule/import.module.css"
 import Context from "#store/Context"
 import { actionImportNewTab } from "#utils/CustomAction"
-import message from "#utils/ToastMessage"
+import message from "#utils/toastMessage"
 
 function Import() {
   const [opened, setOpened] = useState(false)
