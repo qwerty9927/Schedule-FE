@@ -1,6 +1,106 @@
+@import url("./assets/css/fonts/sfcompact.css");
+
+:root {
+  --primary: #2196f3;
+  --primary_hover: #4dabf5;
+  --secondary: #ff1744;
+  --secondary_hover: #ff4569;
+  --base_color: #F6F6FF;
+}
+
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: "SFCompact-Rounded";
+  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif; */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  background-color: #fff;
+  font-weight: 200;
+  font-size: 12px;
+}
+
+th {
+  cursor: default;
+  font-weight: 500;
+}
+
+button {
+  font-family: monospace;
+}
+
+.font_weight_500 {
+  font-weight: 500;
+}
+
+.font_weight_600 {
+  font-weight: 500;
+}
+
+.font_weight_700 {
+  font-weight: 700;
+}
+
+.core {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  /* min-width: 1300px; */
+  min-height: 100vh;
+}
+
+
+.footer {
+  padding: 32px 100px;
+  background-color: #181821;
+  color: #a9b3bb;
+  text-align: center;
+}
+
+/* PC */
+@media (min-width: 1024px){
+    
+} 
+/* Tablet */
+@media (max-width: 1023px) and (min-width: 740px){
+  
+  .table {
+    width: 100%;
+  }
+
+  .schedule_optionTime {
+    width: 100%;
+    margin: 0 32px;
+  }
+
+  .schedule {
+    width: 100%;
+  }
+
+  .table_result {
+    width: 100%;
+    padding: 0 32px;
+  }
+
+  .screen_shot {
+    right: 50px;
+  }
+
+}
+/* Mobile */
+@media (max-width: 740px){
+
 }
 

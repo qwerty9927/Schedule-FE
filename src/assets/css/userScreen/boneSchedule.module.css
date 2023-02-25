@@ -1,0 +1,140 @@
+/* main */
+.schedule {
+  width: 1100px;
+  box-shadow: 0 0 10px 2px rgba(0,0,0,0.1);
+  border-radius: 5px;
+  background-color: #fff;
+  margin-bottom: 200px;
+}
+
+.tabs {
+  height: 40px;
+  position: relative;
+  margin-bottom: 5px;
+  border-bottom: 1px solid #ccc;
+}
+
+.tabs_box {
+  position: absolute;
+  bottom: 0;
+}
+
+.tabItem {
+  position: relative;
+  width: 150px;
+  height: 30px;
+  float: left;
+  background: #fff;
+  text-align: center;
+  line-height: 30px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  margin-left: 5px;
+  border-bottom: 0;
+  border-top: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  box-shadow: 0 0 5px 1px rgba(0,0,0,0.1);
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+      -khtml-user-select: none; /* Konqueror HTML */
+        -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
+.active {
+  background-color: #ccc;
+}
+
+.tabAdd {
+  width: 40px;
+  height: 30px;
+  float: left;
+  background: #fff;
+  text-align: center;
+  line-height: 30px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  margin-left: 5px;
+  border-bottom: 0;
+  border-top: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  cursor: pointer;
+  transition: .1s;
+  box-shadow: 0 0 5px 1px rgba(0,0,0,0.1);
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+      -khtml-user-select: none; /* Konqueror HTML */
+        -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
+.tabItem .tab_primary {
+  position: absolute;
+  left: 0;
+  width: 120px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-left: 5px;
+}
+
+.tabItem .tab_secondary {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 30px;
+  /* background-color: #fff; */
+}
+
+.tab_secondary i {
+  padding: 4px 5px 2.5px;
+  transition: .1s;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.tab_secondary i:hover, .tabAdd:hover {
+  background-color: rgba(0,0,0,0.2);
+}
+
+.tab_secondary i:active,  .tabAdd:active {
+  background-color: rgba(0,0,0,0.5);
+}
+
+.schedule table, .schedule th, .schedule td {
+  border-collapse: collapse;
+  border: 1px solid #ccc;
+  text-align: center;
+  font-weight: 500;
+}
+
+.schedule td:not(:first-child) {
+  font-size: 12px;
+}
+
+.schedule th:not(:first-child), .schedule td:first-child {
+  background-color: var(--base_color);
+  font-size: 12px;
+}
+
+.schedule tr {
+  height: 32px;
+}
+
+.secondary {
+  background-color: var(--secondary_hover)!important;
+  color: #fff;
+}
+
+
+@media (max-width: 1023px) and (min-width: 740px){
+  .schedule {
+    width: 100%;
+  }
+}

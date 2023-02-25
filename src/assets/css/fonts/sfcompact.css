@@ -1,0 +1,91 @@
+@font-face {
+  font-family: "SFCompact-Text";
+  src: url("../../fonts/SFCompact/SFCompactText-Light.otf");
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "SFCompact-Text";
+  src: url("../../fonts/SFCompact/SFCompactText-Regular.otf");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "SFCompact-Text";
+  src: url("../../fonts/SFCompact/SFCompactText-Medium.otf");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "SFCompact-Text";
+  src: url("../../fonts/SFCompact/SFCompactText-Heavy.otf");
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "SFCompact-Text";
+  src: url("../../fonts/SFCompact/SFCompactText-Bold.otf");
+  font-weight: 700;
+}
+
+
+@font-face {
+  font-family: "SFCompact-Display";
+  src: url("../../fonts/SFCompact/SFCompactDisplay-Light.otf");
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "SFCompact-Display";
+  src: url("../../fonts/SFCompact/SFCompactDisplay-Regular.otf");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "SFCompact-Display";
+  src: url("../../fonts/SFCompact/SFCompactDisplay-Medium.otf");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "SFCompact-Display";
+  src: url("../../fonts/SFCompact/SFCompactDisplay-Heavy.otf");
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "SFCompact-Display";
+  src: url("../../fonts/SFCompact/SFCompactDisplay-Bold.otf");
+  font-weight: 700;
+}
+
+
+@font-face {
+  font-family: "SFCompact-Rounded";
+  src: url("../../fonts/SFCompact/SFCompactRounded-Light.otf");
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "SFCompact-Rounded";
+  src: url("../../fonts/SFCompact/SFCompactRounded-Regular.otf");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "SFCompact-Rounded";
+  src: url("../../fonts/SFCompact/SFCompactRounded-Medium.otf");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "SFCompact-Rounded";
+  src: url("../../fonts/SFCompact/SFCompactRounded-Heavy.otf");
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "SFCompact-Rounded";
+  src: url("../../fonts/SFCompact/SFCompactRounded-Bold.otf");
+  font-weight: 700;
+}

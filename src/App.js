@@ -1,30 +1,26 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { ToastContainer } from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css'
 import './App.css';
-import RootPage from './components/routes/webroot/index'
-import Dashboard from './components/routes/admin/Dashboard'
-import NotFound_2 from './components/routes/error/NotFound_2'
-import Login from './components/routes/auth/Login'
-import RequireAuth from './components/utils/RequireAuth'
-import SubjectRegister from "./components/routes/webroot/views/SubjectRegister"
-import Home from "./components/routes/webroot/views/home/Home"
+import RootPage from './layouts/Layout'
+import Dashboard from './pages/adminScreen/Dashboard'
+import Notfound2 from './pages/error/Notfound2'
+import Login from './pages/auth/Login'
+import { RequireAuth } from './features/authentication/index'
+import SubjectRegister from "./pages/userScreen/SubjectRegister"
+import Home from "./pages/userScreen/Home"
+import Schedule from './pages/userScreen/Schedule';
+import NavigateProvider from './context/NavigateProvider';
 
 function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <RootPage />,
-      children: [
-        {
-          path: "/",
-          element: <Home />
-        },
-        {
-          path: "/SubjectRegister",
-          element: <SubjectRegister />
-        }
-      ],
-      errorElement: <NotFound_2 />
+      element: 
+        <NavigateProvider>
+          <RootPage />
+        </NavigateProvider>,
+      errorElement: <Notfound2 />
     },
     {
       path: "/dashboard",
@@ -57,4 +53,23 @@ function App() {
   );
 }
 
+// function App() {
+//   return (
+//     <>
+//       <ToastContainer
+//         position="top-right"
+//         autoClose={2500}
+//         hideProgressBar={false}
+//         newestOnTop={false}
+//         closeOnClick
+//         rtl={false}
+//         pauseOnFocusLoss={false}
+//         draggable
+//         pauseOnHover
+//         theme="dark"
+//       />
+//       <SubjectRegister />
+//     </>
+//   )
+// }
 export default App;

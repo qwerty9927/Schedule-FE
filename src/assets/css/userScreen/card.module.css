@@ -1,0 +1,91 @@
+.card {
+  color: #000!important;
+  position: relative;
+}
+
+.card .box {
+  padding-left: 10px;
+  padding-right: 5px;
+  text-align: left;
+}
+
+
+.detail_card {
+  font-style: italic;
+}
+
+.detail_card span {
+  color: var(--secondary);
+  font-style: normal;
+}
+
+.border {
+  position: absolute;
+  width: 4px;
+  background-color: var(--primary);
+  border-radius: 2px;
+  top: 0;
+  bottom: 0;
+}
+
+.close {
+  color: #fff;
+  position: absolute;
+  inset: 0 0 0 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.close_visible {
+  display:none;
+  font-size: 30px;
+}
+
+.popover_content {
+  color: #000;
+  position: absolute;
+  left: 0;
+  text-align: left;
+  transform: translateX(165px);
+  display: none;
+  font-size: 14px;
+  background-color: #fff;
+  padding: 10px 20px;
+  border-radius: 16px;
+  font-family: Tahoma, Verdana, Segoe, sans-serif;
+  font-weight: normal;
+  z-index:111;
+  width:260px;
+  box-shadow: 0 0 10px 2px rgba(0,0,0,.1);
+}
+
+.popover_content span {
+  font-weight: bold;
+}
+
+.close:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.close_visible:active {
+  transform: scale(.98);
+}
+
+.popover_content:hover{
+  display:none!important;
+}
+
+.close:hover .popover_content, .close:hover .close_visible{
+  display: block;
+}
+
+/* Tablet */
+@media (max-width: 1023px) and (min-width: 740px){
+  .close:hover .popover_content{
+    display: none;
+  }  
+}
+
