@@ -13,8 +13,8 @@ function RootPage(){
         return <Home />
       case 2:
         return <SubjectRegister />
-      case 3:
-        return <Schedule />
+      // case 3:
+      //   return <Schedule />
       default:
         return <Home />
     }
@@ -22,7 +22,9 @@ function RootPage(){
   return (
     <>
       <Navigate />
-      {outLet()}
+      <div id='mainContainer'>
+        {outLet()}
+      </div>
       <Footer />
     </>
   )

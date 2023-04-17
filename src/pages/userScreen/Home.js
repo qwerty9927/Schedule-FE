@@ -7,7 +7,7 @@ function Home(){
     <>
       <Thumbnail />
       <Notification />
-      <Feedback />
+      {/* <Feedback /> */}
     </>
   )
 }

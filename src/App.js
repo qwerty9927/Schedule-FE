@@ -21,18 +21,19 @@ function App() {
           <RootPage />
         </NavigateProvider>,
       errorElement: <Notfound2 />
-    },
-    {
-      path: "/dashboard",
-      element: 
-        <RequireAuth>
-          <Dashboard />
-        </RequireAuth>
-    },
-    {
-      path: "/dashboard/login",
-      element: <Login />
     }
+    // ,
+    // {
+    //   path: "/dashboard",
+    //   element: 
+    //     <RequireAuth>
+    //       <Dashboard />
+    //     </RequireAuth>
+    // },
+    // {
+    //   path: "/dashboard/login",
+    //   element: <Login />
+    // }
   ])
   return (
     <>

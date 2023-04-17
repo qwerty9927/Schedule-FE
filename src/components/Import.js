@@ -1,11 +1,13 @@
 import { useEffect, useState, useContext } from "react"
-import CryptoJS from "crypto-js"
+import { Button } from "antd"
 import clsx from "clsx"
 import { toast } from "react-toastify"
-import style from "../../assets/css/schedule/import.module.css"
-import Context from "#store/Context"
-import { actionImportNewTab } from "#utils/CustomAction"
-import message from "#utils/ToastMessage"
+import { ImportOutlined } from "@ant-design/icons"
+import style from "../assets/css/userScreen/import.module.css"
+import Context from "../context/Context"
+import { decrypt } from "../libs/crypto"
+import { actionImport } from "../features/subjectAction"
+import message from "../data/toastMessage"
 
 function Import() {
   const [opened, setOpened] = useState(false)
@@ -14,7 +16,7 @@ function Import() {
 
   useEffect(() => {
     const func = (e) => {
-      if(!e.target.closest(`.${style.import1}`) && opened){
+      if(!e.target.closest(`.${style.import}`) && opened){
         setOpened(false)
       }
     }
@@ -44,12 +46,12 @@ function Import() {
   const handleImport = () => {
     if(code){
       try {
-        const key = process.env.REACT_APP_SECRET_KEY
-        const originalObject = JSON.parse(CryptoJS.AES.decrypt(code, key).toString(CryptoJS.enc.Utf8))
-        actionImportNewTab(myStore, originalObject)
+        const originalObject = JSON.parse(decrypt(code))
+        actionImport(myStore, originalObject)
         setOpened(false)
         toast.success(message.importSuccess)
       } catch(err){
+        console.log(err)
         toast.error(message.importError)
       }
     }
@@ -60,8 +62,9 @@ function Import() {
   }
 
   return (
-    <div className={style.import1}>
-      <button onClick={handleOpen}><i className="fa-solid fa-file-import"></i><span>Import</span></button>
+    <div className={style.import}>
+      {/* <button onClick={handleOpen}><i className="fa-solid fa-file-import"></i><span>Import</span></button> */}
+      <Button type="primary" icon={<ImportOutlined />} onClick={handleOpen}>Import</Button>
       <div id="myModal" className={clsx(style.modal, {[style.active]: opened})}>
         <div className={style.modal_content}>
           <span className={style.close}><i className="fa-solid fa-xmark" onClick={handleClose}></i></span>
@@ -72,8 +75,8 @@ function Import() {
             <textarea name="" id="" cols="30" rows="8" value={code} onChange={(e) => handleChange(e)}></textarea>
           </div>
           <div className={style.modal_footer}>
-            <button className={style.btnClear} onClick={handleClear}>Clear</button>
-            <button className={style.btnOk} onClick={handleImport}>Ok</button>
+            <Button onClick={handleClear} danger>Clear</Button>
+            <Button onClick={handleImport} type="primary">Ok</Button>
           </div>
         </div>
       </div>

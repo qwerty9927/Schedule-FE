@@ -53,12 +53,15 @@ button {
   font-weight: 700;
 }
 
+#mainContainer {
+  min-height: 100vh;
+}
+
 .core {
   display: flex;
   align-items: center;
   flex-direction: column;
   /* min-width: 1300px; */
-  min-height: 100vh;
 }
 
 

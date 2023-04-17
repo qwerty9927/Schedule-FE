@@ -1,10 +1,11 @@
 import * as htmlToImage from "html-to-image"
 import { toast } from "react-toastify"
+import style from "../assets/css/userScreen/screenShot.module.css"
+import { useEffect } from "react"
 
-function ScreenShot({ style, refer, myStore, option }){
-
+function ScreenShot({ refer, myStore, option }){
   const takeScreenShot = async (node) => {
-    const dataURL = await htmlToImage.toJpeg(node)
+    const dataURL = await htmlToImage.toPng(node)
     refer.current.classList.remove([style.border_table_schedule])
     return dataURL
   }
@@ -17,7 +18,7 @@ function ScreenShot({ style, refer, myStore, option }){
   };
 
   const downloadScreenShot = () => {
-    toast.info("Tải ảnh thời khóa biểu")
+    toast.info("Đang tải ảnh")
     refer.current.classList.add([style.border_table_schedule])
     takeScreenShot(refer.current).then(download)
   }

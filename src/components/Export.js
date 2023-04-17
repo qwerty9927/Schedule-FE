@@ -1,10 +1,12 @@
 import { useState, useEffect, useContext, useRef } from "react"
+import { ExportOutlined } from "@ant-design/icons"
 import clsx from "clsx"
 import CryptoJS from "crypto-js"
 import { toast } from "react-toastify"
-import Context from "#store/Context"
-import style from "../../assets/css/schedule/export.module.css"
-import message from "#utils/ToastMessage"
+import Context from "../context/Context"
+import style from "../assets/css/userScreen/export.module.css"
+import message from "../data/toastMessage"
+import { Button } from "antd"
 
 function Export(){
   const [opened, setOpened] = useState(false)
@@ -54,7 +56,8 @@ function Export(){
 
   return (
     <div className={style.export}>
-      <button onClick={handleOpen}><i className="fa-solid fa-file-export"></i><span>Export</span></button>
+      {/* <button onClick={handleOpen}><i className="fa-solid fa-file-export"></i><span>Export</span></button> */}
+      <Button icon={<ExportOutlined />} type="primary" danger onClick={handleOpen}>Export</Button>
       <div id="myModal" className={clsx(style.modal, {[style.active]: opened})}>
         <div className={style.modal_content}>
           <span className={style.close}><i className="fa-solid fa-xmark" onClick={handleClose}></i></span>

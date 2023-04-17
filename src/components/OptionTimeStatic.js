@@ -1,6 +1,7 @@
 import constantConfig from "../data/constantConfig"
+import style from "../assets/css/userScreen/optionTimeStatic.module.css"
 
-function OptionTimeStatic({style, setOption}) {
+function OptionTimeStatic({setOption}) {
   const handleOption = (e) => {
     setOption(e.target.value - 1)
   }

@@ -1,13 +1,12 @@
-import { Fragment, useContext, useRef, useState } from "react"
+import { Fragment, useContext, useEffect } from "react"
 import style from "../assets/css/userScreen/boneSchedule.module.css"
 import { stringToArrayOfWeek } from "../features/subjectAction/index"
 import Context from "../context/Context"
 import Card from "./Card"
 import Tabs from "./Tabs"
 
-function BoneSchedule({ option }) {
+function BoneSchedule({ refer, option }) {
   const myStore = useContext(Context)
-  const ref = useRef()
   const listColor = ["0,0,255", "255,165,0", "0,83,156", "122,32,72", "138,170,229", "184,80,66", "49,119,115", "255,20,164", "43,174,102", "224,169,109", "153,244,67"]
   
   const renderSchedule = (week) => {
@@ -74,7 +73,7 @@ function BoneSchedule({ option }) {
   return (
     <div className={style.schedule} >
       <Tabs style={style} />
-      <div className={style.table_schedule_core} ref={ref}>
+      <div className={style.table_schedule_core} ref={refer}>
         <table width="100%">
           <tbody>
             <tr>

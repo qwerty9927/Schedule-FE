@@ -1,0 +1,41 @@
+.border_table_schedule {
+  padding: 10px;
+  width: 1120px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+
+}
+
+.screen_shot {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: -220%;
+  font-family: monospace; 
+}
+
+.screen_shot button {
+  width: 50px;
+  height: 50px;
+  border: none;
+  outline: none;
+  color: #fff;
+  background: #000;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  border-radius: 10px;
+  font-size: 20px;
+  transition: .2s ease-in-out;
+}
+
+.screen_shot button:hover {
+  box-shadow: 0 0 10px 5px rgba(0,0,0,0.2);
+}
+
+@media (max-width: 1023px) and (min-width: 740px){
+  .screen_shot {
+    right: -200%;   
+  }
+}
