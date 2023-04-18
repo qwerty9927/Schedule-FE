@@ -8,6 +8,7 @@ import * as crypto from "../../../libs/crypto"
 import CustomToast from "../../../components/CustomToast"
 
 function actionAdd(myStore, subjectInfo) {
+  const listColor = ["0,0,255", "255,165,0", "0,83,156", "122,32,72", "138,170,229", "184,80,66", "49,119,115", "255,20,164", "43,174,102", "224,169,109", "153,244,67"]
   let {
     MaMH,
     TenMH,
@@ -52,7 +53,8 @@ function actionAdd(myStore, subjectInfo) {
         GiangVien,
         Tuan,
         ST,
-        CS
+        CS,
+        Color: listColor[table.ListSubjectRegistered.length]
       })
     })
     // table.ListEmptyTime = table.ListEmptyTime
@@ -68,7 +70,8 @@ function actionAdd(myStore, subjectInfo) {
       GiangVien,
       Tuan,
       ST,
-      CS
+      CS,
+      Color: listColor[table.ListSubjectRegistered.length]
     })
 
     // Set lại table mới cho tableValue

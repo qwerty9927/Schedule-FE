@@ -1,4 +1,4 @@
-@import url("./assets/css/fonts/sfcompact.css");
+/* @import url("./assets/css/fonts/sfcompact.css"); */
 
 :root {
   --primary: #2196f3;
@@ -20,16 +20,20 @@ html {
 
 body {
   margin: 0;
-  font-family: "SFCompact-Rounded";
-  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  /* font-family: "SFCompact-Display"; */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif; */
+    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   background-color: #fff;
-  font-weight: 200;
+  font-weight: 400;
   font-size: 12px;
+}
+
+.css-dev-only-do-not-override-ixblex {
+  /* font-family: "SFCompact-Display"; */
 }
 
 th {
@@ -39,6 +43,10 @@ th {
 
 button {
   font-family: monospace;
+}
+
+.font_weight_300 {
+  font-weight: 300;
 }
 
 .font_weight_500 {

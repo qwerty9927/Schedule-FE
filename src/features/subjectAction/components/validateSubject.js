@@ -23,6 +23,7 @@ function validateSubject(currentTabs) {
         ST,
         Tuan,
         CS,
+        Color
       } = handleConfilctStructure({ ...item })
 
       const tempListEmptyTime = JSON.parse(JSON.stringify(table.ListEmptyTime))
@@ -51,7 +52,8 @@ function validateSubject(currentTabs) {
           GiangVien,
           Tuan,
           ST,
-          CS
+          CS,
+          Color
         })
       })
       table.ListEmptyTime = tempListEmptyTime

@@ -7,7 +7,7 @@ const schoolYearWarn = "Cần chọn học kỳ"
 
 // SearchBar
 const searchSchoolYearWarn = "Cần chọn học kỳ"
-const searchMajorsWarn = "Cần chọn khoa"
+const searchMajorsWarn = "Cần chọn ngành"
 const searchSearchValueWarn = "Cần nhập thông tin tìm kiếm"
 const filterDayWarn = "Cần chọn ngày"
 const filterStartLessionWarn = "Cần chọn tiết bắt đầu"
@@ -31,6 +31,10 @@ const loginError = "Đăng nhập thất bại"
 const loginWarn = "Tài khoản hoặc mật khẩu không đúng"
 const loginPending = "Wait a minute"
 const loginSuccess = "Đăng nhập thành công"
+
+// Modify subject
+const modifyValidSuccess = "Thay đổi thành công"
+const modifyValidError = "Cần điền đầy đủ thông tin"
 
 
 const message = {
@@ -57,6 +61,8 @@ const message = {
   loginSuccess,
   loginError,
   loginPending,
-  loginWarn
+  loginWarn,
+  modifyValidSuccess,
+  modifyValidError
 }
 export default message

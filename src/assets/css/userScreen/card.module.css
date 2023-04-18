@@ -9,7 +9,6 @@
   text-align: left;
 }
 
-
 .detail_card {
   font-style: italic;
 }
@@ -55,15 +54,17 @@
   background-color: #fff;
   padding: 10px 20px;
   border-radius: 16px;
-  font-family: Tahoma, Verdana, Segoe, sans-serif;
-  font-weight: normal;
   z-index:111;
   width:260px;
   box-shadow: 0 0 10px 2px rgba(0,0,0,.1);
 }
 
+.popover_content p {
+  color: var(--secondary)
+}
+
 .popover_content span {
-  font-weight: bold;
+  color: #000;
 }
 
 .close:hover {

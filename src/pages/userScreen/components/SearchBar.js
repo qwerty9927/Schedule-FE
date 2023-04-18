@@ -1,4 +1,6 @@
 import { useContext, useEffect, useState } from "react"
+import { Button, Input } from "antd"
+import { SearchOutlined } from "@ant-design/icons"
 import clsx from "clsx"
 import { toast } from "react-toastify"
 import style from "../../../assets/css/userScreen/searchBar.module.css"
@@ -215,8 +217,8 @@ function SearchBar() {
           </select>
         </div>
         <div className={style.search_box}>
-          <input type="text" placeholder="VD: 802142 or Môn A" className={style.input_search} onChange={(e) => { handleChange(e) }} onKeyUp={(e) => handleKeyUp(e)} name="searchValue" />
-          <button className={style.btn_search} onClick={handleClickBtnSearch}>Search</button>
+          <Input maxLength={50} style={{marginRight: 20}} placeholder="VD: 861304 or  Tư tưởng Hồ Chí Minh" onChange={(e) => { handleChange(e) }} onKeyUp={(e) => handleKeyUp(e)} name="searchValue" />
+          <Button icon={<SearchOutlined />} type="primary" onClick={handleClickBtnSearch}>Search</Button>
         </div>
         <div className={style.filter_box}>
           <button title="Filter" onClick={(e) => handleClickShowFilter(e)}><i className="fa-solid fa-filter"></i></button>

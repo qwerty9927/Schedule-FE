@@ -1,7 +1,7 @@
 import { useReducer } from "react"
 import { v4 } from "uuid"
 import Context from "./Context"
-import { CloseTabs, ResetResultSearchHandled, SelectTabs, SetClear, SetCounter, SetMajors, SetNewTabs, SetResultSearch, SetResultSearchHandled, SetSemester } from '../data/constantProvider'
+import { CloseTabs, Reload, ResetResultSearchHandled, SelectTabs, SetClear, SetCounter, SetMajors, SetNewTabs, SetResultSearch, SetResultSearchHandled, SetSemester } from '../data/constantProvider'
 import { validateSubject } from "../features/subjectAction/index"
 import { toast } from "react-toastify"
 import message from "../data/toastMessage"
@@ -15,7 +15,6 @@ function Provider({ children }) {
     } else if(localStorage.getItem("vs") === "2.0") {
       localStorage.clear()
       localStorage.setItem("vs", "2.1")
-      alert("Vì lý do các học phần có chút thay đổi về phòng học. Dẫn đến thời khóa biểu hiện tại của bạn đã sai. Hãy chọn lại các học phần đó một nữa. \nXin lỗi vì sự bất tiện này!")
     }
     const currentSemester = localStorage.getItem("currentSemester")
     const listTabs = JSON.parse(localStorage.getItem(currentSemester)) || []
@@ -130,6 +129,8 @@ function Provider({ children }) {
         return { ...initial_1, resultSearch: state.resultSearch, resultSearchHandled: handleResultSearch(initial_1, state.resultSearchHandled) }
       case ResetResultSearchHandled:
         return { ...state, resultSearchHandled: handleResultSearch(state, state.resultSearch) }
+      case Reload:
+        return initialState()
       default:
         throw new Error();
     }

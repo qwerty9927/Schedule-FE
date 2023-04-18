@@ -2,6 +2,7 @@
   /* background-color: #ccc; */
   min-height: 400px;
   padding: 20px 0;
+  overflow: hidden;
 }
 
 .title {

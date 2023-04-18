@@ -7,7 +7,6 @@ import Tabs from "./Tabs"
 
 function BoneSchedule({ refer, option }) {
   const myStore = useContext(Context)
-  const listColor = ["0,0,255", "255,165,0", "0,83,156", "122,32,72", "138,170,229", "184,80,66", "49,119,115", "255,20,164", "43,174,102", "224,169,109", "153,244,67"]
   
   const renderSchedule = (week) => {
     let i, j, k, z
@@ -27,13 +26,13 @@ function BoneSchedule({ refer, option }) {
           schedule[k].Thu.forEach((item, index) => {
             if(stringToArrayOfWeek(schedule[k].Tuan)[index].includes(week)){
               if(item === j + 2 && i <= 5 && schedule[k].TBD[index] === i + 1){
-                  board[i][j] = <Card cardInfo={schedule[k]} index={index} color={listColor[k]} />
+                  board[i][j] = <Card cardInfo={schedule[k]} index={index} />
                 for(z = 1;z < schedule[k].ST[index];z++){
                   board[i + z][j] = null
                 }
               }
               if(item === j + 2 && i > 5 && schedule[k].TBD[index] === i){
-                  board[i][j] = <Card cardInfo={schedule[k]} index={index} color={listColor[k]} />
+                  board[i][j] = <Card cardInfo={schedule[k]} index={index} />
                 for(z = 1;z < schedule[k].ST[index];z++){
                   board[i + z][j] = null
                 }

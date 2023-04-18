@@ -1,75 +1,67 @@
 import { useState, useEffect, useContext, useRef } from "react"
 import { ExportOutlined } from "@ant-design/icons"
-import clsx from "clsx"
-import CryptoJS from "crypto-js"
 import { toast } from "react-toastify"
+import { encrypt } from "../libs/crypto"
 import Context from "../context/Context"
 import style from "../assets/css/userScreen/export.module.css"
 import message from "../data/toastMessage"
-import { Button } from "antd"
+import { Button, Popover } from "antd"
 
 function Export(){
-  const [opened, setOpened] = useState(false)
   const [title, setTitle] = useState("")
+  const [code, setCode] = useState("")
+  const [isOpen, setIsOpen] = useState(false)
   const myStore = useContext(Context)
-  const ref = useRef()
 
-  useEffect(() => {
-    const func = (e) => {
-      if(!e.target.closest(`.${style.export}`) && opened){
-        setOpened(false)
-      }
-    }
-    window.addEventListener("click", func)
-    return () => {
-      return window.removeEventListener("click", func)
-    }
-  }, [opened])
-
-  const handleOpen = () => {
-    if(myStore.state.semester){
-      const tabs = myStore.state.listTabs.find(item => myStore.state.tabs === item.id)
-      const name = tabs ? tabs.name : "New tab"
-      const key = process.env.REACT_APP_SECRET_KEY
-      const object = {
-        semester: myStore.state.semester,
-        ListSubjectRegistered: myStore.state.tableValue.ListSubjectRegistered,
-        name
-      }
-      const cipherText = CryptoJS.AES.encrypt(JSON.stringify(object), key).toString()
-      ref.current.textContent = cipherText
-      setOpened(true)
-      setTitle(name)
-    } else {
-      toast.warn(message.schoolYearWarn)
+  const handleOpenChange = (newOpen) => {
+    switch(newOpen){
+      case true:
+        if(myStore.state.semester){
+          const tabs = myStore.state.listTabs.find(item => myStore.state.tabs === item.id)
+          const name = tabs ? tabs.name : "New tab"
+          const object = {
+            semester: myStore.state.semester,
+            ListSubjectRegistered: myStore.state.tableValue.ListSubjectRegistered,
+            name
+          }
+          const cipherText = encrypt(JSON.stringify(object))
+          setCode(cipherText)
+          setTitle(name)
+          setIsOpen(newOpen)
+        } else {
+          toast.warn(message.schoolYearWarn)
+        }
+        break
+      case false:
+        setIsOpen(newOpen)
+        break
     }
   }
-  
-  const handleClose = () => {
-    setOpened(false)
-  }
 
-  const handleClick = (e) => {
-    navigator.clipboard.writeText(e.target.textContent)
+  const handleCopy = (e) => {
+    setIsOpen(false)
+    navigator.clipboard.writeText(code)
     toast.info(`Copied to clipboard!`, { autoClose: 500 })
   }
 
-  return (
-    <div className={style.export}>
-      {/* <button onClick={handleOpen}><i className="fa-solid fa-file-export"></i><span>Export</span></button> */}
-      <Button icon={<ExportOutlined />} type="primary" danger onClick={handleOpen}>Export</Button>
-      <div id="myModal" className={clsx(style.modal, {[style.active]: opened})}>
-        <div className={style.modal_content}>
-          <span className={style.close}><i className="fa-solid fa-xmark" onClick={handleClose}></i></span>
-          <div className={style.modal_header}>
-            <h2>Export <span style={{fontWeight: "normal"}}>{title}</span></h2>
-          </div>
-          <div className={style.modal_body}>
-            <div className={style.codeExport} ref={ref} onClick={(e) => handleClick(e)}></div>
-          </div>
-        </div>
+  const Content = () => {
+    return (
+      <div className={style.content}>
+        <Button onClick={handleCopy}>Click me to copy!</Button>
       </div>
-    </div>
+    )
+  }
+
+  const Title = () => {
+    return (
+      <p>Export tab: <span className={style.nameFile}>{title}</span></p>
+    )
+  }
+
+  return (
+    <Popover open={isOpen} className={style.export} placement="bottom" content={<Content />} title={<Title />} trigger="click" onOpenChange={handleOpenChange}>
+      <Button icon={<ExportOutlined />} type="primary" danger >Export</Button>
+    </Popover>
   )
 }
 

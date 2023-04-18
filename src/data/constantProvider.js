@@ -8,8 +8,9 @@ const SetMajors = "majors"
 const SetNewTabs = "newTabs"
 const SelectTabs = "selectTabs"
 const CloseTabs = "closeTabs"
+const Reload = "reload"
 
 export { SetResultSearch, SetCounter, SetClear, SetSemester,
   SetResultSearchHandled, ResetResultSearchHandled, SetMajors, SetNewTabs, 
-  CloseTabs, SelectTabs
+  CloseTabs, SelectTabs, Reload
 }

@@ -26,11 +26,11 @@ function Navigate() {
           <Link to={"/Schedule"}>Schedule</Link> */}
         </div>
         <div className={style.navInfo}>
-          <Tooltip title="Notification">
+          {/* <Tooltip title="Notification">
             <Badge dot={false} offset={[-2, 8]}>
               <Button shape="circle" icon={<BellOutlined />} />
             </Badge>
-          </Tooltip>
+          </Tooltip> */}
         </div>
       </div>
       <Divider style={{ margin: 0 }} />

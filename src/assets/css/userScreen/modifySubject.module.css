@@ -1,0 +1,11 @@
+.styleModal p > span {
+  color: var(--secondary);
+}
+
+.lession {
+  text-align: center;
+}
+
+.gutter_row {
+  text-align: right;
+}

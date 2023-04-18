@@ -7,10 +7,6 @@
   position: relative;
 }
 
-.input_search:focus, select:focus {
-  box-shadow: 0 0 10px 2px rgba(0,0,0,0.2);
-}
-
 .search_bar_block_top {
   padding: 20px;
   display: flex;
@@ -22,17 +18,7 @@
   align-items: center;
 }
 
-.input_search {
-  padding: 10px;
-  height: 30px;
-  border-radius: 5px;
-  outline: none;
-  border: 0;
-  margin-right: 20px;
-  transition: .4s;
-}
-
-.btn_search, .btn_filter {
+.btn_filter {
   height: 30px;
   width: 100px;
   color: #fff;
@@ -40,14 +26,6 @@
   border-radius: 5px; 
   border: none;
   box-shadow: 0 0 10px 2px rgba(0,0,0,0.1);
-}
-
-.btn_search:hover, .btn_filter:hover {
-  background-color: var(--primary_hover)
-}
-
-.btn_search:active, .btn_filter:active {
-  transform: scale(.98);
 }
 
 .search_option {
