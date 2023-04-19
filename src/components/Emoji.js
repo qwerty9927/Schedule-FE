@@ -11,7 +11,6 @@ function Emoji({ maxLengthNameSubject, setEmoji }) {
 
   const handleSelect = (emoji) => {
     setEmoji((preState) => {
-      console.log(preState.length)
       if(preState.length + emoji.native.length <= maxLengthNameSubject){
           return preState + emoji.native
         }
