@@ -2,7 +2,7 @@ import data from '@emoji-mart/data'
 import Picker from '@emoji-mart/react'
 import { useEffect } from 'react'
 
-function Emoji({ setEmoji }) {
+function Emoji({ maxLengthNameSubject, setEmoji }) {
   useEffect(() => {
     Array.from(document.getElementsByTagName("em-emoji-picker")).forEach(element => {
       element.style.height = "300px"
@@ -10,7 +10,14 @@ function Emoji({ setEmoji }) {
   })
 
   const handleSelect = (emoji) => {
-    setEmoji((preState) => preState + emoji.native)
+    setEmoji((preState) => {
+      console.log(preState.length)
+      if(preState.length + emoji.native.length <= maxLengthNameSubject){
+          return preState + emoji.native
+        }
+        return preState
+      }  
+    )
   }
   
   return (

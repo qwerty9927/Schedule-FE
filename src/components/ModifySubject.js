@@ -1,4 +1,4 @@
-import { Fragment, useContext, useEffect, useRef, useState,  } from "react";
+import { Fragment, useContext, useEffect, useLayoutEffect, useRef, useState,  } from "react";
 import { Button, Col, Input, Modal, Popover, Row, Tooltip } from "antd"
 import { toast } from "react-toastify";
 import 'toolcool-color-picker';
@@ -17,6 +17,7 @@ function ModifySubject({cardInfo, isModalOpen, setIsModalOpen}){
   const myStore = useContext(Context)
   const ref = useRef()
   const Tuan = stringToArrayOfWeek(cardInfo.Tuan)
+  const maxLengthNameSubject = 60
 
   useEffect(() => {
     if(isModalOpen){
@@ -73,6 +74,18 @@ function ModifySubject({cardInfo, isModalOpen, setIsModalOpen}){
     setEmojiOpen(false)
   }
 
+  const showCountProps = {
+    formatter: ({value, count, maxLength}) => {
+      return (
+        <span>
+          <span>
+            {value.length} / {maxLength}
+          </span>
+        </span>
+      )
+    }
+  }
+
   return (
     <Modal className={style.styleModal} width={600} title="Thay đổi" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} afterClose={handleCloseModal} maskClosable={false}>
       <Row>
@@ -90,10 +103,16 @@ function ModifySubject({cardInfo, isModalOpen, setIsModalOpen}){
         <p>Tên môn học: </p>
         <Row gutter={8}>
           <Col span={22}>
-            <Input placeholder="Tên môn học" showCount maxLength={60} onChange={(e) => setNameSubject(e.target.value)} value={nameSubject}/>
+            <Input 
+              placeholder="Tên môn học" 
+              showCount={showCountProps} 
+              maxLength={maxLengthNameSubject} 
+              onChange={(e) => setNameSubject(e.target.value)} 
+              value={nameSubject}
+            />
           </Col>
           <Col className={style.gutter_row} span={2}>
-            <Popover open={isEmojiOpen} placement="bottomRight" content={<Emoji setEmoji={setNameSubject} />} trigger="click" onOpenChange={handleOpenChange}>
+            <Popover open={isEmojiOpen} placement="bottomRight" content={<Emoji maxLengthNameSubject={maxLengthNameSubject} setEmoji={setNameSubject} />} trigger="click" onOpenChange={handleOpenChange}>
               <Tooltip title="Emoji">
                 <Button type="dashed" danger shape="circle">😀</Button>
               </Tooltip>
@@ -111,14 +130,19 @@ function ModifySubject({cardInfo, isModalOpen, setIsModalOpen}){
             </p>
             <div className={style.enableModify}>
               <p>Phòng học:</p>
-              <Input placeholder="Phòng học" showCount maxLength={10} 
+              <Input 
+                placeholder="Phòng học" 
+                showCount={showCountProps} 
+                maxLength={10} 
                 onChange={(e) => 
                   setNewRooms((preState) => {
                     const newState = [...preState]
                     newState[index] = e.target.value
                     return newState
                   })
-                } value={newRooms[index]}/>
+                } 
+                value={newRooms[index]}
+              />
             </div>
           </Fragment>
         )
