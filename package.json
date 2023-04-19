@@ -50,13 +50,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "imports": {
-    "#routes/*": "./src/components/routes/*",
-    "#utils/*": "./src/components/utils/*",
-    "#store/*": "./src/components/store/*",
-    "#service/*": "./src/components/service/*",
-    "#hooks/*": "./src/components/hooks/*",
-    "#api/*": "./src/api/*"
   }
 }
