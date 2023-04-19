@@ -6,9 +6,10 @@ import message from "../../../data/toastMessage"
 import { SetResultSearchHandled, SetCounter } from "../../../data/constantProvider"
 import * as crypto from "../../../libs/crypto"
 import CustomToast from "../../../components/CustomToast"
+import { listColor } from "../../../data/data"
+import { getColorNotUsed } from "./handleSide"
 
 function actionAdd(myStore, subjectInfo) {
-  const listColor = ["0,0,255", "255,165,0", "0,83,156", "122,32,72", "138,170,229", "184,80,66", "49,119,115", "255,20,164", "43,174,102", "224,169,109", "153,244,67"]
   let {
     MaMH,
     TenMH,
@@ -26,7 +27,7 @@ function actionAdd(myStore, subjectInfo) {
 
   try {
     const table = JSON.parse(JSON.stringify(myStore.state.tableValue))
-    deleteCurrentSubjectInState(table, subjectInfo)
+    deleteCurrentSubjectInState(table, subjectInfo, listColor)
 
     const newTuan = stringToArrayOfWeek(Tuan)
     newTuan.forEach((rootItem, rootIndex) => {
@@ -54,10 +55,9 @@ function actionAdd(myStore, subjectInfo) {
         Tuan,
         ST,
         CS,
-        Color: listColor[table.ListSubjectRegistered.length]
+        Color: subjectInfo.Color || getColorNotUsed(listColor, table.ListSubjectRegistered)
       })
     })
-    // table.ListEmptyTime = table.ListEmptyTime
     table.ListSubjectRegistered.push({
       MaMH,
       TenMH,
@@ -71,20 +71,18 @@ function actionAdd(myStore, subjectInfo) {
       Tuan,
       ST,
       CS,
-      Color: listColor[table.ListSubjectRegistered.length]
+      Color: subjectInfo.Color || getColorNotUsed(listColor, table.ListSubjectRegistered)
     })
 
     // Set lại table mới cho tableValue
     myStore.state.tableValue = table
 
     //Thay đổi list subject registered trong localStorage
-    // localStorage.setItem(myStore.state.tabs, CryptoJS.AES.encrypt(JSON.stringify(table.ListSubjectRegistered), process.env.REACT_APP_SECRET_KEY))
     localStorage.setItem(myStore.state.tabs, crypto.encrypt(JSON.stringify(table.ListSubjectRegistered)))
   } catch (err) {
     throw err
   }
 }
-
 
 function actionAddWithRender(myStore, subjectInfo) {
   try {

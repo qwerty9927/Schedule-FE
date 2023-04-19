@@ -72,6 +72,19 @@ function SearchBar() {
       toast.warn(message.searchSearchValueWarn)
       return false
     }
+
+    if(guessMasv(formValue.searchValue)){
+      toast.error(() => (
+        <>
+          <p>Không tìm thấy <i><b>"{formValue.searchValue}"</b></i> 🚫</p>
+          <div className={clsx(style.alertMessageAttention, style.textShape)}>
+            {message.searchErrorFormat()}
+          </div>
+        </>
+        )
+      )
+      return false
+    }
     return true
   }
 
@@ -96,31 +109,17 @@ function SearchBar() {
   const actionCallApiSearch = async () => {
     if (validate()) {
       const response = await toast.promise(callApiSearch, {
-        pending: "Waiting ⏳",
-        success: "Let's do it 🚀",
+        pending: message.searchPending,
+        success: message.searchSuccess,
         error: {
           render() {
             return (
               <div>
-                
                 <div>
                   <p>Không tìm thấy <i><b>"{formValue.searchValue}"</b></i> 🚫</p>
-                  {!guessMasv(formValue.searchValue) ? 
-                    (
-                      <div className={clsx(style.alertMessageNotFound, style.textShape)}>
-                        <p>Kết quả này có thể chưa cập nhật hoặc có thể đã chọn sai <b>mã ngành</b>.</p>
-                        <p><b>Vui lòng quay lại vào ngày hôm sau!</b></p>
-                      </div>
-                    ) 
-                      : 
-                    (
-                      <div className={clsx(style.alertMessageAttention, style.textShape)}>
-                        <p>Lưu ý <b>mã sinh viên</b> không là từ khóa tìm kiếm</p>
-                        <p>Cần nhập <b>mã</b> hoặc <b>tên môn học</b></p>
-                      </div>
-                    )
-                  }
-                  
+                  <div className={clsx(style.alertMessageNotFound, style.textShape)}>
+                    {message.searchErrorData()}
+                  </div>
                 </div>
               </div>
             )
@@ -217,7 +216,7 @@ function SearchBar() {
           </select>
         </div>
         <div className={style.search_box}>
-          <Input maxLength={50} style={{marginRight: 20}} placeholder="VD: 861304 or  Tư tưởng Hồ Chí Minh" onChange={(e) => { handleChange(e) }} onKeyUp={(e) => handleKeyUp(e)} name="searchValue" />
+          <Input maxLength={50} style={{marginRight: 20}} placeholder="861304 or Tư tưởng Hồ Chí Minh" onChange={(e) => { handleChange(e) }} onKeyUp={(e) => handleKeyUp(e)} name="searchValue" />
           <Button icon={<SearchOutlined />} type="primary" onClick={handleClickBtnSearch}>Search</Button>
         </div>
         <div className={style.filter_box}>
@@ -254,7 +253,6 @@ function SearchBar() {
           <button title="Clear option" className={style.btn_close_filter} onClick={handleClickBtnCloseFilter}><i className="fa-solid fa-xmark"></i></button>
         </div>
       </div>
-      {/* <a href="./guide.pdf" target="_blank"><div className={style.info} title="Hướng dẫn sử dụng"><i className="fa-solid fa-circle-question"></i><span> Hướng dẫn</span></div></a> */}
     </div>
   )
 }

@@ -13,7 +13,7 @@ function Thumbnail(){
             <Divider type="vertical" className={style.line} />
             <div className={style.text}>
               <p>Schedule_App</p>
-              <a href="/guide.pdf">Hướng dẫn</a>
+              <a href="/guide.pdf" target="_blank">Hướng dẫn</a>
             </div>
           </Col>
           <Col span={17}>

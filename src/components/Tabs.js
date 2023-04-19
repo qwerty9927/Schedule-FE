@@ -42,7 +42,7 @@ function Tabs({ style }) {
   }
 
   const handleClose = (id) => {
-    if (window.confirm("Bạn có muốn xóa tab này ?")) {
+    if (window.confirm("Bạn có muốn xóa tab này?")) {
       myStore.dispatch({ type: CloseTabs, payload: id })
     }
   }

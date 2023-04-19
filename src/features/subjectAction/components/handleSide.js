@@ -51,9 +51,20 @@ function reCount(ListSubjectRegistered) {
   return count
 }
 
+function getColorNotUsed(listColor, table){
+  return listColor.find((color) => {
+    return table.every((subject) => {
+      if(subject.Color !== color){
+        return true
+      }
+    })
+  })
+}
+
 export {
   mergeWeek,
   handleConfilctStructure,
   stringToArrayOfWeek,
-  reCount
+  reCount,
+  getColorNotUsed
 }

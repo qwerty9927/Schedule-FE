@@ -15,6 +15,20 @@ const filterFeatureInfo = "Cần tìm kiếm môn học trước khi Filter"
 const filterDeleteInfo = "Xóa kết quả Filter"
 const resultFilterSuccess = "Đã tìm thấy kết quả"
 const resultFilterError = "Không tìm thấy kết quả"
+const searchPending = "Waiting ⏳"
+const searchSuccess = "Let's do it 🚀"
+const searchErrorData = () => (
+  <>
+    <p>Kết quả này có thể chưa cập nhật hoặc có thể đã chọn sai <b>mã ngành</b>.</p>
+    <p><b>Vui lòng quay lại sau!</b></p>
+  </>
+)
+const searchErrorFormat = () => (
+  <>
+    <p>Lưu ý <b>mã sinh viên</b> không là từ khóa tìm kiếm</p>
+    <p>Cần nhập <b>mã</b> hoặc <b>tên môn học</b></p>
+  </>
+)
 
 // close tab
 const closeTabsSuccess = "Xóa tab thành công"
@@ -43,8 +57,8 @@ const message = {
   messageInfo,
   tabsInfo,
   schoolYearWarn,
-  importInfo,
-  importWarn,
+
+  // SearchBar
   searchSchoolYearWarn,
   searchMajorsWarn,
   searchSearchValueWarn,
@@ -54,14 +68,28 @@ const message = {
   filterDeleteInfo,
   resultFilterSuccess,
   resultFilterError,
+  searchPending,
+  searchSuccess,
+  searchErrorData,
+  searchErrorFormat,
+
+  // close tab
   closeTabsSuccess,
-  closeTabsInfo, 
+  closeTabsInfo,
+  
+  // Import
   importError,
   importSuccess,
+  importInfo,
+  importWarn,
+
+  // Login
   loginSuccess,
   loginError,
   loginPending,
   loginWarn,
+  
+  // Modify subject
   modifyValidSuccess,
   modifyValidError
 }

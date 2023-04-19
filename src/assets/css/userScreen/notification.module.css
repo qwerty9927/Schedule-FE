@@ -1,5 +1,6 @@
 .notification {
   background-color: #f1f1f1;
+  font-size: 16px;
 }
 
 .title {
@@ -12,4 +13,9 @@
 
 .messageNoti {
   padding: 10px;
+}
+
+.messageNoti .new {
+  color: var(--secondary);
+  font-weight: 700;
 }

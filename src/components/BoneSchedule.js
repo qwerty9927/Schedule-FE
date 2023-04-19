@@ -1,4 +1,4 @@
-import { Fragment, useContext, useEffect } from "react"
+import { Fragment, useContext } from "react"
 import style from "../assets/css/userScreen/boneSchedule.module.css"
 import { stringToArrayOfWeek } from "../features/subjectAction/index"
 import Context from "../context/Context"
@@ -7,7 +7,7 @@ import Tabs from "./Tabs"
 
 function BoneSchedule({ refer, option }) {
   const myStore = useContext(Context)
-  
+
   const renderSchedule = (week) => {
     let i, j, k, z
     const row = 15

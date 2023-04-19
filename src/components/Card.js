@@ -1,11 +1,11 @@
 import { useContext, useState } from 'react';
-import { Button, Popconfirm } from 'antd';
+import { Popconfirm } from 'antd';
 import Context from '../context/Context';
 import style from '../assets/css/userScreen/card.module.css'
 import { deleteSubject } from '../features/subjectAction/index'
 import ModifySubject from './ModifySubject';
 
-function Card({cardInfo, index, color}){
+function Card({cardInfo, index}){
   const myStore = useContext(Context)
   const [isModalOpen, setIsModalOpen] = useState(false)
 

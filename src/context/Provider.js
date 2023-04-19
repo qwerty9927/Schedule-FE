@@ -9,12 +9,13 @@ import message from "../data/toastMessage"
 function Provider({ children }) {
 
   const initialState = () => {
-    if(!localStorage.getItem("vs")){
+    const version = localStorage.getItem("vs")
+    if(!version){
       localStorage.clear()
-      localStorage.setItem("vs", "2.1")
-    } else if(localStorage.getItem("vs") === "2.0") {
+      localStorage.setItem("vs", "2.2")
+    } else if(version === "2.0" || version === "2.1") {
       localStorage.clear()
-      localStorage.setItem("vs", "2.1")
+      localStorage.setItem("vs", "2.2")
     }
     const currentSemester = localStorage.getItem("currentSemester")
     const listTabs = JSON.parse(localStorage.getItem(currentSemester)) || []
@@ -130,7 +131,8 @@ function Provider({ children }) {
       case ResetResultSearchHandled:
         return { ...state, resultSearchHandled: handleResultSearch(state, state.resultSearch) }
       case Reload:
-        return initialState()
+        const initial_5 = initialState()
+        return { ...initial_5, resultSearch: state.resultSearch, resultSearchHandled: handleResultSearch(initial_5, state.resultSearchHandled) }
       default:
         throw new Error();
     }

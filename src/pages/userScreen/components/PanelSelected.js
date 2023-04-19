@@ -21,8 +21,9 @@ function PanelSelected() {
         return newArr[0] + 1
       case "Max":
         return newArr[newArr.length - 1] + 1
+      default:
+        return null
     }
-    return null
   }
 
   const handleCopy = (e) => {
@@ -50,20 +51,20 @@ function PanelSelected() {
           return (
             <tr key={index}>
               <td>{index + 1}</td>
-              <td className={clsx(style.btnMaMH, "font_weight_600")} title="Click To Copy" onClick={(e) => handleCopy(e)}>{item.MaMH}</td>
+              <td className={clsx(style.btnMaMH, "font_weight_700")} title="Click To Copy" onClick={(e) => handleCopy(e)}>{item.MaMH}</td>
               <td>{item.TenMH}</td>
-              <td className="font_weight_600">{item.NMH}</td>
+              <td className="font_weight_700">{item.NMH}</td>
               <td>{getWeekWithOption("Min", item.Tuan)}</td>
               <td>{getWeekWithOption("Max", item.Tuan)}</td>
               <td>{item.STC}</td>
-              <td onClick={() => {deleteSubject(myStore, item)}}><i className="fa-solid fa-trash-can"></i></td>
+              <td onClick={() => {if(window.confirm("Bạn muốn xóa môn học?")) deleteSubject(myStore, item)}}><i className="fa-solid fa-trash-can"></i></td>
             </tr>
           )
         })}
         <tr>
-          <td colSpan={6} className="font_weight_600">Tổng số tính chỉ</td>
-          <td className="font_weight_600">{myStore.state.counter}</td>
-          <td className={clsx(style.btn_clear, "font_weight_500")} onClick={() => {deleteAllSubject(myStore)}}>Clear All</td>
+          <td colSpan={6} className="font_weight_700">Tổng số tính chỉ</td>
+          <td className="font_weight_700">{myStore.state.counter}</td>
+          <td className={clsx(style.btn_clear, "font_weight_500")} onClick={() => {if (window.confirm("Bạn muốn xóa tất cả ?")) deleteAllSubject(myStore)}}>Clear All</td>
         </tr>
         </tbody>
       </table>

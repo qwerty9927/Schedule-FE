@@ -3,6 +3,7 @@ import { stringToArrayOfWeek, reCount, mergeWeek } from "./handleSide"
 import message from "../../../data/toastMessage"
 import { SetResultSearchHandled, SetCounter, SetClear } from "../../../data/constantProvider"
 import * as crypto from "../../../libs/crypto"
+import { listColor } from "../../../data/data"
 
 function changeEmptyTime(subjectInfo, listEmptyTime) {
   const Tuan = stringToArrayOfWeek(subjectInfo.Tuan)
@@ -44,7 +45,6 @@ function actionDelete(myStore, subjectInfo) {
     table.ListEmptyTime = emptyTime
     table.ListSchedule = schedule
     table.ListSubjectRegistered = subject
-    // localStorage.setItem(myStore.state.tabs, CryptoJS.AES.encrypt(JSON.stringify(subject), process.env.REACT_APP_SECRET_KEY))
     localStorage.setItem(myStore.state.tabs, crypto.encrypt(JSON.stringify(subject)))
   } catch (err) {
     throw err
@@ -54,7 +54,6 @@ function actionDelete(myStore, subjectInfo) {
 function deleteCurrentSubjectInState(table, subjectInfo) {
   table.ListSubjectRegistered.forEach(item => {
     if (item.MaMH === subjectInfo.MaMH) {
-      // actionDeleteTemp(table, item)
       try {
         // Delete empty time
         const emptyTime = changeEmptyTime(item, table.ListEmptyTime)
@@ -65,6 +64,7 @@ function deleteCurrentSubjectInState(table, subjectInfo) {
         table.ListEmptyTime = emptyTime
         table.ListSchedule = schedule
         table.ListSubjectRegistered = subject
+        subjectInfo.Color = item.Color
       } catch (err) {
         throw err
       }
@@ -75,10 +75,9 @@ function deleteCurrentSubjectInState(table, subjectInfo) {
 function actionDeleteAllWithRender(myStore) {
   if (myStore.state.semester && myStore.state.tableValue.ListSubjectRegistered) {
     if (myStore.state.tableValue.ListSubjectRegistered.length !== 0) {
-      if (window.confirm("Bạn muốn xóa tất cả ?")) {
-        localStorage.setItem(myStore.state.tabs, crypto.encrypt(JSON.stringify([])))
-        myStore.dispatch({ type: SetClear })
-      }
+      localStorage.setItem(myStore.state.tabs, crypto.encrypt(JSON.stringify([])))
+      localStorage.setItem("color", crypto.encrypt(JSON.stringify(listColor)))
+      myStore.dispatch({ type: SetClear })
     }
   }
 }

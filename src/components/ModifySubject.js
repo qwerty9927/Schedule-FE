@@ -1,5 +1,5 @@
 import { Fragment, useContext, useEffect, useRef, useState,  } from "react";
-import { Button, Col, Input, Modal, Popover, Row } from "antd"
+import { Button, Col, Input, Modal, Popover, Row, Tooltip } from "antd"
 import { toast } from "react-toastify";
 import 'toolcool-color-picker';
 import Context from "../context/Context";
@@ -94,7 +94,9 @@ function ModifySubject({cardInfo, isModalOpen, setIsModalOpen}){
           </Col>
           <Col className={style.gutter_row} span={2}>
             <Popover open={isEmojiOpen} placement="bottomRight" content={<Emoji setEmoji={setNameSubject} />} trigger="click" onOpenChange={handleOpenChange}>
-              <Button type="dashed" danger shape="circle">😀</Button>
+              <Tooltip title="Emoji">
+                <Button type="dashed" danger shape="circle">😀</Button>
+              </Tooltip>
             </Popover>
           </Col>
         </Row>
