@@ -1,42 +1,29 @@
 import { Fragment, useContext, useEffect, useLayoutEffect, useRef, useState,  } from "react";
 import { Button, Col, Input, Modal, Popover, Row, Tooltip } from "antd"
 import { toast } from "react-toastify";
-import 'toolcool-color-picker';
+import { SketchPicker } from 'react-color'
 import Context from "../context/Context";
 import style from "../assets/css/userScreen/modifySubject.module.css"
 import convertToWord from "../utils/convertToWord";
 import { modifySubject, stringToArrayOfWeek } from "../features/subjectAction";
 import message from "../data/toastMessage";
 import Emoji from "./Emoji";
+import convertStringColorToObject from "../utils/convertStringColorToObject";
 
 function ModifySubject({cardInfo, isModalOpen, setIsModalOpen}){
   const [nameSubject, setNameSubject] = useState(cardInfo.TenMH)
   const [newRooms, setNewRooms] = useState(cardInfo.Phong)
-  const [color, setColor] = useState(cardInfo.Color)
-  const [isEmojiOpen, setEmojiOpen] = useState(false)
+  const [color, setColor] = useState(convertStringColorToObject(cardInfo.Color))
   const myStore = useContext(Context)
-  const ref = useRef()
   const Tuan = stringToArrayOfWeek(cardInfo.Tuan)
   const maxLengthNameSubject = 60
-
-  useEffect(() => {
-    if(isModalOpen){
-      const action = (e) => {
-        setColor(e.detail.rgb.split(/\(|\)/)[1])
-      }
-      ref.current.addEventListener("change", action)
-      return () => {
-        ref.current.removeEventListener("change", action)
-      }
-    }
-  }, [isModalOpen])
 
   const handleOk = () => {
     if(verifyForm()){
       setIsModalOpen(false);
       cardInfo.TenMH = nameSubject
       cardInfo.Phong = newRooms
-      cardInfo.Color = color
+      cardInfo.Color = Object.values(color).join(",")
       modifySubject(myStore, cardInfo)
       toast.success(message.modifyValidSuccess)
     } else {
@@ -63,15 +50,12 @@ function ModifySubject({cardInfo, isModalOpen, setIsModalOpen}){
   const handleCloseModal = () => {
     setNameSubject(cardInfo.TenMH)
     setNewRooms(cardInfo.Phong)
-    setColor(cardInfo.Color)
+    setColor(convertStringColorToObject(cardInfo.Color))
   }
 
-  const handleOpenChange = (newOpen) => {
-    setEmojiOpen(newOpen)
-  }
-
-  const handleColorPickerOpen = () => {
-    setEmojiOpen(false)
+  const handleChangeComplete = (clr) => {
+    const {a, ...excepta} = clr.rgb
+    setColor(excepta)
   }
 
   const showCountProps = {
@@ -88,12 +72,22 @@ function ModifySubject({cardInfo, isModalOpen, setIsModalOpen}){
 
   return (
     <Modal className={style.styleModal} width={600} title="Thay đổi" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} afterClose={handleCloseModal} maskClosable={false}>
-      <Row>
+      <Row align="middle">
         <Col>
           <p>Màu:&#160;</p>
         </Col>
         <Col>
-          <toolcool-color-picker color={`rgb(${color})`} id="color-picker" ref={ref} onClick={handleColorPickerOpen}></toolcool-color-picker>
+        <Popover 
+          placement="bottomLeft"
+          content={<SketchPicker
+              color={color}
+              onChangeComplete={handleChangeComplete}
+            />
+          }
+          trigger="click"
+          >
+            <Button><div style={{background: `rgb(${Object.values(color).join(",")})`, height: 20, width: 50}}></div></Button>
+        </Popover>
         </Col>
       </Row>
       
@@ -112,7 +106,7 @@ function ModifySubject({cardInfo, isModalOpen, setIsModalOpen}){
             />
           </Col>
           <Col className={style.gutter_row} span={2}>
-            <Popover open={isEmojiOpen} placement="bottomRight" content={<Emoji maxLengthNameSubject={maxLengthNameSubject} setEmoji={setNameSubject} />} trigger="click" onOpenChange={handleOpenChange}>
+            <Popover placement="bottomRight" content={<Emoji maxLengthNameSubject={maxLengthNameSubject} setEmoji={setNameSubject} />} trigger="click" >
               <Tooltip title="Emoji">
                 <Button type="dashed" danger shape="circle">😀</Button>
               </Tooltip>
