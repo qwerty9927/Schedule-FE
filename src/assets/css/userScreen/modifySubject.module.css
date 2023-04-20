@@ -14,3 +14,9 @@
 .gutter_row {
   text-align: right;
 }
+
+@media (max-width: 1023px) and (min-width: 740px){
+  .styleModal p{
+    font-size: 12px;
+  }
+}

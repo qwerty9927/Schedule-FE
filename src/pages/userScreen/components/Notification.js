@@ -7,7 +7,7 @@ function Notification(){
   return (
     <>
       <Row className={style.notification}>
-        <p className={style.title}>Thông báo</p>
+        <h2 className={style.title}>Thông báo</h2>
         <Col span={18} offset={3} className={style.messageNoti}>
           <div>
             <span className={clsx("animate__animated animate__flash animate__slow animate__infinite", style.new)}>New</span>
