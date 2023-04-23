@@ -16,7 +16,7 @@ function PanelLiveReview(){
   return (
     <div className={style.panelLiveReview}>
       <div className={style.util_PanelLiveReview}>
-        <OptionTimeStatic setOption={setData} />
+        <OptionTimeStatic setOption={setData} myStore={myStore} />
         <Export />
         <Import />
         <ScreenShot refer={ref} myStore={myStore} option={data} />
