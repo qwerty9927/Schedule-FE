@@ -1,5 +1,5 @@
 const numberOfSchoolWeeks = 16
-const numberOfSchoolWeeksHK3 = 5
+const numberOfSchoolWeeksHK3 = 6
 const indexOfOptionSchedule = 0
 
 export default {

@@ -18,6 +18,10 @@
   font-weight: 700;
 }
 
+.container {
+  margin-bottom: 10px;
+}
+
 @media (max-width: 1023px) and (min-width: 740px){
   .messageNoti {
     font-size: 12px;
