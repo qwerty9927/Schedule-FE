@@ -15,30 +15,32 @@ function SearchBar() {
   const stringMajors = "Mã ngành"
   const myStore = useContext(Context)
   const [formValue, setFormValue] = useState({ schoolYear: myStore.state.semester || "", majors: myStore.state.majors || "" })
-  const [formValueFilter, setFormValueFilter] = useState({})
+  // const [formValueFilter, setFormValueFilter] = useState({})
   const [schoolYear, setSchoolYear] = useState([])
   const [majors, setMajors] = useState([])
-  const [filterBtn, setFilterBtn] = useState(false)
+  // const [filterBtn, setFilterBtn] = useState(false)
   const [loadingSemester, setLoadingSemester] = useState(myStore.state.semester ? stringWaiting : stringSemester)
   const [loadingMajors, setLoadingMajors] = useState(myStore.state.majors ? stringWaiting : stringMajors)
 
   const callApiSearch = async () => {
     return await axios.post("api/subject/search", {
-      ...formValue
+      keySearch: formValue.searchValue,
+      semester: formValue.schoolYear,
+      majors: formValue.majors,
     })
   }
 
-  const callApiSchoolYear = async () => {
+  const callApiCourse = async () => {
     return await axios.get("api/subject/course")
   }
 
   const callApiMajors = async (value) => {
-    return await axios.get(`api/subject/majors?schoolYear=${value}`)
+    return await axios.get(`api/subject/majors?semester=${value}`)
   }
 
   useEffect(() => {
     const fetchApi = async () => {
-      const resultRoot = (await callApiSchoolYear()).data.result
+      const resultRoot = (await callApiCourse()).data.metadata
       setLoadingSemester(stringSemester)
       setSchoolYear(resultRoot)
     }
@@ -48,7 +50,7 @@ function SearchBar() {
   useEffect(() => {
     const fetchApi = async () => {
       if (formValue.schoolYear) {
-        const resultMajors = (await callApiMajors(formValue.schoolYear)).data.result
+        const resultMajors = (await callApiMajors(formValue.schoolYear)).data.metadata
         setLoadingMajors(stringMajors)
         setMajors(resultMajors)
         setFormValue({ ...formValue, majors: myStore.state.majors || "" })
@@ -88,19 +90,19 @@ function SearchBar() {
     return true
   }
 
-  const validateFilter = () => {
-    if (!formValueFilter.day) {
-      toast.warn(message.filterDayWarn)
-      return false
-    }
+  // const validateFilter = () => {
+  //   if (!formValueFilter.day) {
+  //     toast.warn(message.filterDayWarn)
+  //     return false
+  //   }
 
-    if (!formValueFilter.startLession) {
-      toast.warn(message.filterStartLessionWarn)
-      return false
-    }
+  //   if (!formValueFilter.startLession) {
+  //     toast.warn(message.filterStartLessionWarn)
+  //     return false
+  //   }
 
-    return true
-  }
+  //   return true
+  // }
 
   const guessMasv = (string) => {
     return /^31[0-9]{8}$/.test(string)
@@ -126,7 +128,7 @@ function SearchBar() {
           }
         }
       })
-      myStore.dispatch({ type: SetResultSearch, payload: response.data.result })
+      myStore.dispatch({ type: SetResultSearch, payload: response.data.metadata })
     }
   }
 
@@ -145,44 +147,44 @@ function SearchBar() {
     actionCallApiSearch()
   }
 
-  const handleClickShowFilter = () => {
-    if (myStore.state.resultSearch.length) {
-      setFilterBtn(!filterBtn)
-    } else {
-      toast.info(message.filterFeatureInfo)
-    }
-  }
+  // const handleClickShowFilter = () => {
+  //   if (myStore.state.resultSearch.length) {
+  //     setFilterBtn(!filterBtn)
+  //   } else {
+  //     toast.info(message.filterFeatureInfo)
+  //   }
+  // }
 
-  const handleClickBtnFilter = () => {
-    if (validateFilter()) {
-      const result = myStore.state.resultSearch.filter((item, index) => {
-        for (let i = 0; i < item.Thu.length; i++) {
-          if (item.Thu[i] == formValueFilter.day && item.TBD[i] == formValueFilter.startLession) {
-            return true
-          }
-        }
-      })
-      myStore.dispatch({ type: SetResultSearchHandled, payload: result })
-      if (result.length) {
-        toast.success(message.resultFilterSuccess)
-      } else {
-        toast.error(message.resultFilterError)
-      }
-    }
-  }
+  // const handleClickBtnFilter = () => {
+  //   if (validateFilter()) {
+  //     const result = myStore.state.resultSearch.filter((item, index) => {
+  //       for (let i = 0; i < item.Thu.length; i++) {
+  //         if (item.Thu[i] == formValueFilter.day && item.TBD[i] == formValueFilter.startLession) {
+  //           return true
+  //         }
+  //       }
+  //     })
+  //     myStore.dispatch({ type: SetResultSearchHandled, payload: result })
+  //     if (result.length) {
+  //       toast.success(message.resultFilterSuccess)
+  //     } else {
+  //       toast.error(message.resultFilterError)
+  //     }
+  //   }
+  // }
 
-  const handleChangeOfFilter = (e) => {
-    const { name, value } = e.target
-    setFormValueFilter({ ...formValueFilter, [name]: value })
-  }
+  // const handleChangeOfFilter = (e) => {
+  //   const { name, value } = e.target
+  //   setFormValueFilter({ ...formValueFilter, [name]: value })
+  // }
 
-  const handleClickBtnCloseFilter = () => {
-    if (formValueFilter.day || formValueFilter.startLession) {
-      toast.info("Xóa kết quả Filter")
-      setFormValueFilter({ day: "", startLession: "" })
-      myStore.dispatch({ type: ResetResultSearchHandled })
-    }
-  }
+  // const handleClickBtnCloseFilter = () => {
+  //   if (formValueFilter.day || formValueFilter.startLession) {
+  //     toast.info("Xóa kết quả Filter")
+  //     setFormValueFilter({ day: "", startLession: "" })
+  //     myStore.dispatch({ type: ResetResultSearchHandled })
+  //   }
+  // }
 
   return (
     <div className={style.search_bar}>
@@ -197,7 +199,7 @@ function SearchBar() {
             <option value="">{loadingSemester}</option>
             {schoolYear.map((item, index) => {
               return (
-                <option key={index} value={item}>{item}</option>
+                <option key={index} value={item.Semester}>{item.Semester.toUpperCase()}</option>
               )
             })}
           </select>
@@ -210,7 +212,7 @@ function SearchBar() {
             <option value="">{loadingMajors}</option>
             {majors.sort().map((item, index) => {
               return (
-                <option key={index} value={item}>{item.toUpperCase()}</option>
+                <option key={index} value={item.Majors}>{item.Majors.toUpperCase()}</option>
               )
             })}
           </select>
@@ -219,11 +221,11 @@ function SearchBar() {
           <Input maxLength={50} style={{marginRight: 20}} placeholder="861304 or Tư tưởng Hồ Chí Minh" onChange={(e) => { handleChange(e) }} onKeyUp={(e) => handleKeyUp(e)} name="searchValue" />
           <Button icon={<SearchOutlined />} type="primary" onClick={handleClickBtnSearch}>Search</Button>
         </div>
-        <div className={style.filter_box}>
+        {/* <div className={style.filter_box}>
           <button title="Filter" onClick={(e) => handleClickShowFilter(e)}><i className="fa-solid fa-filter"></i></button>
-        </div>
+        </div> */}
       </div>
-      <div className={clsx(style.search_bar_block_bot, { [style.search_bar_block_bot_show]: filterBtn }, { [style.search_bar_block_bot_hide]: !filterBtn })}>
+      {/* <div className={clsx(style.search_bar_block_bot, { [style.search_bar_block_bot_show]: filterBtn }, { [style.search_bar_block_bot_hide]: !filterBtn })}>
         <div className={style.filter_option}>
           <label htmlFor="">Thứ: </label>
           <select name="day" id="" value={formValueFilter.day} onChange={(e) => { handleChangeOfFilter(e) }}>
@@ -252,7 +254,7 @@ function SearchBar() {
           <button className={style.btn_filter} onClick={handleClickBtnFilter}>Filter</button>
           <button title="Clear option" className={style.btn_close_filter} onClick={handleClickBtnCloseFilter}><i className="fa-solid fa-xmark"></i></button>
         </div>
-      </div>
+      </div> */}
     </div>
   )
 }

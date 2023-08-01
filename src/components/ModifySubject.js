@@ -107,9 +107,7 @@ function ModifySubject({cardInfo, isModalOpen, setIsModalOpen}){
           </Col>
           <Col className={style.gutter_row} span={2}>
             <Popover placement="bottomRight" content={<Emoji maxLengthNameSubject={maxLengthNameSubject} setEmoji={setNameSubject} />} trigger="click" >
-              <Tooltip title="Emoji">
-                <Button type="dashed" danger shape="circle">😀</Button>
-              </Tooltip>
+              <Button type="dashed" danger shape="circle">😀</Button>
             </Popover>
           </Col>
         </Row>

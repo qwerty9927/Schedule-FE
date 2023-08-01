@@ -10,7 +10,9 @@ function Card({cardInfo, index}){
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const handleDelete = () => {
-    deleteSubject(myStore, cardInfo)
+    if(window.confirm("Bạn muốn xóa môn học?")){
+      deleteSubject(myStore, cardInfo)
+    }
   }
 
   const handleModify = () => {
