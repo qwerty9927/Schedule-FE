@@ -2,6 +2,7 @@ import SearchBar from "./components/SearchBar"
 import PanelSubject from "./components/PanelSubject"
 import PanelSelected from "./components/PanelSelected"
 import PanelLiveReview from './components/PanelLiveReview'
+import IconCatalog from "../../components/IconCatalog"
 
 function SubjectRegister(){
   return (
@@ -10,6 +11,7 @@ function SubjectRegister(){
       <PanelSubject />
       <PanelSelected />
       <PanelLiveReview />
+      <IconCatalog />
     </div>
   )
 }

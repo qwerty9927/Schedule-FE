@@ -12,34 +12,28 @@ function BoneSchedule({ refer, option }) {
     let i, j, k, z
     const row = 15
     const col = 6
-    const board =
-      [
-        [], [], [], [],
-        [], [], [], [],
-        [], [], [], [],
-        [], [], []
-      ]
+    const board = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], []]
     const schedule = myStore.state.tableValue.ListSchedule ? myStore.state.tableValue.ListSchedule[week] || [] : []
+    console.log(myStore.state.tableValue)
     for (i = 0; i < row; i++) {
       for (j = 0; j < col; j++) {
         for (k = 0; k < schedule.length; k++) {
           schedule[k].Thu.forEach((item, index) => {
-            if(stringToArrayOfWeek(schedule[k].Tuan)[index].includes(week)){
-              if(item === j + 2 && i <= 5 && schedule[k].TBD[index] === i + 1){
-                  board[i][j] = <Card cardInfo={schedule[k]} index={index} />
-                for(z = 1;z < schedule[k].ST[index];z++){
+            if (stringToArrayOfWeek(schedule[k].Tuan)[index].includes(week)) {
+              if (item === j + 2 && i <= 5 && schedule[k].TBD[index] === i + 1) {
+                board[i][j] = <Card cardInfo={schedule[k]} index={index} />
+                for (z = 1; z < schedule[k].ST[index]; z++) {
                   board[i + z][j] = null
                 }
               }
-              if(item === j + 2 && i > 5 && schedule[k].TBD[index] === i){
-                  board[i][j] = <Card cardInfo={schedule[k]} index={index} />
-                for(z = 1;z < schedule[k].ST[index];z++){
+              if (item === j + 2 && i > 5 && schedule[k].TBD[index] === i) {
+                board[i][j] = <Card cardInfo={schedule[k]} index={index} />
+                for (z = 1; z < schedule[k].ST[index]; z++) {
                   board[i + z][j] = null
                 }
               }
             }
           })
-          
         }
         if (i + 1 === 5) {
           board[i + 2][j] = <td></td>
@@ -57,20 +51,23 @@ function BoneSchedule({ refer, option }) {
 
   const handleRender = (data) => {
     const result = []
-    for(let i = 0;i < data.length;i++){
+    for (let i = 0; i < data.length; i++) {
       result.push(
         <tr key={i}>
-          <td className={i + 1 === 6 ? [style.secondary] : null}>{ i + 1 === 6 ? "Trưa" : `Tiết ${i + 1 > 6 ? i : i + 1}` }</td>
-          {data[i].map((item, index) => <Fragment key={index}>{item}</Fragment>)}
+          <td className={i + 1 === 6 ? [style.secondary] : null}>
+            {i + 1 === 6 ? "Trưa" : `Tiết ${i + 1 > 6 ? i : i + 1}`}
+          </td>
+          {data[i].map((item, index) => (
+            <Fragment key={index}>{item}</Fragment>
+          ))}
         </tr>
       )
     }
     return result
   }
 
-
   return (
-    <div className={style.schedule} >
+    <div className={style.schedule}>
       <Tabs style={style} />
       <div className={style.table_schedule_core} ref={refer}>
         <table width="100%">
